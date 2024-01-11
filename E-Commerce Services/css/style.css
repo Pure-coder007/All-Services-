@@ -93,7 +93,7 @@
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 500;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     outline: none;
 }
 
@@ -244,7 +244,7 @@
 }
 
 .page-header {
-    background: linear-gradient(rgba(53, 53, 53, .7), rgba(53, 53, 53, .7)), url(../img/carousel-1.jpg) center center no-repeat;
+    background: linear-gradient(rgba(53, 53, 53, .7), rgba(53, 53, 53, .7)), url(../images/automotive-success-story.jpg) center center no-repeat;
     background-size: cover;
 }
 
@@ -620,4 +620,215 @@
 
 .footer .copyright a:hover {
     color: var(--primary);
+}
+
+
+
+
+
+/* SIGN UP*/
+
+.cont{
+    width: 100%;
+    height: 100vh;
+    /* background-color: #18181a; */
+    position: relative;
+    margin-bottom: 500px;
+}
+
+.form-wrapper{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80rem;
+    height: 60rem;
+    background-color: #fff;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0 0.3rem 3rem rgba(32, 61, 127, 0.3);
+    overflow: hidden;
+}
+
+
+.form-wrapper img {
+    width:35rem;
+    position: absolute;
+    z-index: 100;
+}
+
+
+.img-left{
+ top: 25%;
+ left: 8%;
+ transition: all 0.5s 1s;    
+}
+
+.navigate .img-left{
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5rem);
+    transition: all 0.5s;
+}
+
+
+
+.img-right{
+    top: 17%;
+    right: 7%;
+    transform: translateY(-5rem);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+
+.navigate .img-right{
+    opacity: 1;
+    visibility: visible;
+    transform: translate(5rem);
+    transition: all .5s 1s;
+}
+
+
+
+/* .form-wrapper-bg{
+    position: absolute;
+    width: 70rem;
+    height: 100rem;
+    background-color: #407bff;
+    border-radius: 15rem ;
+    left: -20%;
+    top: -90%;
+    transform-origin: right bottom;
+    transform: rotateZ(-40deg);
+    transition: transform 1.5s;
+} */
+
+.navigate .form-wrapper-bg{
+    transform: rotateZ(130deg)translate(15rem, 15rem);
+}
+
+
+
+
+
+.form-wrapper-left,
+.form-wrapper-right{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.form-wrapper-left{
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+
+.navigate .form-wrapper-left{
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s 1s;
+}
+
+.form-wrapper-right{
+    transition: all 0.5s 1s;
+}
+
+
+.navigate .form-wrapper-right{
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+
+
+.form-wrapper h1{
+    font-size: 6rem;
+    color: #407bff;
+    margin: -5rem 0 6rem 0;
+}
+
+.input-group{
+    position: relative;}
+
+
+.input-group input{
+    width: 21rem;
+    height: 4rem;
+    margin: 1rem 0;
+    border: none;
+    border-bottom: 0.2rem solid rgba(64, 123, 255, 0.5);
+    color: #407bff;
+    font-size: 1.4rem;
+    padding-right: 2rem;
+    background-color: transparent;
+}
+
+
+.input-groupinput::placeholder{
+    color: #407bff;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+.input-group input:focus{
+    border-color: #407bff;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: #407bff;
+}
+
+
+.form-btn{
+    width: 20rem;
+    height: 4.5rem;
+    margin-top: 2rem; 
+    border: none;
+    background-color: #407bff;
+    border-radius: 5rem;
+    color: white;
+    /* text-transform: uppercase; */
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    box-shadow: 0 0.5rem 1rem rgba(64, 123, 255, 0.4);
+    cursor: pointer;
+}
+
+
+.form-btn:active{
+    transform: translateY(0.2rem);
+}
+
+.form-wrapper a{
+    position: absolute;
+    bottom: 4rem;
+    font-size: 1.6rem;
+    /* text-transform: uppercase; */
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #407bff;
+}
+
+
+.signup-link{
+    right: 4rem;
+}
+
+.signin-link{
+    left: 4rem;
 }
