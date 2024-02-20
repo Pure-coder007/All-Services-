@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users
+from models import get_user, add_user, get_all_users, User, get_user_id
 
 import cloudinary
 import cloudinary.uploader
@@ -49,16 +49,16 @@ configure_uploads(app, photos)
 
 
 
-# login_manager = LoginManager(app)
-# # login_manager.init_app(app)
-# login_manager.login_view = 'login'
-# login_manager.login_message_category = 'info'
+login_manager = LoginManager(app)
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     user = get_user_id(user_id)
-#     return user
+@login_manager.user_loader
+def load_user(user_id):
+    user = get_user_id(user_id)
+    return user
 
 
 
@@ -110,7 +110,7 @@ def token_user(email):
             print('stored otp', stored_otp)
             flash('Invalid token. Please try again.', 'danger')
         flash('Registration successful. Please login.', 'success')
-        return redirect(url_for('login_user'))
+        return redirect(url_for('login_for_user'))
     return render_template('token_user.html', current_user=current_user)
             
 
@@ -164,11 +164,41 @@ def signup_user():
 
 
 
-# Login
-@app.route('/login_user', methods=['GET', 'POST'])
-def login():
-    pass
-    return render_template('login_user.html', current_user=current_user)
+
+@app.route('/login_for_user', methods=['GET', 'POST'])
+def login_for_user():
+    if request.method == 'POST':
+        email = request.form['email']   
+        password = request.form['password']
+        connection  = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+        try:
+            cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+            user = cursor.fetchone()
+            print(user, '******************')
+            if user is not None:
+                user_id = user['id']
+                name = user['name']
+                email = user['email']
+                stored_password = user['password']
+
+                if sha256_crypt.verify(password,  stored_password):
+                    user = User(id=user_id, email=email, name=name, password=stored_password)
+                    login_user(user)
+                    flash('Login Successful', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash('Invalid Email or Password', 'danger')
+                    return render_template('login_for_user.html', current_user=current_user)
+            else:
+                flash('Email not found', 'danger')
+                return render_template('login_for_user.html', current_user=current_user)
+        except Exception as e:
+            print('Error during login', e)
+            flash('Error during login. Please try again.', 'danger')
+        finally:
+            cursor.close()
+    return render_template('login_for_user.html', current_user=current_user)
 
 
 

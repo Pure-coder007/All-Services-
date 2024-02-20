@@ -5,20 +5,22 @@
 
 <br><br>
 
-<img src="{{ url_for('static', filename='/assets/img/doctor 2.jpg')}}" alt="" class="img1">
+<img src="{{ url_for('static', filename='/assets/img/flower.jpg')}}" alt="" class="img1">
 <div class="sign_up">
-            <h2>Sign Up</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
+            <h2>Login</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
             
-        <form action="{{ url_for('signup_user') }}" method="POST">
+        <form action="{{ url_for('login_for_user') }}" method="POST">
                 
-            <label for="name">Full Name</label><br>
-            <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
+            
             
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
             
             <label for="password">Password</label><br>
-            <input type="password" id="password" name="password" required placeholder="Create Password"><br><br>
+            <input type="password" id="password" name="password" required placeholder="Enter Password"><br><br>
+
+            <a href="" style="margin-top: 50px;">Forgot Password?</a>
+            <br><br>
             
             <center>
 
@@ -28,7 +30,7 @@
             <button type="submit">Create Account</button>
             <center>
 
-                <strong><p>Have an account already? <a href="{{ url_for('login_for_user')}}" >Log In</a></p></strong>
+                <strong><p>Don't have an account? <a href="{{ url_for('signup_user')}}" >Sign Up</a></p></strong>
             </center>
         </form>
     </div>

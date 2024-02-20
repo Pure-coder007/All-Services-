@@ -102,3 +102,25 @@ def get_all_users():
     cursor.close()
     connection.close()
     return users
+
+
+def get_user_id(user_id):
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users WHERE id=%s', (user_id,))
+    user_record = cursor.fetchone()
+    
+    cursor.close()
+    connection.close()
+
+    if user_record:
+        return User(
+            id=user_record['id'],
+            name=user_record['name'],
+            email=user_record['email'],
+            password=user_record['password'],
+            
+
+        )
+    
+    return None
