@@ -7,9 +7,12 @@
 
 <img src="{{ url_for('static', filename='/assets/img/doctor 2.jpg')}}" alt="" class="img1">
 <div class="sign_up">
-            <h2>Sign Up</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
+            <h2 style="font-weight: 900;">Sign Up</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
             
-        <form action="{{ url_for('signup_user') }}" method="POST">
+        <form action="{{ url_for('signup_user') }}" method="POST"  enctype="multipart/form-data">
+            <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
+
+            <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
                 
             <label for="name">Full Name</label><br>
             <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
@@ -19,6 +22,21 @@
             
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required placeholder="Create Password"><br><br>
+
+            <label for="phone_number">Phone</label><br>
+            <input type="text" id="phone" name="phone_number" required placeholder="Enter Phone Number"><br><br>
+            
+            <label for="country">Country</label><br>
+            <input type="text" id="country" name="country" required placeholder="Enter Country"><br><br>
+
+            <label for="state">State</label><br>
+            <input type="text" id="state" name="state" required placeholder="Enter State"><br><br>
+
+            <label for="local_govt">Local Government</label><br>
+            <input type="text" id="local_govt" name="local_govt" required placeholder="Enter Local Government"><br><br>
+
+            <label for="address">Address</label><br>
+            <input type="text" id="address" name="address" required placeholder="Enter Address"><br><br>
             
             <center>
 
@@ -84,12 +102,21 @@
     }
 
     .img1{
-        width: 550px;
-        height: 500px;
+        width: 600px;
+        height: 700px;
         position: absolute;
         margin-left: 200px;
-        margin-top: 100px;
+        margin-top: 200px;
     }
 </style>
+
+<script>
+    profile_icon = document.getElementById("display_picture");
+    profile_upload = document.getElementById("profilePicture");
+
+    profile_icon.addEventListener("click", function() {
+        profile_upload.click();
+    })
+</script>
 {% endblock content %}
 

@@ -129,30 +129,29 @@ def signup_user():
             email = request.form['email']
             password = request.form['password']
             hashed_password = sha256_crypt.hash(password)
-            profile_picture = request.files['profile_picture']
+            profile_pic = request.files['profile_picture']
             phone_number = request.form['phone_number']
             country = request.form['country']
             state = request.form['state']
             local_govt = request.form['local_govt']
             address = request.form['address']
 
-            print(name, email, hashed_password, profile_picture, phone_number, country, state, local_govt, address)
+            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
 
-            if not name or not email or not password, not profile_picture or not phone_number or not country or not state or not local_govt or not address:
+            if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address:
                 flash('Please fill in all fields', 'danger')
 
             if get_user(email):
                 flash('Email already exists', 'danger')
                 return redirect(url_for('signup_user'))
             
-            if profile_picture:
-                filename = secure_filename(profile_picture.filename)
-                response = cloudinary.uploader.upload(profile_picture, public_id=f"users/{user_id}/{filename}")
-                profile_picture = response['secure_url']
+            if profile_pic:
+                filename = secure_filename(profile_pic.filename)
+                response = cloudinary.uploader.upload(profile_pic, public_id=f"users/{filename}")
+                profile_pic = response['secure_url']
             
-            add_user(name, email, hashed_password)
+            add_user(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
             connection.commit()
-            print(add_user(name, email, hashed_password))
 
             # Generate OTP and send verification email
             otp = random.randint(1000, 9999)
@@ -177,6 +176,11 @@ def signup_user():
 
 # Edit user profile
 
+@app.route('/edit_user_profile', methods=['GET', 'POST'])
+@login_required
+def edit_user_profile():
+    return render_template("edit_user_profile.html", current_user=current_user)
+
 
 
 
@@ -198,12 +202,19 @@ def login_for_user():
                 name = user['name']
                 email = user['email']
                 stored_password = user['password']
+                profile_pic = user['profile_pic']
+                phone_number = user['phone_number']
+                country = user['country']
+                state = user['state']
+                local_govt = user['local_govt']
+                address = user['address']
+
 
                 if sha256_crypt.verify(password,  stored_password):
-                    user = User(id=user_id, email=email, name=name, password=stored_password)
+                    user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address)
                     login_user(user)
                     flash('Login Successful', 'success')
-                    return redirect(url_for('home'))
+                    return redirect(url_for('user_index'))
                 else:
                     flash('Invalid Email or Password', 'danger')
                     return render_template('login_for_user.html', current_user=current_user)
@@ -216,6 +227,23 @@ def login_for_user():
         finally:
             cursor.close()
     return render_template('login_for_user.html', current_user=current_user)
+
+
+
+@app.route("/logout", methods=['GET', 'POST'])
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+
+
+
+@app.route('/user_index', methods=['GET', 'POST'])
+@login_required
+def user_index():
+    return render_template("user_index.html", current_user=current_user)
+
 
 
 

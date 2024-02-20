@@ -45,12 +45,12 @@ conn = mysql.connector.connect(**config)
 
 
 class User(UserMixin):
-    def __init__(self, id, name, email, password, profile_picture, phone_number, country, state, local_govt, address):
+    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address):
         self.id = id
         self.name = name
         self.email = email
         self.password = password
-        self.profile_picture = profile_picture
+        self.profile_pic = profile_pic
         self.phone_number = phone_number
         self.country = country
         self.state = state
@@ -83,11 +83,11 @@ def get_user(email):
     return user_record
 
 
-def add_user(name, email, password, profile_picture, phone_number, country, state, local_govt, address):
+def add_user(name, email, password, profile_pic, phone_number, country, state, local_govt, address):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO users (name, email, password, profile_picture, phone_number, country, state, local_govt, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (name, email, password, profile_picture, phone_number, country, state, local_govt, address))
+        cursor.execute('INSERT INTO users (name, email, password, profile_pic, phone_number, country, state, local_govt, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (name, email, password, profile_pic, phone_number, country, state, local_govt, address))
         connection.commit()
         cursor.close()
         connection.close()
@@ -126,7 +126,7 @@ def get_user_id(user_id):
             name=user_record['name'],
             email=user_record['email'],
             password=user_record['password'],
-            profile_picture=user_record['profile_picture'],
+            profile_pic=user_record['profile_pic'],
             phone_number=user_record['phone_number'],
             country=user_record['country'],
             state=user_record['state'],
