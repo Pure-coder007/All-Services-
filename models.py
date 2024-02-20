@@ -17,7 +17,7 @@ config = {
     'user': 'root',
     'password': 'language007',
     'host': 'localhost',
-    'database': 'my_services',
+    'database': 'all_services',
     'raise_on_warnings': True
 }
 
@@ -45,18 +45,12 @@ conn = mysql.connector.connect(**config)
 
 
 class User(UserMixin):
-    def __init__(self, id, email, password, username, phone_number, is_worker, is_admin, profile_picture=None, work_pic1=None, work_pic2=None, work_pic3=None):
+    def __init__(self, id, name, email, password):
         self.id = id
+        self.name = name
         self.email = email
         self.password = password
-        self.username = username
-        self.phone_number = phone_number
-        self.is_worker = is_worker
-        self.profile_picture = profile_picture
-        self.work_pic1 = work_pic1
-        self.work_pic2 = work_pic2
-        self.work_pic3 = work_pic3
-        self.is_admin = is_admin
+        
 
 
 
@@ -68,3 +62,43 @@ class User(UserMixin):
     @property
     def is_anonymous(self):
         return False
+    
+
+
+def get_user(email):
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users WHERE email=%s', (email,))
+    user_record = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    print(user_record, 'user record')
+    return user_record
+
+
+def add_user(name, email, password):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        cursor.execute('INSERT INTO users (name, email, password) VALUES (%s, %s, %s)', (name, email, password))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print('user added')
+    except mysql.connector.Error as err:
+        print(err)
+        print('user not added')
+    finally:
+        cursor.close()
+        connection.close()
+
+# print all user's name from db
+def get_all_users():
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users')
+    users = cursor.fetchall()
+    print(users)
+    cursor.close()
+    connection.close()
+    return users

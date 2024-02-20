@@ -3,9 +3,10 @@
 {% block content %}
 
 
-
 <br><br>
-    <div class="sign_up">
+
+<img src="{{ url_for('static', filename='/assets/img/doctor 2.jpg')}}" alt="" class="img1">
+<div class="sign_up">
             <h2>Sign Up</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
             
         <form action="{{ url_for('signup_user') }}" method="POST">
@@ -27,17 +28,19 @@
             <button type="submit">Create Account</button>
             <center>
 
-                <p>Have an account already? <a href="">Log In</a></p>
+                <strong><p>Have an account already? <a href="" >Log In</a></p></strong>
             </center>
         </form>
     </div>
 
 <style>
+
     .sign_up{
         margin-top: 100px;
-        margin-left: 850px;
+        margin-left: 950px;
         height: auto;
         margin-bottom: 50px;
+        font-family: poppins;
         
     }
 
@@ -45,14 +48,17 @@
         width: 350px;
         height: 40px;
         border-radius: 5px;
-        border: 0.5px thin gray;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: none;
         padding: 10px;
+        background-color: whitesmoke;
     }
 
     .terms{
         width: 300px;
         font-size: 7px;
-        margin-right: 500px;
+        margin-right: 400px;
+        margin-left: 25px;
     }
 
     button{
@@ -63,13 +69,26 @@
         padding-left: 10px;
         padding-right: 10px;
         border-radius: 5px;
+        background-color: rgb(80, 112, 219);
+        border: none;
+        color: white;
     }
 
     p{
         width: 300px;
         font-size: 7px;
-        margin-right: 500px;
+        margin-right: 400px;
         margin-top: 10px;
+        margin-left: 25px;
+
+    }
+
+    .img1{
+        width: 550px;
+        height: 500px;
+        position: absolute;
+        margin-left: 200px;
+        margin-top: 100px;
     }
 </style>
 {% endblock content %}

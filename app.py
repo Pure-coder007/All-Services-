@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-# from models import get_user_id
+from models import get_user, add_user, get_all_users
 
 import cloudinary
 import cloudinary.uploader
@@ -40,12 +40,12 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'static/assets/img'
 configure_uploads(app, photos)
 
 
-class UpdateProfileForm(FlaskForm):
-    username = StringField('Username')
-    phone_number = StringField('Phone Number')
-    profile_picture = FileField('Profile Picture', validators=[
-        FileAllowed(photos, 'Images only!')
-    ])
+# class UpdateProfileForm(FlaskForm):
+#     username = StringField('Username')
+#     phone_number = StringField('Phone Number')
+#     profile_picture = FileField('Profile Picture', validators=[
+#         FileAllowed(photos, 'Images only!')
+#     ])
 
 
 
@@ -97,16 +97,87 @@ def home():
 
 
 
-@app.route("/services", methods=['GET', 'POST'])
-def services():
-    return render_template("services.html")
+
+
+# Token for email verification for user
+@app.route('/token_user/<email>', methods=['GET', 'POST'])
+def token_user(email):
+    if request.method == 'POST':
+        token = request.form.get('otp')
+        stored_otp = session.get('otp', None)
+        if token != str(stored_otp):
+            print('token', stored_otp)
+            print('stored otp', stored_otp)
+            flash('Invalid token. Please try again.', 'danger')
+        flash('Registration successful. Please login.', 'success')
+        return redirect(url_for('login_user'))
+    return render_template('token_user.html', current_user=current_user)
+            
+
+
+
 
 
 @app.route("/signup_user", methods=['GET', 'POST'])
 def signup_user():
-    return render_template("signup_user.html")
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            password = request.form['password']
+            hashed_password = sha256_crypt.hash(password)
+            print(name, email, hashed_password)
+
+            if not name or not email or not password:
+                flash('Please fill in all fields', 'danger')
+
+            if get_user(email):
+                flash('Email already exists', 'danger')
+                return redirect(url_for('signup_user'))
+            
+            add_user(name, email, hashed_password)
+            connection.commit()
+            print(add_user(name, email, hashed_password))
+
+            # Generate OTP and send verification email
+            otp = random.randint(1000, 9999)
+            session['otp'] = otp
+            send_otp(email, otp)
+            print(email, otp)
+
+            flash('Registration successful. Please check your email for verification token.', 'success')
+            return redirect(url_for('token_user', email=email))
+        get_all_users()
+        return render_template("signup_user.html")
+    except Exception as e:
+        print(e)
+        print(e)
+        print(e)
+        return render_template('signup_user.html', current_user=current_user)
+    finally:
+        cursor.close()
+        connection.close()
 
 
+
+
+# Login
+@app.route('/login_user', methods=['GET', 'POST'])
+def login():
+    pass
+    return render_template('login_user.html', current_user=current_user)
+
+
+
+
+
+
+@app.route("/services", methods=['GET', 'POST'])
+def services():
+    return render_template("services.html")
 
 @app.route("/signup_worker", methods=['GET', 'POST'])
 def signup_worker():
