@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<br><br>
+    <div class="sign_up">
+            <h2>Sign Up</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
+            
+        <form action="{{ url_for('signup_user') }}" method="POST">
+                
+            <label for="name">Full Name</label><br>
+            <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
+            
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
+            
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" required placeholder="Create Password"><br><br>
+            
+            <center>
+
+                <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including our <a href="#">privacy policy</a>.</p>
+            </center>
+                
+            <button type="submit">Create Account</button>
+            <center>
+
+                <p>Have an account already? <a href="">Log In</a></p>
+            </center>
+        </form>
+    </div>
+
+<style>
+    .sign_up{
+        margin-top: 100px;
+        margin-left: 850px;
+        height: auto;
+        margin-bottom: 50px;
+        
+    }
+
+    input{
+        width: 350px;
+        height: 40px;
+        border-radius: 5px;
+        border: 0.5px thin gray;
+        padding: 10px;
+    }
+
+    .terms{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 500px;
+    }
+
+    button{
+        width: 350px;
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 5px;
+    }
+
+    p{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 500px;
+        margin-top: 10px;
+    }
+</style>
+{% endblock content %}
+
