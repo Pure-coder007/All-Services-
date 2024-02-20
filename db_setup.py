@@ -8,15 +8,21 @@ def setup_database():
     
 
     # Users Table
-    # cursor.execute('CREATE DATABASE IF NOT EXISTS crowd_funding')
     
     cursor.execute("""
     CREATE TABLE users (
-    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
-    );
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    country VARCHAR(100),
+    state VARCHAR(100),
+    local_govt VARCHAR(100),
+    address TEXT,
+    profile_pic VARCHAR(255)
+);
+
     """)
 
     

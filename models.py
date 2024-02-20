@@ -45,11 +45,18 @@ conn = mysql.connector.connect(**config)
 
 
 class User(UserMixin):
-    def __init__(self, id, name, email, password):
+    def __init__(self, id, name, email, password, profile_picture, phone_number, country, state, local_govt, address):
         self.id = id
         self.name = name
         self.email = email
         self.password = password
+        self.profile_picture = profile_picture
+        self.phone_number = phone_number
+        self.country = country
+        self.state = state
+        self.local_govt = local_govt
+        self.address = address
+
         
 
 
@@ -76,11 +83,11 @@ def get_user(email):
     return user_record
 
 
-def add_user(name, email, password):
+def add_user(name, email, password, profile_picture, phone_number, country, state, local_govt, address):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO users (name, email, password) VALUES (%s, %s, %s)', (name, email, password))
+        cursor.execute('INSERT INTO users (name, email, password, profile_picture, phone_number, country, state, local_govt, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (name, email, password, profile_picture, phone_number, country, state, local_govt, address))
         connection.commit()
         cursor.close()
         connection.close()
@@ -119,7 +126,12 @@ def get_user_id(user_id):
             name=user_record['name'],
             email=user_record['email'],
             password=user_record['password'],
-            
+            profile_picture=user_record['profile_picture'],
+            phone_number=user_record['phone_number'],
+            country=user_record['country'],
+            state=user_record['state'],
+            local_govt=user_record['local_govt'],
+            address=user_record['address'],           
 
         )
     

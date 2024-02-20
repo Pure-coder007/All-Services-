@@ -129,14 +129,26 @@ def signup_user():
             email = request.form['email']
             password = request.form['password']
             hashed_password = sha256_crypt.hash(password)
-            print(name, email, hashed_password)
+            profile_picture = request.files['profile_picture']
+            phone_number = request.form['phone_number']
+            country = request.form['country']
+            state = request.form['state']
+            local_govt = request.form['local_govt']
+            address = request.form['address']
 
-            if not name or not email or not password:
+            print(name, email, hashed_password, profile_picture, phone_number, country, state, local_govt, address)
+
+            if not name or not email or not password, not profile_picture or not phone_number or not country or not state or not local_govt or not address:
                 flash('Please fill in all fields', 'danger')
 
             if get_user(email):
                 flash('Email already exists', 'danger')
                 return redirect(url_for('signup_user'))
+            
+            if profile_picture:
+                filename = secure_filename(profile_picture.filename)
+                response = cloudinary.uploader.upload(profile_picture, public_id=f"users/{user_id}/{filename}")
+                profile_picture = response['secure_url']
             
             add_user(name, email, hashed_password)
             connection.commit()
@@ -160,6 +172,11 @@ def signup_user():
     finally:
         cursor.close()
         connection.close()
+
+
+
+# Edit user profile
+
 
 
 
