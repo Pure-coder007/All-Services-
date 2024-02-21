@@ -80,10 +80,50 @@
     <br>
     <br>
 
-    <div class="cont">
-        <i class="fa-solid fa-location-dot"></i> <span>Service Area: {}</span>
+    <div class="cont" style="display: flex; justify-content: space-between; ">
+       <p style="margin-left: 150px; position: absolute ; top: 0; margin-top: 120px;"><i class="fa-solid fa-location-dot" style="color: rgb(72, 72, 242);"></i> Service Area: &nbsp;<span style="font-weight: 800;">{{ user ['state']}}, {{ user ['country']}}</span></p>
+
+        <div class="msg" style="float: right; margin-right: 150px; position: absolute; top: 0; right: 0; margin-top: 120px;" >
+            <i class="fa-regular fa-envelope" style="margin-right: 20px; font-size: 25px;"></i> &nbsp; &nbsp;<i class="fa-regular fa-bell" style="margin-right: 20px; font-size: 25px;"></i> <span>&nbsp; &nbsp;<img src="{{ user['profile_pic']}}" alt="" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; margin-top: -5px;" ></span>
+        </div>
+        <!-- <br><br><br> -->
+
+        <div class="map" style=" margin-top: 30px; width: 500px; margin-right: -100px; margin-left: 300px; height: auto; " >
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8070396.011244541!2d3.378683619173365!3d9.006789079172123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7da48d0d%3A0x99a8fe4168c50bc8!2sNigeria!5e0!3m2!1sen!2sng!4v1708532499118!5m2!1sen!2sng" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div >
+
         
     </div>
+    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select name="category" id="options">
+                    <option>AC / Refrigeration Services  <i class="fa-solid fa-angle-up"></i></option>
+                    <option value="Ac Gas Filling">Ac Gas Filling</option>
+                    <option value="Ac Repair And Installation">Ac Repair And Installation</option>
+                    <option value="Refrigerator Repair">Refrigerator Repair</option>
+                    <option value="Freezer Repair">Freezer Repair</option>
+                    <option value="Water Dispenser">Water Dispenser</option>
+                    <option value="Coldroom Servicing">Coldroom Servicing</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+      <center><button class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal" style="margin-top: 50px; background-color:rgb(72, 72, 242); padding: 15px 20px; font-weight: 400; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; width: 250px;">
+        Select  Services
+    </button></center>
+
+    <br><br>
+
+    
 
 
     
@@ -173,6 +213,42 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+    ;
+    
+    
+            window.onload = function() {
+                // Your code here
+                document.getElementById('modal_button').click()
+        };
+        
+    </script>
+
+<script>
+
+
+    // function selectBtn() {
+    //     alert("Please update your profile and choose a payment plan.")  
+    // }
+
+    let btn = document.getElementsByClassName("btn--choose")
+           let card = document.getElementsByClassName("card")
+           for (let i = 0; i < btn.length; i++) {
+               btn[i].onclick = function () {
+                   var ele = card[0]
+                   while (ele) {
+                       if (ele.tagName == "DIV") {
+                           ele.classList.remove("active")
+                       }
+
+                       ele = ele.nextSibling
+                   }
+                   card[i].classList.add("active")
+
+               }
+           }
+</script>
 
   <!-- Vendor JS Files -->
   <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
