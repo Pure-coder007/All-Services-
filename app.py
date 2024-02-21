@@ -214,7 +214,7 @@ def login_for_user():
                     user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address)
                     login_user(user)
                     flash('Login Successful', 'success')
-                    return redirect(url_for('user_index'))
+                    return redirect(url_for('user_index', user_id=user_id))
                 else:
                     flash('Invalid Email or Password', 'danger')
                     return render_template('login_for_user.html', current_user=current_user)
@@ -238,11 +238,44 @@ def logout():
 
 
 
+def user_profile(user_id):
+    # try:
+    connection  = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
 
-@app.route('/user_index', methods=['GET', 'POST'])
+    query = "SELECT name, email, profile_pic, phone_number, country, state, local_govt, address FROM users WHERE id = %s"
+    cursor.execute(query, (user_id,))
+
+    user = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if user:
+        print(user, 'user')
+        return {
+            'name': user['name'],
+            'email': user['email'],
+            'profile_pic': user['profile_pic'],
+            'phone_number': user['phone_number'],
+            'country': user['country'],
+            'state': user['state'],
+            'local_govt': user['local_govt'],
+            'address': user['address'],
+        }
+    
+    else:
+        return {}
+
+
+
+
+
+@app.route('/user_index/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def user_index():
-    return render_template("user_index.html", current_user=current_user)
+def user_index(user_id):
+        user = user_profile(user_id)
+        print(user)
+        return render_template("user_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
 
