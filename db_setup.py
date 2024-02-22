@@ -25,6 +25,25 @@ def setup_database():
 
     """)
 
+    cursor.execute("""
+    CREATE TABLE workers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    country VARCHAR(100),
+    state VARCHAR(100),
+    local_govt VARCHAR(100),
+    address TEXT,
+    profile_pic VARCHAR(255),
+    company VARCHAR(100),
+    service varchar(255)
+    
+);
+
+    """)
+
     
 
     connection.commit()

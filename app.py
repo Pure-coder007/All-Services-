@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker
 
 import cloudinary
 import cloudinary.uploader
@@ -116,6 +116,22 @@ def token_user(email):
 
 
 
+# Token for email verification for user
+@app.route('/token_worker/<email>', methods=['GET', 'POST'])
+def token_worker(email):
+    if request.method == 'POST':
+        token = request.form.get('otp')
+        stored_otp = session.get('otp', None)
+        if token != str(stored_otp):
+            print('token', stored_otp)
+            print('stored otp', stored_otp)
+            flash('Invalid token. Please try again.', 'danger')
+        flash('Registration successful. Please login.', 'success')
+        return redirect(url_for('login_for_worker'))
+    return render_template('token_worker.html', current_user=current_user)
+            
+
+
 
 
 @app.route("/signup_user", methods=['GET', 'POST'])
@@ -174,13 +190,84 @@ def signup_user():
 
 
 
-# Edit user profile
 
-@app.route('/edit_user_profile', methods=['GET', 'POST'])
-@login_required
-def edit_user_profile():
-    return render_template("edit_user_profile.html", current_user=current_user)
 
+
+
+
+@app.route("/signup_worker", methods=['GET', 'POST'])
+def signup_worker():
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            password = request.form['password']
+            hashed_password = sha256_crypt.hash(password)
+            profile_pic = request.files['profile_picture']
+            phone_number = request.form['phone_number']
+            country = request.form['country']
+            state = request.form['state']
+            local_govt = request.form['local_govt']
+            address = request.form['address']
+            company = request.form['company']
+            service = request.form['service']
+            work_pic1 = request.files['work_pic1']
+            work_pic2 = request.files['work_pic2']
+            work_pic3 = request.files['work_pic3']
+
+            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3)
+
+            if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address or not company or not service or not work_pic1 or not work_pic2 or not work_pic3:
+                flash('Please fill in all fields', 'danger')
+
+            if get_worker(email):
+                flash('Email already exists', 'danger')
+                return redirect(url_for('signup_worker'))
+            
+            if profile_pic:
+                filename = secure_filename(profile_pic.filename)
+                response = cloudinary.uploader.upload(profile_pic, public_id=f"workers/{filename}")
+                profile_pic = response['secure_url']
+            
+            if work_pic1:
+                filename = secure_filename(work_pic1.filename)
+                response = cloudinary.uploader.upload(work_pic1, public_id=f"workers/{filename}")
+                work_pic1 = response['secure_url']
+            
+            if work_pic2:
+                filename = secure_filename(work_pic2.filename)
+                response = cloudinary.uploader.upload(work_pic2, public_id=f"workers/{filename}")
+                work_pic2 = response['secure_url']
+
+            if work_pic3:
+                filename = secure_filename(work_pic3.filename)
+                response = cloudinary.uploader.upload(work_pic3, public_id=f"workers/{filename}")
+                work_pic3 = response['secure_url']
+            
+            add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3)
+            connection.commit()
+
+            # Generate OTP and send verification email
+            otp = random.randint(1000, 9999)
+            session['otp'] = otp
+            send_otp(email, otp)
+            print(email, otp)
+
+            flash('Registration successful. Please check your email for verification token.', 'success')
+            return redirect(url_for('token_worker', email=email))
+        get_all_users()
+        return render_template("signup_worker.html")
+    except Exception as e:
+        print(e)
+        print(e)
+        print(e)
+        return render_template('signup_worker.html', current_user=current_user)
+    finally:
+        cursor.close()
+        connection.close()
 
 
 
@@ -213,7 +300,7 @@ def login_for_user():
                 if sha256_crypt.verify(password,  stored_password):
                     user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address)
                     login_user(user)
-                    flash('Login Successful', 'success')
+                    # flash('Login Successful', 'success')
                     return redirect(url_for('user_index', user_id=user_id))
                 else:
                     flash('Invalid Email or Password', 'danger')
@@ -227,6 +314,63 @@ def login_for_user():
         finally:
             cursor.close()
     return render_template('login_for_user.html', current_user=current_user)
+
+
+
+
+
+@app.route('/login_for_worker', methods=['GET', 'POST'])
+def login_for_worker():
+    if request.method == 'POST':
+        email = request.form['email']   
+        password = request.form['password']
+        connection  = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+        try:
+            cursor.execute('SELECT * FROM workers WHERE email = %s', (email,))
+            user = cursor.fetchone()
+            print(user, '******************')
+            if user is not None:
+                user_id = user['id']
+                name = user['name']
+                email = user['email']
+                stored_password = user['password']
+                profile_pic = user['profile_pic']
+                phone_number = user['phone_number']
+                country = user['country']
+                state = user['state']
+                local_govt = user['local_govt']
+                address = user['address']
+                company = user['company']
+                service = user['service']
+
+
+                if sha256_crypt.verify(password,  stored_password):
+                    user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
+                    login_user(user)
+                    flash('Login Successful', 'success')
+                    return redirect(url_for('user_index', user_id=user_id))
+                else:
+                    flash('Invalid Email or Password', 'danger')
+                    return render_template('login_for_worker.html', current_user=current_user)
+            else:
+                flash('Email not found', 'danger')
+                return render_template('login_for_worker.html', current_user=current_user)
+        except Exception as e:
+            print('Error during login', e)
+            flash('Error during login. Please try again.', 'danger')
+        finally:
+            cursor.close()
+    return render_template('login_for_worker.html', current_user=current_user)
+
+
+
+
+
+@app.route('/edit_user_profile', methods=['GET', 'POST'])
+@login_required
+def edit_user_profile():
+    return render_template("edit_user_profile.html", current_user=current_user)
 
 
 
@@ -287,9 +431,6 @@ def user_index(user_id):
 def services():
     return render_template("services.html")
 
-@app.route("/signup_worker", methods=['GET', 'POST'])
-def signup_worker():
-    return render_template("signup_worker.html")
 
 
 

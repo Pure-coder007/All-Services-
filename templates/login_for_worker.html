@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<br><br>
+
+<img src="{{ url_for('static', filename='/assets/img/plum.jpg')}}" alt="" class="img1">
+<div class="sign_up">
+            <h2>Login</h2><span style="color: rgb(80, 112, 219);">To provide service</span><br><br>
+            
+        <form action="{{ url_for('login_for_worker') }}" method="POST">
+                
+            
+            
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
+            
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" required placeholder="Enter Password"><br><br>
+
+            <a href="" style="margin-top: 50px;">Forgot Password?</a>
+            <br><br>
+            
+            <center>
+
+            </center>
+                
+            <button type="submit">Login</button>
+            <center>
+
+                <strong><p>Don't have an account? <a href="{{ url_for('signup_worker')}}" >Sign Up</a></p></strong>
+            </center>
+        </form>
+    </div>
+
+<style>
+
+    .sign_up{
+        margin-top: 100px;
+        margin-left: 950px;
+        height: auto;
+        margin-bottom: 50px;
+        font-family: poppins;
+        
+    }
+
+    input{
+        width: 350px;
+        height: 40px;
+        border-radius: 5px;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: none;
+        padding: 10px;
+        background-color: whitesmoke;
+    }
+
+    .terms{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 400px;
+        margin-left: 25px;
+    }
+
+    button{
+        width: 350px;
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 5px;
+        background-color: rgb(80, 112, 219);
+        border: none;
+        color: white;
+    }
+
+    p{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 400px;
+        margin-top: 10px;
+        margin-left: 25px;
+
+    }
+
+    .img1{
+        width: 550px;
+        height: 500px;
+        position: absolute;
+        margin-left: 200px;
+        margin-top: 30px;
+    }
+</style>
+{% endblock content %}
+

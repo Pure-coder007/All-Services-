@@ -2,8 +2,165 @@
 
 {% block content %}
 
-<h1>signup worker</h1>
 <div class="worker">
-    <img src="{{ url_for('static', filename='/assets/img/driver.jpg')}}" alt="">
+    <img src="{{ url_for('static', filename='/assets/img/driver.jpg')}}" alt="" style=" 
+    width: 40rem;
+    position: fixed;
+    margin-left: 200px;
+    
+    z-index: -1;">
+
+    <div class="sign_up">
+        <h1>Sign up as a Profesional </h1>
+        <form action="{{ url_for('signup_worker') }}" method="POST"  enctype="multipart/form-data">
+            <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
+
+            <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
+                
+            <label for="name">Full Name</label><br>
+            <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
+            
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
+            
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" required placeholder="Create Password"><br><br>
+
+            <label for="phone_number">Phone</label><br>
+            <input type="text" id="phone" name="phone_number" required placeholder="Enter Phone Number"><br><br>
+
+            <label for="phone_number">Enter Company Name</label><br>
+            <input type="text" id="company" name="company" required placeholder="Enter Company Name"><br><br>
+
+            <div>
+                <label for="option">Please select a service</label><br>
+                <select name="service" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                    <option >Please select an option </option>
+                    <option value="ac_gas_filling">AC Gas Filling</option>
+                    <option value="ac_repair_and_installation">AC Repair and Installation</option>
+                    <option value="refrigerator_repair">Refrigerator Repair</option>
+                    <option value="auto_repair">Auto Repair</option>
+                    <option value="car_ac_repair">Car AC Repair</option>
+                    <option value="car_rewire">Car Rewire</option>
+                    <option value="barber">Barber</option>
+                    <option value="hair_stylist">Hair Stylist</option>
+                    <option value="human_hair">Human Hair</option>
+                    <option value="nail_technician">Nail Technician</option>
+                    <option value="pedicure_manicure">Pedicure / Manicure</option>
+                    <option value="catering_service">Catering Service</option>
+                    <option value="laundry_service">Laundry Service</option>
+                    <option value="dispatch_rider">Dispatch Rider</option>
+                    <option value="electrical">Electrical / Inverter Services</option>
+                    <option value="generator">Generator Services</option>
+                    <option value="haulage">Haulage / Movers</option>
+                    <option value="painter">Painter / Screeder</option>
+                    <option value="photographer">Photographer / Video Service</option>
+                    <option value="plumber">Plumbing Services</option>
+                    <option value="event">Event Planning</option>
+                    <option value="cosmetic">Cosmetic Service</option>
+                    <option value="taxi_service">Taxi Service</option>
+                    <option value="personal_trainer">Personal Trainer</option>
+                    <option value="elderly_care">Elderly Care Service</option>
+                    <option value="dstv">DSTV / CCTV</option>
+                    <option value="welder">Welder Service</option>
+                </select><br><br>
+            
+            <label for="country">Country</label><br>
+            <input type="text" id="country" name="country" required placeholder="Enter Country"><br><br>
+
+            <label for="state">State</label><br>
+            <input type="text" id="state" name="state" required placeholder="Enter State"><br><br>
+
+            <label for="local_govt">Local Government</label><br>
+            <input type="text" id="local_govt" name="local_govt" required placeholder="Enter Local Government"><br><br>
+
+            <label for="address">Address</label><br>
+            <input type="text" id="address" name="address" required placeholder="Enter Address">
+
+            <div class="work_pics">
+                <img src="{{ current_user.work_pic1_url }}" alt="">
+                
+                <img src="{{ current_user.work_pic2_url }}" alt="">
+                
+                <img src="{{ current_user.work_pic3_url }}" alt="">
+            </div>
+            <label> Please upload your work pictures </label><br>
+            <input type="file" name="work_pic1" accept="image/*">
+            <br><br>
+            <input type="file" name="work_pic2" accept="image/*">
+            <br><br>
+            <input type="file" name="work_pic3" accept="image/*">
+            
+            <center>
+
+                <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including our <a href="#">privacy policy</a>.</p>
+            </center>
+                
+            <button type="submit">Create Account</button>
+            <center>
+
+                <strong><p>Have an account already? <a href="{{ url_for('login_for_worker')}}" >Log In</a></p></strong>
+            </center>
+        </form>
+
+    </div>
 </div>
+
+<style>
+    .sign_up{
+        margin-top: 100px;
+        margin-left: 950px;
+        height: auto;
+        margin-bottom: 50px;
+        font-family: poppins;
+        
+    }
+
+    input{
+        width: 350px;
+        height: 40px;
+        border-radius: 5px;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: none;
+        padding: 10px;
+        background-color: whitesmoke;
+    }
+
+    .terms{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 400px;
+        margin-left: 25px;
+    }
+
+    button{
+        width: 350px;
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 5px;
+        background-color: rgb(80, 112, 219);
+        border: none;
+        color: white;
+    }
+
+    p{
+        width: 300px;
+        font-size: 7px;
+        margin-right: 400px;
+        margin-top: 10px;
+        margin-left: 25px;
+    }
+</style>
+
+<script>
+    profile_icon = document.getElementById("display_picture");
+    profile_upload = document.getElementById("profilePicture");
+
+    profile_icon.addEventListener("click", function() {
+        profile_upload.click();
+    })
+</script>
 {% endblock content %}

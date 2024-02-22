@@ -57,6 +57,27 @@ class User(UserMixin):
         self.local_govt = local_govt
         self.address = address
 
+
+
+
+class Worker(UserMixin):
+    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.password = password
+        self.profile_pic = profile_pic
+        self.phone_number = phone_number
+        self.country = country
+        self.state = state
+        self.local_govt = local_govt
+        self.address = address
+        self.company = company
+        self.service = service
+        self.work_pic1 = work_pic1
+        self.work_pic2 = work_pic2
+        self.work_pic3 = work_pic3
+
         
 
 
@@ -83,6 +104,18 @@ def get_user(email):
     return user_record
 
 
+
+
+def get_worker(email):
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM workers WHERE email=%s', (email,))
+    user_record = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    print(user_record, 'user record')
+    return user_record
+
 def add_user(name, email, password, profile_pic, phone_number, country, state, local_govt, address):
     try:
         connection = mysql.connector.connect(**config)
@@ -95,6 +128,24 @@ def add_user(name, email, password, profile_pic, phone_number, country, state, l
     except mysql.connector.Error as err:
         print(err)
         print('user not added')
+    finally:
+        cursor.close()
+        connection.close()
+
+
+
+def add_worker(name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        cursor.execute('INSERT INTO workers (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )', (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print('worker added')
+    except mysql.connector.Error as err:
+        print(err)
+        print('worker not added')
     finally:
         cursor.close()
         connection.close()
