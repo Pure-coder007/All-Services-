@@ -103,35 +103,35 @@
             </div>
             <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 800px; ">
             
-                <form action="/user_index" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px;">
+                <form action="{{ url_for('user_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px;">
                     <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none">
                     <p><label for="">AC Gas Filling</label> <span><input type="checkbox" id="ac_gas_filling" name="ac_gas_filling" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Refrigerator Repair</label> <span><input type="checkbox" id="refrigerator_repair" name="refrigerator_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Auto Repair</label> <span><input type="checkbox" id="auto_repair" name="auto_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Car AC Repair</label> <span><input type="checkbox" id="car_ac_repair" name="car_ac_repair "style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Car Rewire</label> <span><input type="checkbox" id="car_rewire" name="car_rewire" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Barber</label> <span><input type="checkbox" id="barber" name="barber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Hair Stylist</label> <span><input type="checkbox" id="hair_stylist" name="hair_stylist" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Human Hair</label> <span><input type="checkbox" id="human_hair" name="human_hair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Nail Technician</label> <span><input type="checkbox" id="nail_technician" name="nail_technician" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Pedicure / Manicure</label> <span><input type="checkbox" id="pedicure_manicure" name="pedicure_manicure" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Catering Service</label> <span><input type="checkbox" id="catering_service" name="catering_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Laundry Service</label> <span><input type="checkbox" id="laundry_service" name="laundry_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Dispatch Rider</label> <span><input type="checkbox" id="dispatch_rider" name="dispatch_rider" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="ac_repair_and_installation">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="refrigerator_repair">Refrigerator Repair</label> <span><input type="checkbox" id="refrigerator_repair" name="refrigerator_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="auto_repair">Auto Repair</label> <span><input type="checkbox" id="auto_repair" name="auto_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="car_ac_repair">Car AC Repair</label> <span><input type="checkbox" id="car_ac_repair" name="car_ac_repair "style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="car_rewire">Car Rewire</label> <span><input type="checkbox" id="car_rewire" name="car_rewire" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="barber">Barber</label> <span><input type="checkbox" id="barber" name="barber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="hair_stylist">Hair Stylist</label> <span><input type="checkbox" id="hair_stylist" name="hair_stylist" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="human_hair">Human Hair</label> <span><input type="checkbox" id="human_hair" name="human_hair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="nail_technician">Nail Technician</label> <span><input type="checkbox" id="nail_technician" name="nail_technician" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="pedicure_manicure">Pedicure / Manicure</label> <span><input type="checkbox" id="pedicure_manicure" name="pedicure_manicure" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="catering_service">Catering Service</label> <span><input type="checkbox" id="catering_service" name="catering_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="laundry_service">Laundry Service</label> <span><input type="checkbox" id="laundry_service" name="laundry_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="dispatch_rider">Dispatch Rider</label> <span><input type="checkbox" id="dispatch_rider" name="dispatch_rider" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
                     <p><label for="">Electrical / Inverter Services</label> <span><input type="checkbox" id="electrical" name="electrical" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Generator Services</label> <span><input type="checkbox" id="generator" name="generator" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Haulage / Movers</label> <span><input type="checkbox" id="haulage" name="haulage" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Painter / Screeder</label> <span><input type="checkbox" id="painter" name="painter" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Photographer / Video</label> <span><input type="checkbox" id="photographer" name="photographer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Plumbing Services</label> <span><input type="checkbox" id="plumber" name="plumber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Event Planning</label> <span><input type="checkbox" id="event" name="event" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Cosmetic Service</label> <span><input type="checkbox" id="cosmetic" name="cosmetic" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Taxi Service</label> <span><input type="checkbox" id="taxi_service" name="taxi_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Personal Trainer</label> <span><input type="checkbox" id="personal_trainer" name="personal_trainer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Elderly Care Service</label> <span><input type="checkbox" id="elderly_care" name="elderly_care" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">DSTV / CCTV</label> <span><input type="checkbox" id="dstv" name="dstv" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Welder Service</label> <span><input type="checkbox" id="welder" name="welder" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="generator">Generator Services</label> <span><input type="checkbox" id="generator" name="generator" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="haulage">Haulage / Movers</label> <span><input type="checkbox" id="haulage" name="haulage" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="painter">Painter / Screeder</label> <span><input type="checkbox" id="painter" name="painter" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="photographer">Photographer / Video</label> <span><input type="checkbox" id="photographer" name="photographer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="plumber">Plumbing Services</label> <span><input type="checkbox" id="plumber" name="plumber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="event">Event Planning</label> <span><input type="checkbox" id="event" name="event" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="cosmetic">Cosmetic Service</label> <span><input type="checkbox" id="cosmetic" name="cosmetic" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="taxi_service">Taxi Service</label> <span><input type="checkbox" id="taxi_service" name="taxi_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="personal_trainer">Personal Trainer</label> <span><input type="checkbox" id="personal_trainer" name="personal_trainer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="elderly_care">Elderly Care Service</label> <span><input type="checkbox" id="elderly_care" name="elderly_care" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="dstv">DSTV / CCTV</label> <span><input type="checkbox" id="dstv" name="dstv" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="welder">Welder Service</label> <span><input type="checkbox" id="welder" name="welder" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
                     <p> <input type="submit" value="Submit" style="width: 138px; font-weight: 500; color: black; margin-top: 100px;" > </p>
                 </form>
 

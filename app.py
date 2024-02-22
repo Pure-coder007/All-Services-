@@ -413,12 +413,149 @@ def user_profile(user_id):
 
 
 
+def get_service(service):
+    connection  = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+
+    query = "SELECT * FROM workers WHERE service = %s"
+    cursor.execute(query, (service,))
+
+    worker = cursor.fetchall()
+    cursor.close()
+    connection.close()
+
+    if worker:
+        print(worker, 'worker')
+        return worker
+    else:
+        print('no record found')
+        return {}
+
+
+
 
 @app.route('/user_index/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def user_index(user_id):
         user = user_profile(user_id)
         print(user)
+
+        if request.method == 'POST':
+            ac_gas_filling = request.form.get('ac_gas_filling', '')
+            ac_repair_and_installation = request.form.get('ac_repair_and_installation', '')
+            refrigerator_repair = request.form.get('refrigerator_repair', '')
+            auto_repair = request.form.get('auto_repair', '')
+            car_ac_repair = request.form.get('car_ac_repair', '')
+            car_rewire = request.form.get('car_rewire', '')
+            barber = request.form.get('barber', '')
+            hair_stylist = request.form.get('hair_stylist', '')
+            human_hair = request.form.get('human_hair', '')
+            nail_technician = request.form.get('nail_technician', '')
+            pedicure_manicure = request.form.get('pedicure_manicure', '')
+            catering_service = request.form.get('catering_service', '')
+            plumber = request.form.get('plumber', '')
+            laundry_service = request.form.get('laundry_service', '')
+            dispatch_rider = request.form.get('dispatch_rider', '')
+            electrical = request.form.get('electrical', '')
+            generator = request.form.get('generator', '')
+            haulage = request.form.get('haulage', '')
+            painter = request.form.get('painter', '')
+            photographer = request.form.get('photographer', '')
+            event = request.form.get('event', '')
+            cosmetic = request.form.get('cosmetic', '')
+            taxi_service = request.form.get('taxi_service', '')
+            personal_trainer = request.form.get('personal_trainer', '')
+            elderly_care = request.form.get('elderly_care', '')
+            dstv = request.form.get('dstv', '')
+            welder = request.form.get('welder', '')
+
+
+            if ac_gas_filling:
+                print(ac_gas_filling, 'jih')
+                work = get_service('ac_gas_filling')
+            
+            if ac_repair_and_installation:
+                work = get_service('ac_repair_and_installation')
+            
+            if refrigerator_repair:
+                work = get_service('refrigerator_repair')
+            
+            if auto_repair:
+                work = get_service('auto_repair')
+            
+            if car_ac_repair:
+                work = get_service('car_ac_repair')
+            
+            if car_rewire:
+                work = get_service('car_rewire')
+            
+            if barber:
+                work = get_service('barber')
+            
+            if hair_stylist:
+                work = get_service('hair_stylist')
+            
+            if human_hair:
+                work = get_service('human_hair')
+            
+            if nail_technician:
+                work = get_service('nail_technician')
+            
+            if pedicure_manicure:
+                work = get_service('pedicure_manicure')
+
+            if catering_service:
+                work = get_service('catering_service')
+            
+            if plumber:
+                work = get_service('plumber')
+
+            if laundry_service:
+                work = get_service('laundry_service')
+
+            if dispatch_rider:
+                work = get_service('dispatch_rider')
+
+            if electrical:
+                work = get_service('electrical')
+
+            if generator:
+                work = get_service('generator')
+
+            if haulage:
+                work = get_service('haulage')
+
+            if painter:
+                work = get_service('painter')
+
+
+            if photographer:
+                work = get_service('photographer')
+
+            if event:
+                work = get_service('event')
+
+            if cosmetic:
+                work = get_service('cosmetic')
+
+            if taxi_service:
+                work = get_service('taxi_service')
+
+            if personal_trainer:
+                work = get_service('personal_trainer')
+
+            if elderly_care:
+                work = get_service('elderly_care')
+
+            if dstv:
+                work = get_service('dstv')
+
+            if welder:
+                work = get_service('welder')
+
+            
+
+
         return render_template("user_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
@@ -427,9 +564,27 @@ def user_index(user_id):
 
 
 
-@app.route("/services", methods=['GET', 'POST'])
+
+@app.route('/services', methods=['POST'])
 def services():
-    return render_template("services.html")
+    selected_services = request.form.getlist('services[]')
+
+    query = "SELECT * FROM workers WHERE service IN (%s)"
+    placeholders = ', '.join(['%s' for _ in selected_services])
+    full_query = query % placeholders
+    print(full_query, '111111111111111111111111111111111')
+
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor()
+    cursor.execute(full_query, selected_services)
+    workers = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    # Render the results
+    return render_template('services.html', workers=workers)
+
 
 
 
