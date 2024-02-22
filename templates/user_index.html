@@ -94,30 +94,57 @@
 
         
     </div>
-    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" >
+          <div class="modal-content" style="font-family: poppins; background-color: black;  width: 800px;">
+            <div class="modal-header" >
               <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
             </div>
-            <div class="modal-body">
-                <select name="category" id="options">
-                    <option>AC / Refrigeration Services  <i class="fa-solid fa-angle-up"></i></option>
-                    <option value="Ac Gas Filling">Ac Gas Filling</option>
-                    <option value="Ac Repair And Installation">Ac Repair And Installation</option>
-                    <option value="Refrigerator Repair">Refrigerator Repair</option>
-                    <option value="Freezer Repair">Freezer Repair</option>
-                    <option value="Water Dispenser">Water Dispenser</option>
-                    <option value="Coldroom Servicing">Coldroom Servicing</option>
-                </select>
+            <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 800px; ">
+            
+                <form action="/user_index" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px;">
+                    <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none">
+                    <p><label for="">AC Gas Filling</label> <span><input type="checkbox" id="ac_gas_filling" name="ac_gas_filling" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Refrigerator Repair</label> <span><input type="checkbox" id="refrigerator_repair" name="refrigerator_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Auto Repair</label> <span><input type="checkbox" id="auto_repair" name="auto_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Car AC Repair</label> <span><input type="checkbox" id="car_ac_repair" name="car_ac_repair "style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Car Rewire</label> <span><input type="checkbox" id="car_rewire" name="car_rewire" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Barber</label> <span><input type="checkbox" id="barber" name="barber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Hair Stylist</label> <span><input type="checkbox" id="hair_stylist" name="hair_stylist" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Human Hair</label> <span><input type="checkbox" id="human_hair" name="human_hair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Nail Technician</label> <span><input type="checkbox" id="nail_technician" name="nail_technician" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Pedicure / Manicure</label> <span><input type="checkbox" id="pedicure_manicure" name="pedicure_manicure" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Catering Service</label> <span><input type="checkbox" id="catering_service" name="catering_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Laundry Service</label> <span><input type="checkbox" id="laundry_service" name="laundry_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Dispatch Rider</label> <span><input type="checkbox" id="dispatch_rider" name="dispatch_rider" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Electrical / Inverter Services</label> <span><input type="checkbox" id="electrical" name="electrical" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Generator Services</label> <span><input type="checkbox" id="generator" name="generator" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Haulage / Movers</label> <span><input type="checkbox" id="haulage" name="haulage" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Painter / Screeder</label> <span><input type="checkbox" id="painter" name="painter" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Photographer / Video</label> <span><input type="checkbox" id="photographer" name="photographer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Plumbing Services</label> <span><input type="checkbox" id="plumber" name="plumber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Event Planning</label> <span><input type="checkbox" id="event" name="event" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Cosmetic Service</label> <span><input type="checkbox" id="cosmetic" name="cosmetic" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Taxi Service</label> <span><input type="checkbox" id="taxi_service" name="taxi_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Personal Trainer</label> <span><input type="checkbox" id="personal_trainer" name="personal_trainer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Elderly Care Service</label> <span><input type="checkbox" id="elderly_care" name="elderly_care" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">DSTV / CCTV</label> <span><input type="checkbox" id="dstv" name="dstv" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p><label for="">Welder Service</label> <span><input type="checkbox" id="welder" name="welder" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
+                    <p> <input type="submit" value="Submit" style="width: 138px; font-weight: 500; color: black; margin-top: 100px;" > </p>
+                </form>
+
+
+
             </div>
+                
             <div class="modal-footer">
             </div>
           </div>
         </div>
       </div>
-      <center><button class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal" style="margin-top: 50px; background-color:rgb(72, 72, 242); padding: 15px 20px; font-weight: 400; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; width: 250px;">
+      <center><button class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal" style="margin-top: 50px; background-color:rgb(72, 72, 242); padding: 15px 20px; font-weight: 400; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; width: 250px; border-radius: 10px;">
         Select  Services
     </button></center>
 
