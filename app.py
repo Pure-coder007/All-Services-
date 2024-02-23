@@ -214,13 +214,15 @@ def signup_worker():
             address = request.form['address']
             company = request.form['company']
             service = request.form['service']
+            description = request.form['description']
+            rate = request.form['rate']
             work_pic1 = request.files['work_pic1']
             work_pic2 = request.files['work_pic2']
             work_pic3 = request.files['work_pic3']
 
-            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3)
+            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
 
-            if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address or not company or not service or not work_pic1 or not work_pic2 or not work_pic3:
+            if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address or not company or not service or not work_pic1 or not work_pic2 or not work_pic3 or not description or not rate:
                 flash('Please fill in all fields', 'danger')
 
             if get_worker(email):
@@ -247,7 +249,7 @@ def signup_worker():
                 response = cloudinary.uploader.upload(work_pic3, public_id=f"workers/{filename}")
                 work_pic3 = response['secure_url']
             
-            add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3)
+            add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service,  description, rate, work_pic1, work_pic2, work_pic3)
             connection.commit()
 
             # Generate OTP and send verification email
@@ -454,6 +456,8 @@ def user_index(user_id):
 
         all_workers = list({worker['id']: worker for worker in service_results}.values())
         print(all_workers, 'all workerssssssssssssssssssss')
+        session['all_workers'] = all_workers
+        return redirect(url_for('services'))
 
 
 
@@ -467,23 +471,10 @@ def user_index(user_id):
 
 
 
-@app.route('/services', methods=['POST'])
+@app.route('/services', methods=['GET'])
 def services():
-    selected_services = request.form.getlist('services[]')
-
-    query = "SELECT * FROM workers WHERE service IN (%s)"
-    placeholders = ', '.join(['%s' for _ in selected_services])
-    full_query = query % placeholders
-    print(full_query, '111111111111111111111111111111111')
-
-    connection = mysql.connector.connect(**config)
-    cursor = connection.cursor()
-    cursor.execute(full_query, selected_services)
-    workers = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
+    workers = session.get('all_workers')
+    print(workers, '3333333333333333333333333333333333333')
     # Render the results
     return render_template('services.html', workers=workers)
 

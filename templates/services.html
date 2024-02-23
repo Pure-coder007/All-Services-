@@ -1,4 +1,23 @@
 {% extends "layout.html" %}
 
 {% block content %}
+ {% for worker in workers %}
+    <a href="">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ worker['name'] }}</h5>
+                <h5 class="card-title">{{ worker['email'] }}</h5>
+                <h5 class="card-title">{{ worker['phone_number'] }}</h5>
+                <h5 class="card-title">{{ worker['address'] }}</h5>
+                <h5 class="card-title">{{ worker['profile_pic'] }}</h5>
+                <h5 class="card-title">{{ worker['work_pic1'] }}</h5>
+                <h5 class="card-title">{{ worker['work_pic2'] }}</h5>
+                <h5 class="card-title">{{ worker['work_pic3'] }}</h5>
+                <h5 class="card-title">{{ worker['description'] }}</h5>
+                <h5 class="card-title">{{ worker['rate'] }}</h5>
+                </div>
+        </div>
+    </a>
+{% endfor %}
 {% endblock content %}

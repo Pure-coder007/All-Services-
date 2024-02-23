@@ -61,7 +61,7 @@ class User(UserMixin):
 
 
 class Worker(UserMixin):
-    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3):
+    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3):
         self.id = id
         self.name = name
         self.email = email
@@ -74,6 +74,8 @@ class Worker(UserMixin):
         self.address = address
         self.company = company
         self.service = service
+        self.description = description
+        self.rate = rate
         self.work_pic1 = work_pic1
         self.work_pic2 = work_pic2
         self.work_pic3 = work_pic3
@@ -134,11 +136,11 @@ def add_user(name, email, password, profile_pic, phone_number, country, state, l
 
 
 
-def add_worker(name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3):
+def add_worker(name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO workers (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )', (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, work_pic1, work_pic2, work_pic3))
+        cursor.execute('INSERT INTO workers (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s , %s , %s )', (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3))
         connection.commit()
         cursor.close()
         connection.close()
