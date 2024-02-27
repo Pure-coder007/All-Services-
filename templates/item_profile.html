@@ -48,12 +48,12 @@
     </div>
 
     <div style="height: auto;">
-        <div class="sidebar" style="width: 350px; height: auto; background-color: rgb(226, 224, 223); border-radius: 5px; position: absolute; float: right; right: 0; margin-right: 10px; top: 0; margin-top: 165px;">
+        <div class="sidebar" style="width: 350px; height: auto; background-color: rgb(226, 224, 223); border-radius: 5px; position: absolute; float: right; right: 0; margin-right: 10px; top: 0; margin-top: 126px;">
             <div style="margin-left: 20px; margin-top: 10px;">
-                    <h2 style="color: rgb(9, 178, 9);"><strong>&#x20A6; {{ worker['rate'] }}</strong></h2>
-                    <p style="font-family: poppins; font-size: 25px;" ><img src="{{ worker['profile_pic'] }}" alt="" style="width: 50px; height: 50px; border-radius: 50%;">  &nbsp; {{ worker['username'] }}</p>
+                    <h2 style="color: rgb(9, 178, 9); font-weight: 600;">&#x20A6; {{ worker['rate'] }}</h2>
+                    <p style="font-family: poppins; font-size: 25px; font-weight: 600;"  ><img src="{{ worker['profile_pic'] }}" alt="" style="width: 50px; height: 50px; border-radius: 50%;">  &nbsp; {{ worker['name'] }}</p>
                     <div class="dropdown">
-                        <br>
+                        
                         <button class="btn btn-secondary dropdown-toggle contact" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: poppins; background-color: crimson; color: white;">
                             <i class="fa-solid fa-phone-volume"></i> &nbsp; Show {{ worker['name'] }} Contact
                         </button>
@@ -88,7 +88,7 @@
             
 
         </div>
-    </div>
+    </div><br><br><br>
 
 
 

@@ -45,7 +45,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{ url_for('home')}}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
          
@@ -97,14 +97,14 @@
     </div>
     <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog" >
-          <div class="modal-content" style="font-family: poppins; background-color: black;  width: 800px;">
+          <div class="modal-content" style="font-family: poppins; background-color: black;  width: 800px; margin-right: 700px; margin-left: -170px; height: 50px; ">
             <div class="modal-header" >
               <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
             </div>
-            <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 800px; ">
+            <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr);">
             
-                <form action="{{ url_for('user_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px;">
+                <form action="{{ url_for('user_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px; ">
                     <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none">
                     <p><label for="ac_gas_filling">AC Gas Filling</label> <span><input type="checkbox" id="ac_gas_filling" name="ac_gas_filling" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
                     <p><label for="ac_repair_and_installation">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
