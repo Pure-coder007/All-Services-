@@ -79,6 +79,7 @@ class Worker(UserMixin):
         self.work_pic1 = work_pic1
         self.work_pic2 = work_pic2
         self.work_pic3 = work_pic3
+       
 
         
 

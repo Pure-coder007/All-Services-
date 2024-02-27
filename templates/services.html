@@ -1,23 +1,132 @@
 {% extends "layout.html" %}
 
 {% block content %}
- {% for worker in workers %}
-    <a href="">
+<div class="container " data-aos="fade-up" style="margin-top: 50px; margin-bottom: 50px;" >
 
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ worker['name'] }}</h5>
-                <h5 class="card-title">{{ worker['email'] }}</h5>
-                <h5 class="card-title">{{ worker['phone_number'] }}</h5>
-                <h5 class="card-title">{{ worker['address'] }}</h5>
-                <h5 class="card-title">{{ worker['profile_pic'] }}</h5>
-                <h5 class="card-title">{{ worker['work_pic1'] }}</h5>
-                <h5 class="card-title">{{ worker['work_pic2'] }}</h5>
-                <h5 class="card-title">{{ worker['work_pic3'] }}</h5>
-                <h5 class="card-title">{{ worker['description'] }}</h5>
-                <h5 class="card-title">{{ worker['rate'] }}</h5>
+    <header class="section-header">
+        <center>
+            <h2>Available Services</h2>
+        </center>
+    </header>
+
+    <div class="testimonials-slider swiper-container " data-aos="fade-up" data-aos-delay="200">
+      <div class="swiper-wrapper grid-container">
+        {% for worker in workers %}
+        <!-- <div class="swiper-slide"> -->
+          <div class="testimonial-item">
+            
+                <a href="" >
+                <div class="card " style="width: 335px; margin-top: 20px; margin-bottom: 30px;">
+                    <div class="card-body">
+                    <h5 class="card-title"><img src="{{ worker['profile_pic'] }}" alt="" style="width: 300px; height: 300px; border-radius: 5px;"></h5>
+                    <h5 class="card-title" style="color: rgb(28, 181, 28);"><strong><i class="fa-solid fa-naira-sign"></i>&nbsp; {{ worker['rate'] }}</strong></h5>
+                    <h5 class="card-title" style="font-weight: 800;">{{ worker['company'] }}</h5>
+                    <h5 class="card-title" style="font-style: italic; color: crimson;">"{{ worker['description'] }}"</h5>
+                    <h4 class="card-title" style="font-size: 18px;"><i class="fa-solid fa-location-dot" style="color: rgb(100, 100, 239); ">&nbsp; </i>{{ worker['address'] }}</h4>
+                    </div>
                 </div>
-        </div>
-    </a>
-{% endfor %}
-{% endblock content %}
+                </a>
+            </div>
+        <!-- </div> -->
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+  </div>
+
+  <style>
+    .grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
+}
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.profile-pic:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.testimonial-item {
+  width: 100%;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+.testimonials-slider {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial-item {
+  margin: 10px; /* Adjust spacing between cards */
+}
+
+.card {
+  width: 335px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for transform and box-shadow property */
+}
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Move card up on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+}
+
+@media (min-width: 768px) {
+  .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px; /* Adjust the gap as needed */
+    justify-content: unset;
+  }
+}
+
+
+  </style>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  // Initialize Swiper
+  var swiper = new Swiper('.testimonials-slider', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    // Add fade effect
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+  });
+</script>
+{% endblock %}

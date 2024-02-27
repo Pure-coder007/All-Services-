@@ -219,6 +219,7 @@ def signup_worker():
             work_pic1 = request.files['work_pic1']
             work_pic2 = request.files['work_pic2']
             work_pic3 = request.files['work_pic3']
+            
 
             print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
 
