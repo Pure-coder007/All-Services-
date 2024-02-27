@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="my-div"> 
+    
+    <div class="form-box"> 
+        <div class="textup"> 
+            <h3 style="margin-bottom: 20px;">Please Leave A Review</h3>
+        </div> 
+        <form class="my-form" action="{{ url_for('reviews', worker_id=worker['id']) }}" method="POST"> 
+            <label for="uname"> 
+                <i class="fa fa-solid fa-user"></i> 
+                Name 
+            </label> 
+            <input style="border: 1px thin rgb(109, 101, 56);"  type="text" id="uname" 
+                   name="name" required> 
+  
+            <label for="email"> 
+                <i class="fa fa-solid fa-envelope"></i> 
+                Email Address 
+            </label> 
+            <input style="border: 1px thin rgb(109, 101, 56);" type="email" id="email" 
+                   name="email" required> 
+  
+            <label for="phone"> 
+                <i class="fa-solid fa-phone"></i> 
+                Phone No 
+            </label> 
+            <input style="border: 1px thin rgb(109, 101, 56);" type="tel" id="phone" 
+                   name="phone" required> 
+  
+            <label> 
+                <i class="fa-solid fa-face-smile"></i> 
+                Do you satisfy with our service? 
+            </label> 
+            <div class="radio-group"> 
+                <input style="border: 1px thin rgb(109, 101, 56);" type="radio" id="yes" 
+                       name="satisfy" value="yes" checked> 
+                <label for="yes">Yes</label> 
+  
+                <input style="border: 1px thin rgb(109, 101, 56);" type="radio" id="no" 
+                       name="satisfy" value="no"> 
+                <label for="no">No</label> 
+            </div> 
+  
+            <label for="msg"> 
+                <i class="fa-solid fa-comments" 
+                   style="margin-right: 3px;"></i> 
+                Write your Suggestions: 
+            </label> 
+            <textarea id="msg" name="msg" 
+                      rows="4" cols="10" required> 
+            </textarea> 
+            <input type="hidden" name="worker_id" value="{{ worker_id }}">
+            <button class="my-btn" type="submit"> 
+                Submit 
+            </button> 
+        </form> 
+    </div> 
+</div> 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+
+
+<style>
+    /*style.css */
+@import url( 
+'https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
+
+.my-div { 
+	margin: 0;  
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	flex-direction: column;  
+	height: 100vh;   
+	 /* background-color: #bde5d2;   */
+	font-family: 'Poppins'; 
+
+}  
+
+#hamburger {
+    display: none;
+}
+
+.textup { 
+	text-align: center; 
+	color: rgb(54, 58, 54); 
+	font-weight: 700; 
+} 
+
+i { 
+	margin-right: 3px; 
+} 
+
+.form-box { 
+	background-color: #fff; 
+	box-shadow: 0 0 10px rgba(36, 67, 40, 0.8); 
+	padding: 15px; 
+	border-radius: 8px; 
+	width: 500px; 
+} 
+
+.my-form { 
+	max-width: 400px; 
+	margin: 0 auto; 
+} 
+
+.radio-group { 
+	display: flex; 
+	margin-bottom: 16px; 
+} 
+
+input[type="radio"] { 
+	margin-right: 8px; 
+} 
+
+label { 
+	display: block; 
+	margin-bottom: 8px; 
+	font-size: 17px; 
+	color: rgb(54, 56, 54); 
+	font-weight: 600; 
+} 
+
+input, 
+textarea { 
+	width: 100%; 
+	padding: 8px; 
+	margin-bottom: 12px; 
+	box-sizing: border-box; 
+	border-radius: 5px; 
+    border: 1px solid rgb(183, 182, 182);
+
+} 
+
+.my-btn { 
+	background-color: #368b44; 
+	color: #fff; 
+	padding: 10px; 
+	border: none; 
+	border-radius: 25px; 
+	cursor: pointer; 
+	width: 100%; 
+	font-size: 15px; 
+	transition: .2s linear; 
+} 
+
+.my-btn:hover { 
+	background-color: #0a6808; 
+	border: none; 
+	transform: translateY(-10px); 
+} 
+
+h1 { 
+	color: rgb(24, 24, 24); 
+}
+
+@media screen and (max-width: 500px) {
+    #hamburger{
+        display: none;
+    }
+
+    .form-box{
+        width: 400px !important;
+        height: auto !important;
+        margin-top: 25rem !important;
+        margin-bottom: 200px !important;
+    }
+
+    .footer{
+        margin-top: 200px !important;
+    }
+    
+}
+
+</style> 
+{% endblock content %}

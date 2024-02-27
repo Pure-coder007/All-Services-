@@ -60,6 +60,11 @@ def load_user(user_id):
     user = get_user_id(user_id)
     return user
 
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    flash("Login to access this page", category="info")
+    return redirect(url_for("login_for_user"))
+
 
 
 app.config.from_pyfile('config.py')
@@ -533,6 +538,88 @@ def item_profile(worker_id):
     print(worker)
     return render_template('item_profile.html', worker_id=worker_id, worker=worker)
 
+
+
+
+
+
+# Reviews 
+
+
+from datetime import datetime  # Import datetime module
+from datetime import datetime  # Import datetime module
+
+@app.route('/reviews/<int:worker_id>', methods=['GET', 'POST'])
+@login_required
+def reviews(worker_id):
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone')
+        satisfy = request.form.get('satisfy')
+        suggestions = request.form.get('msg')
+
+        # Get the current user ID
+        user_id = current_user.id
+
+        # Convert 'yes' and 'no' to boolean values
+        enjoy_service = 1 if satisfy == 'yes' else 0
+
+        # Save the data to the database
+        try:
+            connection = mysql.connector.connect(**config)
+            with connection.cursor() as cursor:
+                # Insert the data into the worker_reviews table
+                sql = """INSERT INTO worker_reviews (user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, created_at)
+                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+
+                cursor.execute(sql, (user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, datetime.now()))
+                connection.commit()
+
+                flash('Review submitted successfully', 'success')
+                return redirect(url_for('view_reviews', worker_id=worker_id)) 
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash('An error occurred while submitting the review', 'danger')
+
+        finally:
+            connection.close()
+        return redirect(url_for('reviews', worker_id=worker_id))
+
+    return render_template('reviews.html', current_user=current_user)
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+# View Reviews
+@app.route('/view_reviews/<int:worker_id>', methods=['GET', 'POST'])
+@login_required
+def view_reviews(worker_id):
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor()
+
+    query = "SELECT name, enjoy_service, suggestions, created_at FROM worker_reviews WHERE worker_id = %s ORDER BY created_at DESC"
+    cursor.execute(query, (worker_id,))
+
+    reviews = cursor.fetchall()
+    cursor.close()
+    connection.close()
+
+    # Convert the creatd format before passing it to the template
+    formatted_reviews = [(name, enjoy_service, suggestions, created_at.strftime('%Y %b %d') if created_at is not None else None) for name, enjoy_service, suggestions, created_at in reviews]
+    print(formatted_reviews)
+
+
+    return render_template('view_reviews.html', reviews=formatted_reviews, worker_id=worker_id)
 
 
 

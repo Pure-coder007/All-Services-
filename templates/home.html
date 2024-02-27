@@ -35,9 +35,10 @@
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+      <a href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}" class="logo d-flex align-items-center">
         <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
-        <span>ServiceHub</span>
+        <span>ServiceHub
+        </span>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -371,7 +372,7 @@
 
 
 
-    
+
 
     <!-- ======= Testimonials Section ======= -->
     <section id="testimonials" class="testimonials">

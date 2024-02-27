@@ -37,7 +37,9 @@
                 <p style="margin-left: 50px; color: rgb(123, 122, 122);"><span></span>Address:  {{ worker['address'] }}</p>
 
                 <button class="review" style="margin-left: 50px; padding: 10px 20px; background-color: none; color: rgb(8, 8, 8); border: none; cursor: pointer; border-radius: 5px; font-family: poppins; width: 246px; margin-top: 10px; border: 1px solid gold;">
-                    
+                    <a style="color: rgb(10, 10, 10);" href="{{ url_for('view_reviews', worker_id=worker['id'])}}">
+                      <i class="fa-solid fa-message"></i>&nbsp; &nbsp; View All Reviews
+                    </a>
                   </button>
                 <br>
                 <br>
@@ -48,7 +50,7 @@
     <div style="height: auto;">
         <div class="sidebar" style="width: 350px; height: auto; background-color: rgb(226, 224, 223); border-radius: 5px; position: absolute; float: right; right: 0; margin-right: 10px; top: 0; margin-top: 165px;">
             <div style="margin-left: 20px; margin-top: 10px;">
-                    <h2 style="color: rgb(9, 178, 9);">&#x20A6; {{ worker['rate'] }}</h2>
+                    <h2 style="color: rgb(9, 178, 9);"><strong>&#x20A6; {{ worker['rate'] }}</strong></h2>
                     <p style="font-family: poppins; font-size: 25px;" ><img src="{{ worker['profile_pic'] }}" alt="" style="width: 50px; height: 50px; border-radius: 50%;">  &nbsp; {{ worker['username'] }}</p>
                     <div class="dropdown">
                         <br>
@@ -70,11 +72,16 @@
                     </div>
                     <br>
                     
+                    <button class="video" style="padding-top: 10px; padding-bottom: 10px; background-color: crimson; color: white; border: none; cursor: pointer; border-radius: 5px; font-family: poppins; width: 246px; margin-top: 10px;"><a style="color: white;" href=""><i class="fa-solid fa-video"></i>&nbsp; &nbsp; Request For Video Call</a></button>
+                    <br>
+                    <br>
                    
 
                     <button class="review" id="leave" style="padding: 10px 20px; background-color: none; color: rgb(8, 8, 8); border: none; cursor: pointer; border-radius: 5px; font-family: poppins; width: 246px; margin-top: 10px; border: 1px solid gold;">
-                        
-                    </button>
+                        <a style="color: rgb(10, 10, 10);" href="{{ url_for('reviews', worker_id=worker['id'])}}">
+                            <i class="fa-solid fa-message"></i>&nbsp; &nbsp; Leave A Review
+                        </a>
+                    </button><br><br>
                     
 
             </div>

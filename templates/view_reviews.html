@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="review-container">
+    <div class="more" style="padding-left: 30px; padding-right: 30px;">
+        {% if reviews %}
+        <ul style="padding-left: 20px;">
+            {% for review in reviews %}
+            <li class="{{ 'enjoyed' if review[1] == '1' else 'not-enjoyed' }}" style="margin-bottom: 20px;">
+                <strong style="font-weight: 900;"><i class="fa-solid fa-user" style="border: 1px solid black; border-radius: 50%; padding: 5px; background-color: black; color: rgb(77, 69, 69);"></i> &nbsp;</strong> {{ review[0] }}<br>
+                <strong>Enjoyed Service?: </strong> {{ "Yes" if review[1] == "1" else "No" }}<br>
+                <strong>Suggestions:</strong> {{ review[2] }}<br>
+                <strong>Time Posted:</strong> {{ review[3] }}<br>
+                {% if review[1] == '1' %}
+                    <div class="emoji-container" >😊</div>
+                {% else %}
+                    <div class="emoji-container" >😕</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No reviews available for this Person.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .review-container {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+        flex-direction: column;
+        /* margin-left: 350px; */
+        height: auto;
+        /* width: 1000px; */
+        font-family: 'Poppins';
+        font-size: 20px;
+        /* border: 1px solid black; */
+        border-radius: 10px;
+        
+    }
+
+    .enjoyed {
+        background-color: rgb(103, 228, 137);
+        order: -1;
+        width: 50%;
+        padding-left: 20px;
+        width: 500px !important;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        position: relative;
+        width: 600px;
+        margin-right: 400px !important;
+        font-size: 15px;
+        
+    }
+
+    .not-enjoyed {
+        background-color: rgb(137, 41, 41);
+        width: 50%;
+        margin-left: 400px !important;
+        padding-left: 20px;
+        width: 400px;
+        position: relative;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        color: white;
+
+        font-size: 15px;
+       
+    }
+
+    .emoji-container {
+        font-size: 24px;
+    }
+
+    #hamburger {
+        display: none;
+    }
+
+     @media screen and (max-width: 768px) { 
+       
+        .enjoyed {
+            width: 350px !important;
+            height: auto !important;
+            margin-left: 380px;
+            font-size: 12px !important;
+        }
+
+        .emoji-container{
+            font-size: 12px !important;
+        }
+
+        .not-enjoyed{
+            width: 350px !important;
+            height: auto !important;
+            margin-right: 420px;
+            
+            font-size: 12px !important;
+        }
+        
+
+         /* ul{
+            margin: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 300px;
+
+        } */
+
+        
+    } 
+</style>
+
+{% endblock %}
