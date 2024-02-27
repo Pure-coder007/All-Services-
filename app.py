@@ -588,7 +588,7 @@ def reviews(worker_id):
             connection.close()
         return redirect(url_for('reviews', worker_id=worker_id))
 
-    return render_template('reviews.html', current_user=current_user)
+    return render_template('reviews.html', current_user=current_user, worker_id=worker_id)
 
 
 
