@@ -484,5 +484,58 @@ def services():
 
 
 
+# View Worker profile
+def get_worker_id(worker_id):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        query = "SELECT id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3 FROM workers WHERE id = %s"
+        cursor.execute(query, (worker_id,))
+
+        worker = cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+
+        if worker:
+            return{
+                'id': worker[0],
+                'name': worker[1],
+                'email': worker[2],
+                'password': worker[3],
+                'profile_pic': worker[4],
+                'phone_number': worker[5],
+                'country': worker[6],
+                'state': worker[7],
+                'local_govt': worker[8],
+                'address': worker[9],
+                'company': worker[10],
+                'service': worker[11],
+                'description': worker[12],
+                'rate': worker[13],
+                'work_pic1': worker[14],
+                'work_pic2': worker[15],
+                'work_pic3': worker[16]
+            }
+        else:
+            return {}
+    
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return {}
+    
+
+@app.route('/item_profile/<int:worker_id>')
+@login_required
+def item_profile(worker_id):
+    worker = get_worker_id(worker_id)
+    print(worker)
+    return render_template('item_profile.html', worker_id=worker_id, worker=worker)
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
