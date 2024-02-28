@@ -159,8 +159,18 @@ def signup_user():
 
             print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
 
+
+            special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
+            if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
+                flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
+                return redirect(url_for('signup_user'))
+
+
+
             if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address:
                 flash('Please fill in all fields', 'danger')
+
+            
 
             if get_user(email):
                 flash('Email already exists', 'danger')
@@ -225,6 +235,9 @@ def signup_worker():
             work_pic2 = request.files['work_pic2']
             work_pic3 = request.files['work_pic3']
             
+            special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
+            if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
+                flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
 
             print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
 

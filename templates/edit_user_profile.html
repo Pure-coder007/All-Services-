@@ -4,6 +4,8 @@
 
     <div class="profile">
 
+        <img src="{{ url_for('static', filename='/assets/img/update.jpg')}}" alt="" class="img1">
+
 
             <h2 style="font-weight: 800;">Update Profile</h2>
 
@@ -30,7 +32,7 @@
             <p> <label>Local Government<span>*</span> <br></label><br> <input type="text" name="local_govt" id="local_govt"  value="{{ current_user.local_govt }}"> </p>
 
             <p><label>Address<span>*</span> <br><input type="text" name="address" placeholder="Present Address" id="" value="{{ current_user.address }}" ></label></p>
-            <p> <input type="submit" value="Update Profile" style="width: 300px; font-weight: 700; color: black; background-color: rgb(64, 64, 249);" > </p>
+            <p> <input type="submit" value="Update Profile" style="width: 300px; font-weight: 500; color: black; background-color: rgb(64, 64, 249);" class="submit" > </p>
         </form>
     </div>
 
@@ -54,6 +56,21 @@
         label{
             font-weight: 800;
         }
+        .img1{
+        width: 550px;
+        height: 500px;
+        position: fixed;
+        margin-left: 200px;
+        margin-top: 10px;
+        left: 0;
+        z-index: -1;
+    }
+    
+    .submit:hover{
+        background-color: crimson !important;
+        color: white !important;
+        transition: 0.3s ease !important;
+    }
     </style>
 
 <script>

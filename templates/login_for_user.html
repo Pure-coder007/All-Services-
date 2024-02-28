@@ -15,7 +15,9 @@
             <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
             
             <label for="password">Password</label><br>
-            <input type="password" id="password" name="password" required placeholder="Enter Password"><br><br>
+            <input type="password" id="password" name="password" required placeholder="Enter Password"><br>
+            <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;">
+            <label for="showPasswordCheckbox" >View Password</label><br><br>
 
             <a href="" style="margin-top: 50px;">Forgot Password?</a>
             <br><br>
@@ -92,5 +94,16 @@
         margin-top: 30px;
     }
 </style>
+
+<script>
+    document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    });
+    </script>
 {% endblock content %}
 
