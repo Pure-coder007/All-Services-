@@ -190,3 +190,36 @@ def get_user_id(user_id):
         )
     
     return None
+
+
+
+
+def contact_me(name, email, subject, message):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        cursor.execute("INSERT INTO contacts (name, email, subject, message) VALUES (%s, %s, %s, %s)", (name, email, subject, message))
+        connection.commit()
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+    finally:
+        cursor.close()
+        connection.close()
+
+
+def update_user_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "UPDATE users SET name=%s, email=%s, phone_number=%s, country=%s, state=%s, local_govt=%s, address=%s, profile_pic=%s WHERE id=%s",(name, email, phone_number, country, state, local_govt, address, profile_pic, user_id)
+        )
+
+        connection.commit()
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+    finally:
+        cursor.close()
+        connection.close()

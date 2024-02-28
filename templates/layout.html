@@ -9,9 +9,9 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+  
+  <link href="{{ url_for('static', filename='/assets/img/logo11.jpg') }}" rel="icon">
+  <link href="{{ url_for('static', filename='/assets/img/logo11.jpg') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -45,10 +45,19 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('signup_user') }}{% endif %}">Explore</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
+
+          
+
+          {% if current_user.is_authenticated %}
+          <!-- Show "Profile" link when logged in -->
+          <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
+          <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
+          {% else %}
+              <!-- Show "Login / SignUp" when not logged in -->
+          {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -69,6 +78,27 @@
 
     {% block content %}
     {% endblock  content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer" style="z-index: 9999;">
@@ -159,6 +189,43 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+  <script>
+    ;
+    
+    
+            window.onload = function() {
+                // Your code here
+                document.getElementById('modal_button').click()
+        };
+        
+    </script>
+
+<script>
+
+
+    // function selectBtn() {
+    //     alert("Please update your profile and choose a payment plan.")  
+    // }
+
+    let btn = document.getElementsByClassName("btn--choose")
+           let card = document.getElementsByClassName("card")
+           for (let i = 0; i < btn.length; i++) {
+               btn[i].onclick = function () {
+                   var ele = card[0]
+                   while (ele) {
+                       if (ele.tagName == "DIV") {
+                           ele.classList.remove("active")
+                       }
+
+                       ele = ele.nextSibling
+                   }
+                   card[i].classList.add("active")
+
+               }
+           }
+</script>
 
   <!-- Vendor JS Files -->
   <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>

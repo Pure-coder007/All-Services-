@@ -47,11 +47,11 @@
         <ul>
           <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
          
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
           <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
@@ -63,6 +63,7 @@
 
     </div>
   </header><!-- End Header -->
+  <br><br><br><br>
   <br><br><br><br>
 
   {% with messages = get_flashed_messages(with_categories=true) %}

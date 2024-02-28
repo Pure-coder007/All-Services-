@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile
 
 import cloudinary
 import cloudinary.uploader
@@ -378,7 +378,40 @@ def login_for_worker():
 @app.route('/edit_user_profile', methods=['GET', 'POST'])
 @login_required
 def edit_user_profile():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        country = request.form['country']
+        state = request.form['state']
+        local_govt = request.form['local_govt'] 
+        address = request.form['address']
+        profile_pic = request.files['profile_pic']
+
+        user_id = current_user.id
+
+        try:
+            if profile_pic:
+                filename = secure_filename(profile_pic.filename)
+                response = cloudinary.uploader.upload(profile_pic, public_id=f"users/{user_id}/{filename}")
+                profile_pic_url = response['secure_url']
+
+                if get_user(email):
+                    flash('Email already exists', 'danger')
+                    return redirect(url_for('edit_user_profile'))
+                
+                update_user_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url)
+                flash('Profile updated successfully', 'success')
+                print(name, email, phone_number, country, state, local_govt, address, profile_pic_url, '///////////////////////////////')
+                return redirect(url_for('user_index', user_id=user_id))
+
+        except Exception as e:
+            print(f'Error: {e}')
+            flash('Error updating profile', 'danger')
     return render_template("edit_user_profile.html", current_user=current_user)
+
+
+
 
 
 
@@ -620,6 +653,53 @@ def view_reviews(worker_id):
 
 
     return render_template('view_reviews.html', reviews=formatted_reviews, worker_id=worker_id)
+
+
+
+
+
+
+
+
+
+
+
+from flask_wtf.csrf import generate_csrf
+
+
+# CONTACT ADMIN
+
+@app.route('/contact', methods=['GET', 'POST'])
+@login_required
+def contact():
+    try:
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            subject = request.form['subject']
+            message = request.form['message']
+
+            if not name:
+                flash('Your name is required', 'danger')
+            if not email:
+                flash('Your email is required', 'danger')
+            if not subject:
+                flash('This message needs a subject', 'danger')
+            if not message:
+                flash('Please include a message', 'danger')
+            print(name, email, subject, message)
+            contact_me(name, email, subject, message)
+            flash('Message Sent ', 'success')
+            # return redirect('user_index')  # Redirect to 'index_services' route
+        return render_template('contact.html')
+    except Exception as e:
+        print(e)
+        csrf_token = generate_csrf()
+        return render_template('contact.html', csrf_token=csrf_token, current_user=current_user)
+
+
+
+
 
 
 

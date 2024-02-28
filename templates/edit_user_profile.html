@@ -1,4 +1,67 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+    <div class="profile">
+
+
+            <h2 style="font-weight: 800;">Update Profile</h2>
+
+            <div class="profile-picture">
+                        
+                <img {% if current_user.profile_pic %} src="{{ current_user.profile_pic }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;">
+                
+
+            </div>
+            <form action="/edit_user_profile" method="POST" enctype="multipart/form-data"  style="margin-top: 20px;">
+                <input type="file" id="profilePicture" name="profile_pic" accept="image/*" class="d-none" value="{{ current_user.profile_pic }}">
+                
+
+            <p> <label>Name:</label><br> <input type="text" id="name" name="name"  value="{{ current_user.name }}"> </p>
+
+            <p> <label>Email address:</label><br> <input type="email" placeholder=" Email" name="email"  value="{{ current_user.email }}"  > </p>
+
+            <p> <label>Phone Number:</label> <br><input type="text" name="phone_number" placeholder="Phone" value="{{ current_user.phone_number }}"  > </p>
+            
+            <p> <label>Country<span>*</span></label> <br><input type="text" name="country" placeholder="Country" value="{{ current_user.country }}"> </p>
+
+            <p> <label>State<span>*</span></label> <br><input type="text" name="state" id="state"  value="{{ current_user.state }}"   > </p>
+
+            <p> <label>Local Government<span>*</span> <br></label><br> <input type="text" name="local_govt" id="local_govt"  value="{{ current_user.local_govt }}"> </p>
+
+            <p><label>Address<span>*</span> <br><input type="text" name="address" placeholder="Present Address" id="" value="{{ current_user.address }}" ></label></p>
+            <p> <input type="submit" value="Update Profile" style="width: 300px; font-weight: 700; color: black; background-color: rgb(64, 64, 249);" > </p>
+        </form>
+    </div>
+
+    <style>
+        .profile{
+            /* border: 1px solid red; */
+            width: 500px;
+            margin-left: 1000px;
+            padding-bottom: 100px;
+            margin-top: 50px;
+            font-family: poppins;
+        }
+
+        input{
+            width: 300px;
+            height: 50px;
+            border: 1px solid gainsboro;
+            border-radius: 10px;
+            padding-left: 10px;
+        }
+        label{
+            font-weight: 800;
+        }
+    </style>
+
+<script>
+    profile_icon = document.getElementById("display_picture");
+    profile_upload = document.getElementById("profilePicture");
+
+    profile_icon.addEventListener("click", function() {
+        profile_upload.click();
+    })
+</script>
 {% endblock content %}
