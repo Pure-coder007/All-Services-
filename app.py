@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker
 
 import cloudinary
 import cloudinary.uploader
@@ -350,7 +350,7 @@ def login_for_worker():
         try:
             cursor.execute('SELECT * FROM workers WHERE email = %s', (email,))
             user = cursor.fetchone()
-            print(user, '******************')
+            print(user, '99999999999999999')
             if user is not None:
                 user_id = user['id']
                 name = user['name']
@@ -367,10 +367,11 @@ def login_for_worker():
 
 
                 if sha256_crypt.verify(password,  stored_password):
-                    user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
+                    user = Worker(id=user_id, name=name, email=email, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
                     login_user(user)
                     flash('Login Successful', 'success')
-                    return redirect(url_for('user_index', user_id=user_id))
+                    print(user_id, 'user id', current_user.id, 'current user id', current_user, 'current user', name, 'email', email, 'password', password, 'profile_pic', profile_pic, 'phone_number', phone_number, 'country', country, 'state', state, 'local_govt', local_govt, 'address', address, '0000000000000000000000000')
+                    return redirect(url_for('worker_index', user_id=user_id))
                 else:
                     flash('Invalid Email or Password', 'danger')
                     return render_template('login_for_worker.html', current_user=current_user)
@@ -383,6 +384,13 @@ def login_for_worker():
         finally:
             cursor.close()
     return render_template('login_for_worker.html', current_user=current_user)
+
+
+
+
+
+
+
 
 
 
@@ -463,6 +471,48 @@ def user_profile(user_id):
     
     else:
         return {}
+    
+
+
+
+
+
+
+
+def worker_profile(user_id):
+    # try:
+    connection  = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+
+    query = "SELECT * FROM workers WHERE id = %s"
+    cursor.execute(query, (user_id,))
+
+    user = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if user:
+        # print(user, 'user')
+        return {
+            'name': user['name'],
+            'email': user['email'],
+            'profile_pic': user['profile_pic'],
+            'phone_number': user['phone_number'],
+            'country': user['country'],
+            'state': user['state'],
+            'local_govt': user['local_govt'],
+            'address': user['address'],
+            'service': user['service'],
+            'rate': user['rate'],
+            'company': user['company'],
+            'description': user['description'],
+            'work_pic1': user['work_pic1'],
+            'work_pic2': user['work_pic2'],
+            'work_pic3': user['work_pic3']
+        }
+    
+    else:
+        return {}
 
 
 
@@ -510,11 +560,38 @@ def user_index(user_id):
         print(all_workers, 'all workerssssssssssssssssssss')
         session['all_workers'] = all_workers
         return redirect(url_for('services'))
-
-
-
-
     return render_template("user_index.html", current_user=current_user, user=user, user_id=user_id)
+
+
+
+
+
+
+
+
+@app.route('/worker_index/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def worker_index(user_id):
+    user = worker_profile(user_id)
+    # print(user)
+
+    all_workers = []
+
+    if request.method == 'POST':
+        services = ['ac_gas_filling', 'ac_repair_and_installation', 'refrigerator_repair', 'auto_repair', 'car_ac_repair', 'car_rewire', 'barber', 'hair_stylist', 'human_hair', 'nail_technician', 'pedicure_manicure', 'catering_service', 'plumber', 'laundry_service', 'dispatch_rider', 'electrical', 'generator', 'haulage', 'painter', 'photographer', 'event', 'cosmetic', 'taxi_service', 'personal_trainer', 'elderly_care', 'dstv', 'welder']
+
+        service_results = []
+
+        for service in services:
+            if request.form.get(service):
+                workers = get_service(service)
+                service_results.extend(workers)
+
+        all_workers = list({worker['id']: worker for worker in service_results}.values())
+        print(all_workers, 'all workerssssssssssssssssssss')
+        session['all_workers'] = all_workers
+        return redirect(url_for('services'))
+    return render_template("worker_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
 

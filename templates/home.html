@@ -241,7 +241,7 @@
             <div class="row">
 
               <div class="col-lg-6">
-                <img src="{{ url_for('static', filename='/assets/img/driver.jpg') }}" class="img-fluid" alt="" style="height: 400px;">
+                <img src="{{ url_for('static', filename='/assets/img/driver.jpg') }}" class="img-fluid driver" alt="" style="height: 400px;">
               </div>
 
               <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
@@ -303,7 +303,7 @@
           <div class="row">
         
             <div class="col-xl-4 text-center" data-aos="fade-right" data-aos-delay="100">
-              <img src="{{ url_for('static', filename='/assets/img/features-3.png') }}" class="img-fluid p-4" alt="">
+              <img src="{{ url_for('static', filename='/assets/img/features.jpg') }}" class="img-fluid p-4" alt="" style="margin-left: 10px; margin-bottom: 10px;">
             </div>
         
             <div class="col-xl-8 d-flex content">
@@ -677,6 +677,16 @@
       </div>
     </div>
   </footer><!-- End Footer -->
+
+
+  <style>
+    @media screen and (max-width: 768px) {
+      .driver{
+        height: 200px !important;
+        margin-top: 10px !important;
+      }
+    }
+  </style>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

@@ -61,7 +61,7 @@ class User(UserMixin):
 
 
 class Worker(UserMixin):
-    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3):
+    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description=None, rate=None, work_pic1=None, work_pic2=None, work_pic3=None):
         self.id = id
         self.name = name
         self.email = email
