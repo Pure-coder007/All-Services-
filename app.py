@@ -436,6 +436,42 @@ def edit_user_profile():
 
 
 
+
+
+
+
+
+
+
+@app.route('/worker_profile', methods=['GET', 'POST'])
+@login_required
+def worker_profile():
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+
+        query = "SELECT * FROM workers WHERE id = %s"
+        cursor.execute(query, (current_user.id,))
+
+        worker = cursor.fetchone()
+        print(worker)
+
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(f'Error: {e}')
+        flash('Error fetching worker profile', 'danger')
+    return render_template("worker_profile.html", current_user=current_user, worker=worker)
+
+
+
+
+
+
+
+
+
+
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     logout_user()

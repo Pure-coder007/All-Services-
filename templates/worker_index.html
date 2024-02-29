@@ -37,7 +37,7 @@
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}" class="logo d-flex align-items-center">
+      <a href="{% if current_user.is_authenticated %}{{ url_for('worker_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}" class="logo d-flex align-items-center">
         <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
         <span>ServiceHub
         </span>
@@ -45,14 +45,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('worker_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
          
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
           <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
+          <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->
@@ -105,7 +105,7 @@
             </div>
             <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr);">
             
-                <form action="{{ url_for('user_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px; ">
+                <form action="{{ url_for('worker_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px; ">
                     <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none">
                     <p><label for="ac_gas_filling">AC Gas Filling</label> <span><input type="checkbox" id="ac_gas_filling" name="ac_gas_filling" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
                     <p><label for="ac_repair_and_installation">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
@@ -180,7 +180,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-5 col-md-12 footer-info">
-            <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+            <a href="{{ url_for('worker_index', user_id=current_user.id) }}" class="logo d-flex align-items-center">
               <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
               <span>ServiceHub</span>
             </a>
