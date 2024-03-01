@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id
 
 import cloudinary
 import cloudinary.uploader
@@ -58,7 +58,14 @@ login_manager.login_message_category = 'info'
 @login_manager.user_loader
 def load_user(user_id):
     user = get_user_id(user_id)
+    if not user:
+        worker_dict = get_worker_id(user_id)
+        if worker_dict:
+            user = Worker(**worker_dict)
     return user
+
+
+
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
@@ -345,30 +352,31 @@ def login_for_worker():
     if request.method == 'POST':
         email = request.form['email']   
         password = request.form['password']
+        print(email, '00000000333333333333333333333333')
         connection  = mysql.connector.connect(**config)
         cursor = connection.cursor(dictionary=True)
         try:
             cursor.execute('SELECT * FROM workers WHERE email = %s', (email,))
-            user = cursor.fetchone()
-            print(user, '99999999999999999')
-            if user is not None:
-                user_id = user['id']
-                name = user['name']
-                email = user['email']
-                stored_password = user['password']
-                profile_pic = user['profile_pic']
-                phone_number = user['phone_number']
-                country = user['country']
-                state = user['state']
-                local_govt = user['local_govt']
-                address = user['address']
-                company = user['company']
-                service = user['service']
+            worker = cursor.fetchone()
+            print(worker, '99999999999999999')
+            if worker is not None:
+                user_id = worker['id']
+                name = worker['name']
+                email = worker['email']
+                stored_password = worker['password']
+                profile_pic = worker['profile_pic']
+                phone_number = worker['phone_number']
+                country = worker['country']
+                state = worker['state']
+                local_govt = worker['local_govt']
+                address = worker['address']
+                company = worker['company']
+                service = worker['service']
 
 
                 if sha256_crypt.verify(password,  stored_password):
-                    user = Worker(id=user_id, name=name, email=email, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
-                    login_user(user)
+                    worker = Worker(id=user_id, name=name, email=email, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
+                    login_user(worker)
                     flash('Login Successful', 'success')
                     print(user_id, 'user id', current_user.id, 'current user id', current_user, 'current user', name, 'email', email, 'password', password, 'profile_pic', profile_pic, 'phone_number', phone_number, 'country', country, 'state', state, 'local_govt', local_govt, 'address', address, '0000000000000000000000000')
                     return redirect(url_for('worker_index', user_id=user_id))
@@ -399,6 +407,7 @@ def login_for_worker():
 @app.route('/edit_user_profile', methods=['GET', 'POST'])
 @login_required
 def edit_user_profile():
+    print(current_user.name, 'current user')
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -626,7 +635,7 @@ def worker_index(user_id):
         all_workers = list({worker['id']: worker for worker in service_results}.values())
         print(all_workers, 'all workerssssssssssssssssssss')
         session['all_workers'] = all_workers
-        return redirect(url_for('services'))
+        return redirect(url_for('worker_services'))
     return render_template("worker_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
@@ -642,6 +651,10 @@ def services():
     print(workers, '3333333333333333333333333333333333333')
     # Render the results
     return render_template('services.html', workers=workers)
+
+
+
+
 
 
 
@@ -696,6 +709,12 @@ def item_profile(worker_id):
     worker = get_worker_id(worker_id)
     print(worker)
     return render_template('item_profile.html', worker_id=worker_id, worker=worker)
+
+
+
+
+
+
 
 
 
@@ -822,6 +841,47 @@ def contact():
         print(e)
         csrf_token = generate_csrf()
         return render_template('contact.html', csrf_token=csrf_token, current_user=current_user)
+    
+
+
+
+
+
+# # WORKER CONTACT ADMIN
+# @app.route('/worker_contact', methods=['GET', 'POST'])
+# @login_required
+# def worker_contact():
+#     try:
+#         if request.method == 'POST':
+#             name = request.form['name']
+#             email = request.form['email']
+#             subject = request.form['subject']
+#             message = request.form['message']
+
+#             if not name:
+#                 flash('Your name is required', 'danger')
+#             if not email:
+#                 flash('Your email is required', 'danger')
+#             if not subject:
+#                 flash('This message needs a subject', 'danger')
+#             if not message:
+#                 flash('Please include a message', 'danger')
+#             print(name, email, subject, message)
+#             contact_me(name, email, subject, message)
+#             flash('Message Sent ', 'success')
+#             # return redirect('user_index')  # Redirect to 'index_services' route
+#         return render_template('worker_contact.html')
+#     except Exception as e:
+#         print(e)
+#         csrf_token = generate_csrf()
+#         return render_template('worker_contact.html', csrf_token=csrf_token, current_user=current_user)
+    
+
+
+@app.route('/payment', methods=['GET', 'POST'])
+def payment():
+    pass
+    return render_template('payment.html', current_user=current_user)
 
 
 

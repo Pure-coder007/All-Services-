@@ -4,7 +4,7 @@
     <form action="/contact" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
-
+        <p>{{current_user.name}}</p>
         <h1 style="text-align: center; justify-content: center ; align-items: center; font-weight: 900;">GET IN TOUCH</h1>
         <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-phone"></i> Phone: <span style="color: crimson;">+234 814 010 4671</span></p>
         <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-envelope"></i> Email: <span>kingsleydike348@gmail.com</span></p>

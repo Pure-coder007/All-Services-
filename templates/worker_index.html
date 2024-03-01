@@ -51,8 +51,9 @@
          
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
-          <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('worker_contact')}}">Contact</a></li>
           <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
+          <p>{{ current_user.name }}</p>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->

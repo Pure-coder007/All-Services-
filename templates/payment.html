@@ -37,7 +37,7 @@
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="{% if current_user.is_authenticated %}{{ url_for('worker_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}" class="logo d-flex align-items-center">
+      <a href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}" class="logo d-flex align-items-center">
         <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
         <span>ServiceHub
         </span>
@@ -45,14 +45,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('worker_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('home') }}{% endif %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
          
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
-          <li><a class="nav-link scrollto" href="{{ url_for('worker_contact')}}">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
+          <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
           <p>{{ current_user.name }}</p>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
@@ -65,7 +65,7 @@
     </div>
   </header><!-- End Header -->
   <br><br><br><br>
-  <!-- <br><br><br><br> -->
+  <br><br><br><br>
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -80,103 +80,97 @@
     {% block content %}
     {% endblock  content %}
 
-    <br>
-    <br>
+    
 
-    <div class="profile">
-        <div class="first">
-                <p>{{ current_user.name  }}</p>
-            <img src="{{ worker['profile_pic'] }}" alt="" class="pic">
-            <h3>{{ worker['name'] }}</h3>
-            <p>{{ worker['phone_number'] }}</p>
-        </div>
-    
-        <div class="second">
-            <div class="picture" style="display: flex; height: 170px;">
-                <div class="third">
-                    <img src="{{ worker['profile_pic'] }}" alt="" class="inside"><br><br>
-                    <a href="#" style="color: rgb(36, 241, 36); font-size: 10px; margin-left:  10px; margin-top: 30px; font-size: 15px;">Edit</a>
-                </div>
-    
-                <div class="sub" style="line-height: 20px; margin-top: 20px; margin-left: 5px; font-size: 12px;" >
-                    <span>{{ worker['rate'] }}</span><br>
-                    <span><strong>{{ worker['service'] }}s</strong></span><br>
-                    <span style="color: rgb(36, 241, 36);"><strong> Active</strong></span><br>
-                </div>
+    <section id="pricing" class="pricing">
+
+        <div class="container" data-aos="fade-up">
+  
+          <header class="section-header">
+            <h2>Pricing</h2>
+            <p>Check our Pricing</p>
+          </header>
+  
+          <div class="row gy-4" data-aos="fade-left">
+  
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+              <div class="box">
+                <h3 style="color: #07d5c0;">Free Plan</h3>
+                <div class="price"><sup>$</sup>0<span> / mo</span></div>
+                <img src="assets/img/pricing-free.png" class="img-fluid" alt="">
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li class="na">Pharetra massa</li>
+                  <li class="na">Massa ultricies mi</li>
+                </ul>
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
             </div>
+  
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+              <div class="box">
+                <span class="featured">Featured</span>
+                <h3 style="color: #65c600;">Starter Plan</h3>
+                <div class="price"><sup>$</sup>19<span> / mo</span></div>
+                <img src="assets/img/pricing-starter.png" class="img-fluid" alt="">
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li class="na">Massa ultricies mi</li>
+                </ul>
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+              <div class="box">
+                <h3 style="color: #ff901c;">Business Plan</h3>
+                <div class="price"><sup>$</sup>29<span> / mo</span></div>
+                <img src="assets/img/pricing-business.png" class="img-fluid" alt="">
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li>Massa ultricies mi</li>
+                </ul>
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+              <div class="box">
+                <h3 style="color: #ff0071;">Ultimate Plan</h3>
+                <div class="price"><sup>$</sup>49<span> / mo</span></div>
+                <img src="assets/img/pricing-ultimate.png" class="img-fluid" alt="">
+                <ul>
+                  <li>Aida dere</li>
+                  <li>Nec feugiat nisl</li>
+                  <li>Nulla at volutpat dola</li>
+                  <li>Pharetra massa</li>
+                  <li>Massa ultricies mi</li>
+                </ul>
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+  
+          </div>
+  
         </div>
-    </div>
+  
+      </section><!-- End Pricing Section -->
+  
+
+        
+
+    <br><br>
+
     
-    <style>
-        .profile{
-            display: flex;
-            /* justify-content: space-between; */
-            /* padding: 30px; */
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: 100px;
-            font-family: poppins;
-        }
-    
-        .first{
-            border: 1px solid red;
-            width: 300px;
-            height: 700px;
-            border-radius: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        .second{
-            /* border: 1px solid blue; */
-            width: 1000px;
-            height: 520px;
-            margin-left: 50px;
-            border-radius: 10px;
-            background-color: rgb(244, 244, 244);
-    
-        }
-    
-        .pic{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-left: 115px;
-            margin-top: 50px;
-        }
-    
-         h3, p{
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        h3{
-            margin-top: 10px;
-        }
-    
-        p{
-            margin-top: 10px;
-        }
-    
-        .picture{
-            width: 400px;
-            height: 150px;
-            border-radius: 5px;
-            margin-left: 100px;
-            margin-top: 100px;
-            border: 1px solid rgb(174, 173, 173);
-        }
-    
-        .inside{
-            width: 110px;
-            height: 110px;
-            left: 0;
-            margin-left: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-    </style>
+
 
     
 
@@ -203,7 +197,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-5 col-md-12 footer-info">
-            <a href="{{ url_for('worker_index', user_id=current_user.id) }}" class="logo d-flex align-items-center">
+            <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
               <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
               <span>ServiceHub</span>
             </a>

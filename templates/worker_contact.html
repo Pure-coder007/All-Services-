@@ -51,9 +51,8 @@
          
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
-          <li><a class="nav-link scrollto" href="{{ url_for('worker_contact')}}">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
           <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
-          <p>{{ current_user.name }}</p>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->
@@ -64,7 +63,7 @@
 
     </div>
   </header><!-- End Header -->
-  <br><br><br><br>
+  <br><br>
   <!-- <br><br><br><br> -->
 
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -80,103 +79,49 @@
     {% block content %}
     {% endblock  content %}
 
-    <br>
-    <br>
+    
 
-    <div class="profile">
-        <div class="first">
-                <p>{{ current_user.name  }}</p>
-            <img src="{{ worker['profile_pic'] }}" alt="" class="pic">
-            <h3>{{ worker['name'] }}</h3>
-            <p>{{ worker['phone_number'] }}</p>
-        </div>
+
+    <div class="contact" style="width: 900px; height: auto; margin-left: 400px; margin-top: 50px;">
+        <form action="/worker_contact" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     
-        <div class="second">
-            <div class="picture" style="display: flex; height: 170px;">
-                <div class="third">
-                    <img src="{{ worker['profile_pic'] }}" alt="" class="inside"><br><br>
-                    <a href="#" style="color: rgb(36, 241, 36); font-size: 10px; margin-left:  10px; margin-top: 30px; font-size: 15px;">Edit</a>
-                </div>
-    
-                <div class="sub" style="line-height: 20px; margin-top: 20px; margin-left: 5px; font-size: 12px;" >
-                    <span>{{ worker['rate'] }}</span><br>
-                    <span><strong>{{ worker['service'] }}s</strong></span><br>
-                    <span style="color: rgb(36, 241, 36);"><strong> Active</strong></span><br>
+            <h1 style="text-align: center; justify-content: center ; align-items: center; font-weight: 900;">GET IN TOUCH</h1>
+            <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-phone"></i> Phone: <span style="color: crimson;">+234 814 010 4671</span></p>
+            <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-envelope"></i> Email: <span>kingsleydike348@gmail.com</span></p>
+            <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-location-dot" style="color: rgb(88, 88, 246);"></i> Address: <span>4b Idowu Martins Victoria Island Lagos</span></p>
+            <div class="first"  style="margin-left: 50px;">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" placeholder="Name" required><br><br>
+                <label for="email">Email</label><br>
+                <input type="email" name="email" id="email" placeholder="Email"><br><br>
+                <label for="subject">Subject</label><br>
+                <input type="text" name="subject" id="subject" placeholder="Subject" required><br><br>
+                <div class="second" style="margin-left: 400px; margin-top: -295px; height: 400px;">
+                    <label for="message">Message</label><br>
+                    <textarea name="message" id="message" cols="40" rows="10" style="border: 1px solid gainsboro; padding-left: 10px; border-radius: 10px;" required ></textarea>
                 </div>
             </div>
-        </div>
+            
+            <button type="submit" style="position: absolute; top: 0; margin-top: 580px; margin-left: 360px; background-color: red; color: white; padding: 5px; border: none; border-radius: 5px;">SEND MESSAGE</button>
+        </form>
     </div>
     
     <style>
-        .profile{
-            display: flex;
-            /* justify-content: space-between; */
-            /* padding: 30px; */
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: 100px;
-            font-family: poppins;
-        }
-    
-        .first{
-            border: 1px solid red;
-            width: 300px;
-            height: 700px;
+        input{
+            width: 350px;
+            height: 50px;
             border-radius: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        .second{
-            /* border: 1px solid blue; */
-            width: 1000px;
-            height: 520px;
-            margin-left: 50px;
-            border-radius: 10px;
-            background-color: rgb(244, 244, 244);
-    
-        }
-    
-        .pic{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-left: 115px;
-            margin-top: 50px;
-        }
-    
-         h3, p{
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        h3{
-            margin-top: 10px;
-        }
-    
-        p{
-            margin-top: 10px;
-        }
-    
-        .picture{
-            width: 400px;
-            height: 150px;
-            border-radius: 5px;
-            margin-left: 100px;
-            margin-top: 100px;
-            border: 1px solid rgb(174, 173, 173);
-        }
-    
-        .inside{
-            width: 110px;
-            height: 110px;
-            left: 0;
-            margin-left: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
+            border: 1px solid gainsboro;
+            padding-left: 10px;
         }
     </style>
+
+    
+    
+
+    
+
 
     
 

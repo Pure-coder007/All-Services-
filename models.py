@@ -192,6 +192,39 @@ def get_user_id(user_id):
     return None
 
 
+def get_worker_id(user_id):
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM workers WHERE id=%s', (user_id,))
+    user_record = cursor.fetchone()
+    
+    cursor.close()
+    connection.close()
+
+    if user_record:
+        return User(
+            id=user_record['id'],
+            name=user_record['name'],
+            email=user_record['email'],
+            password=user_record['password'],
+            profile_pic=user_record['profile_pic'],
+            phone_number=user_record['phone_number'],
+            country=user_record['country'],
+            state=user_record['state'],
+            local_govt=user_record['local_govt'],
+            address=user_record['address'],
+            company=user_record['company'],
+            service=user_record['service'],
+            description=user_record['description'],
+            rate=user_record['rate'],
+            work_pic1=user_record['work_pic1'],
+            work_pic2=user_record['work_pic2'],
+            work_pic3=user_record['work_pic3']         
+
+        )
+    
+    return None
+
 
 
 def contact_me(name, email, subject, message):
