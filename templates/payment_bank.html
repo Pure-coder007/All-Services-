@@ -113,13 +113,56 @@
         <br>
         <a href="{{ url_for('payment') }}" class="back">Go Back</a> 
         <span>
-            <input type="submit" value="Submit"  style="padding: 10px; background:transparent; border-radius: 10px; margin-left: 30px; width: 150px; height: 50px; border: none;" class="submit">
+            <input type="submit" value="Submit"  style="padding: 10px; background:transparent; border-radius: 10px; margin-left: 30px; width: 150px; height: 50px; border: none;" class="submit"  class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal">
         </span>
     </div>
+
+
+
+    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please choose your payment plan for this category
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ><a href="" style="color: white; text-decoration: none;">Pay With Card</a></button>
+              <button type="button" class="btn btn-danger" id="rook2" ><a href="" style="color: white; text-decoration: none;">Pay Through Bank</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
     
 
     
 <br><br>
+<script>
+
+
+   
+
+    let btn = document.getElementsByClassName("btn--choose")
+           let card = document.getElementsByClassName("card")
+           for (let i = 0; i < btn.length; i++) {
+               btn[i].onclick = function () {
+                   var ele = card[0]
+                   while (ele) {
+                       if (ele.tagName == "DIV") {
+                           ele.classList.remove("active")
+                       }
+
+                       ele = ele.nextSibling
+                   }
+                   card[i].classList.add("active")
+
+               }
+           }
+</script>
+
 
 
 <script>
