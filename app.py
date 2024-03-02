@@ -885,6 +885,12 @@ def payment():
 
 
 
+@app.route('/payment_bank', methods=['GET', 'POST'])
+def payment_bank():
+    pass
+    render_template('payment_bank.html', current_user=current_user)
+
+
 
 
 
