@@ -80,114 +80,14 @@
     {% block content %}
     {% endblock  content %}
 
-    <br><br>
-
-    <div class="payment">
-        <h1>Payment</h1>
-        <span class="service">Service payment</span><br><br><br>
-        <a href="" class="pay_card">Pay With Card</a><br><br>
-        <div class="payment2">
-            <p style="font-size: 30px;">Please pay into the bank account below</p>
-            <p style="font-weight: 900; font-size: 25px;">
-                <span id="account_number">3116368134</span>
-                <span>
-                    <button onclick="copyToClipboard('3116368134')" style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
-                </span>
-            </p>
-            <p style="font-weight: 900; font-size: 25px;">
-                <span id="bank_name">First Bank</span>
-                <span>
-                    <button onclick="copyToClipboard('First Bank')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
-                </span>
-            </p>
-            <h4 style="font-weight: 900; font-size: 25px;">
-                <span id="account_type">SERVICE HUB ACCT</span>
-                <span>
-                    <button onclick="copyToClipboard('SERVICE HUB ACCT')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
-                </span>
-            </h4>
-            <p style="font-size: 20px; color: crimson;">Make payment and send proof of payment to </p>
-            <span style="font-size: 20px;  color: rgb(93, 93, 242); text-decoration: underline; cursor: pointer;" onclick="copyToClipboard('+2349095174402')">+2349095174402</span><br><br>
-            <p style="font-style: italic; color: crimson;"><img src="{{ url_for('static', filename='/assets/img/pen.jpg')}}" alt="" style="width: 50px; height: 50px;">Please include the package you are making payment for and your email address in the payment narration</p>
-        </div>
-        <br>
-        <a href="{{ url_for('payment') }}" class="back">Go Back</a> 
-        <span>
-            <input type="submit" value="Submit"  style="padding: 10px; background:transparent; border-radius: 10px; margin-left: 30px; width: 150px; height: 50px; border: none;" class="submit"  class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal">
-        </span>
+    <div class="pre">
+        <p>Registeration Successful!</p>
+        <p>Welcome to <span>ServiceHub</span></p>
     </div>
 
+        
 
-
-    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5>Has bank transfer been made?</h5>
-            </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" ><a href="" style="color: white; text-decoration: none;">Pay With Card</a></button> -->
-              <button type="button" class="btn btn-danger" id="rook2" ><a href="{{ url_for('pre_login') }}" style="color: white; text-decoration: none;">Confirm</a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-<br><br>
-<script>
-
-
-   
-
-    let btn = document.getElementsByClassName("btn--choose")
-           let card = document.getElementsByClassName("card")
-           for (let i = 0; i < btn.length; i++) {
-               btn[i].onclick = function () {
-                   var ele = card[0]
-                   while (ele) {
-                       if (ele.tagName == "DIV") {
-                           ele.classList.remove("active")
-                       }
-
-                       ele = ele.nextSibling
-                   }
-                   card[i].classList.add("active")
-
-               }
-           }
-</script>
-
-
-
-<script>
-    function copyToClipboard(text) {
-        // Create a temporary textarea element
-        var tempTextArea = document.createElement('textarea');
-        // Set its value to the text to be copied
-        tempTextArea.value = text;
-        // Append the textarea to the document
-        document.body.appendChild(tempTextArea);
-        // Select the text within the textarea
-        tempTextArea.select();
-        // Copy the selected text to the clipboard
-        document.execCommand('copy');
-        // Remove the temporary textarea
-        document.body.removeChild(tempTextArea);
-        // Optionally, provide some visual feedback to the user
-        alert('Copied to clipboard: ' + text);
-    }
-</script>
-    
-
-
-    
-
+    <br><br>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
@@ -273,79 +173,6 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-
-  <style>
-    .payment{
-        font-family: poppins;
-        margin-left: 500px;
-        
-    }
-    .pay_card{
-        width: 300px;
-        height: 70px;
-        border: 1px solid gainsboro;
-        padding: 15px;
-        border-radius: 10px;
-        background-color: gainsboro;
-        font-size: 20px;
-    
-    }
-
-    .back{
-        width: 300px;
-        height: 20px;
-        border: none;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: crimson;
-        font-size: 15px;
-        color: white;
-    
-    }
-
-    .back:hover{
-        background-color: rgb(93, 93, 242);
-        color: white;
-        cursor: pointer;
-        transition: .2s linear;
-    }
-
-    .pay_card:hover{
-        background-color: rgb(93, 93, 242);
-        color: white;
-        cursor: pointer;
-        transition: .2s linear;
-
-    }
-
-    .service{
-        color: rgb(93, 93, 242);
-        font-size: 20px;
-        /* font-weight: 700; */
-    }
-
-    .payment2{
-        border: 1px solid gainsboro;
-        border-radius: 15px;
-        width: 700px;
-        height: auto;
-        padding-left: 15px;
-        padding-top: 10px;
-    }
-
-    .submit{
-        background-color: rgb(93, 93, 242) !important;
-    }
-
-    .submit:hover{
-        background-color: rgb(93, 93, 242);
-        color: white;
-        cursor: pointer;
-        transition: .2s linear;
-
-    }
-  </style>
 
     <script>
     ;

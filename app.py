@@ -892,6 +892,13 @@ def payment_bank():
 
 
 
+@app.route('/pre_login', methods=['GET', 'POST'])
+def pre_login():
+    pass
+    return render_template('pre_login.html')
+
+
+
 
 
 
