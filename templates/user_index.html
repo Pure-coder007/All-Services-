@@ -53,7 +53,6 @@
           <!-- Show "Profile" link when logged in -->
           <li><a class="nav-link scrollto" href="{{ url_for('contact')}}">Contact</a></li>
           <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
-          <p>{{ current_user.name }}</p>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->

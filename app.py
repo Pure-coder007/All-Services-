@@ -121,7 +121,7 @@ def token_user(email):
             print('token', stored_otp)
             print('stored otp', stored_otp)
             flash('Invalid token. Please try again.', 'danger')
-        flash('Registration successful. Please login.', 'success')
+        # flash('Registration successful. Please login.', 'success')
         return redirect(url_for('login_for_user'))
     return render_template('token_user.html', current_user=current_user)
             
@@ -139,7 +139,7 @@ def token_worker(email):
             print('stored otp', stored_otp)
             flash('Invalid token. Please try again.', 'danger')
         flash('Registration successful. Please login.', 'success')
-        return redirect(url_for('login_for_worker'))
+        return redirect(url_for('payment'))
     return render_template('token_worker.html', current_user=current_user)
             
 
@@ -245,6 +245,7 @@ def signup_worker():
             special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
             if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
                 flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
+                return redirect(url_for('signup_worker'))
 
             print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
 
@@ -377,7 +378,7 @@ def login_for_worker():
                 if sha256_crypt.verify(password,  stored_password):
                     worker = Worker(id=user_id, name=name, email=email, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address, company=company, service=service)
                     login_user(worker)
-                    flash('Login Successful', 'success')
+                    # flash('Login Successful', 'success')
                     print(user_id, 'user id', current_user.id, 'current user id', current_user, 'current user', name, 'email', email, 'password', password, 'profile_pic', profile_pic, 'phone_number', phone_number, 'country', country, 'state', state, 'local_govt', local_govt, 'address', address, '0000000000000000000000000')
                     return redirect(url_for('worker_index', user_id=user_id))
                 else:
@@ -892,10 +893,10 @@ def payment_bank():
 
 
 
-@app.route('/pre_login', methods=['GET', 'POST'])
-def pre_login():
-    pass
-    return render_template('pre_login.html')
+# @app.route('/pre_login', methods=['GET', 'POST'])
+# def pre_login():
+#     pass
+#     return render_template('pre_login.html')
 
 
 

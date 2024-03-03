@@ -131,11 +131,39 @@
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-secondary" ><a href="" style="color: white; text-decoration: none;">Pay With Card</a></button> -->
-              <button type="button" class="btn btn-danger" id="rook2" ><a href="{{ url_for('pre_login') }}" style="color: white; text-decoration: none;">Confirm</a></button>
+                <button type="button" class="btn btn-danger" id="button2" data-bs-toggle="modal" data-bs-target="#verticalModal"><a href="#" style="color: white; text-decoration: none;">Confirm</a></button>
             </div>
           </div>
         </div>
       </div>
+
+
+
+
+      <!-- Vertically centered modal -->
+      <div class="modal fade" id="verticalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Vertically Centered Modal</h1> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="justify-content: center; text-align: center;">
+                    <h3>Registeration Successful!</h3>
+                    <br>
+                    <a href="{{ url_for('login_for_worker') }}" class="link" style=" padding: 5px; width: 500px; border-radius: 20px; background-color: rgb(83, 83, 240); color: white; cursor: pointer; padding-left: 100px; padding-right: 100px;">Continue</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <style>
+        a:hover{
+            background-color: crimson;
+            color: white;
+            transition: 0.3s ease;
+        }
+    </style>
     
 
     
