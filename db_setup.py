@@ -7,11 +7,13 @@ def setup_database():
     cursor = connection.cursor()
     
 
+
+
     # Users Table
     
     cursor.execute("""
     CREATE TABLE users (
-    id INT(11) NOT NULL AUTO_INCREMENT,
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -20,8 +22,8 @@ def setup_database():
     state VARCHAR(100),
     local_govt VARCHAR(100),
     address TEXT,
-    profile_pic VARCHAR(255),
-    PRIMARY KEY (id)
+    profile_pic VARCHAR(255)
+    
 );
 
 
@@ -29,7 +31,7 @@ def setup_database():
 
     cursor.execute("""
     CREATE TABLE workers (
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -55,7 +57,7 @@ def setup_database():
 
     cursor.execute("""
     CREATE TABLE contacts(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     subject VARCHAR(255) NOT NULL,
@@ -69,7 +71,7 @@ def setup_database():
 
     cursor.execute("""
     CREATE TABLE worker_reviews(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
     user_id INT(11) NOT NULL,
     worker_id INT(11) NOT NULL,
     name VARCHAR(255) NOT NULL,

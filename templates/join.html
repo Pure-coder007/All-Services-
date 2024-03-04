@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block title %}Join Meeting{% endblock %}
+
+{% block content %}
+<div class="container">
+        <h1 class="text-center mt-5">Join Meeting</h1>
+        <form method="POST" action="{{ url_for('join') }}" class="mt-4">
+            <div class="form-group">
+                <input type="text" placeholder="Room ID:" class="form-control input" id="roomID" name="roomID" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg join">Join</button>
+        </form>
+    </div>
+
+    <style>
+        #hamburger{
+    display: none;
+}
+
+    .input{
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 500px;
+    }
+
+    .join{
+        margin-left: 500px;
+        margin-top: 10px;
+    }
+
+@media screen and (max-width: 768px) {
+    .input{
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 80px;
+    }
+
+    .join{
+        margin-left: 80px;
+        margin-top: 10px;
+    }
+
+}
+    </style>
+{% endblock %}

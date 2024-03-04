@@ -6,6 +6,7 @@ from datetime import datetime
 from mysql.connector import Error
 from werkzeug.utils import secure_filename
 import os
+import uuid
 
 login_manager = LoginManager()
 
@@ -13,29 +14,30 @@ login_manager = LoginManager()
 import mysql.connector
 
 
-# config = {
-#     'user': 'root',
-#     'password': 'language007',
-#     'host': 'localhost',
-#     'database': 'all_services',
-#     'raise_on_warnings': True
-# }
-
-
-
 config = {
-    'user': 'ukahdike007',
+    'user': 'root',
     'password': 'language007',
-    'host': 'db4free.net',
-    'database': 'ukahdike',
+    'host': 'localhost',
+    'database': 'all_services',
     'raise_on_warnings': True
 }
+
+
+
+# config = {
+#     'user': 'ukahdike007',
+#     'password': 'language007',
+#     'host': 'db4free.net',
+#     'database': 'ukahdike',
+#     'raise_on_warnings': True
+# }
 
 
 conn = mysql.connector.connect(**config)
 
 
 cursor = conn.cursor()
+
 
 
 cursor.execute("SHOW TABLES;")
@@ -52,6 +54,9 @@ conn.close()
 conn = mysql.connector.connect(**config)
 
 
+
+def gen_ran_string():
+    return str(uuid.uuid4())
 
 
 class User(UserMixin):
@@ -133,7 +138,7 @@ def add_user(name, email, password, profile_pic, phone_number, country, state, l
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO users (name, email, password, profile_pic, phone_number, country, state, local_govt, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (name, email, password, profile_pic, phone_number, country, state, local_govt, address))
+        cursor.execute('INSERT INTO users (id, name, email, password, profile_pic, phone_number, country, state, local_govt, address) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s)', (gen_ran_string(),name, email, password, profile_pic, phone_number, country, state, local_govt, address))
         connection.commit()
         cursor.close()
         connection.close()
@@ -151,7 +156,7 @@ def add_worker(name, email, password, profile_pic, phone_number, country, state,
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO workers (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s , %s , %s )', (name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3))
+        cursor.execute('INSERT INTO workers (id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s , %s , %s )', (gen_ran_string(), name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3))
         connection.commit()
         cursor.close()
         connection.close()

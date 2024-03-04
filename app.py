@@ -59,8 +59,10 @@ login_manager.login_message_category = 'info'
 @login_manager.user_loader
 def load_user(user_id):
     user = get_user_id(user_id)
+    print(user, 'user')
     if not user:
         worker_dict = get_worker_id(user_id)
+        print(worker_dict, 'worker_dict')
         if worker_dict:
             user = Worker(**worker_dict)
     return user
@@ -165,7 +167,7 @@ def signup_user():
             local_govt = request.form['local_govt']
             address = request.form['address']
 
-            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
+            # print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
 
 
             special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
@@ -200,7 +202,7 @@ def signup_user():
 
             flash('Registration successful. Please check your email for verification token.', 'success')
             return redirect(url_for('token_user', email=email))
-        get_all_users()
+        # get_all_users()
         return render_template("signup_user.html")
     except Exception as e:
         print(e)
@@ -583,7 +585,7 @@ def get_service(service):
 
 
 
-@app.route('/user_index/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/user_index/<string:user_id>', methods=['GET', 'POST'])
 @login_required
 def user_index(user_id):
     user = user_profile(user_id)
@@ -614,28 +616,13 @@ def user_index(user_id):
 
 
 
-@app.route('/worker_index/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/worker_index/<string:user_id>', methods=['GET', 'POST'])
 @login_required
 def worker_index(user_id):
     user = worker_profile(user_id)
-    # print(user)
-
-    all_workers = []
-
-    if request.method == 'POST':
-        services = ['ac_gas_filling', 'ac_repair_and_installation', 'refrigerator_repair', 'auto_repair', 'car_ac_repair', 'car_rewire', 'barber', 'hair_stylist', 'human_hair', 'nail_technician', 'pedicure_manicure', 'catering_service', 'plumber', 'laundry_service', 'dispatch_rider', 'electrical', 'generator', 'haulage', 'painter', 'photographer', 'event', 'cosmetic', 'taxi_service', 'personal_trainer', 'elderly_care', 'dstv', 'welder']
-
-        service_results = []
-
-        for service in services:
-            if request.form.get(service):
-                workers = get_service(service)
-                service_results.extend(workers)
-
-        all_workers = list({worker['id']: worker for worker in service_results}.values())
-        print(all_workers, 'all workerssssssssssssssssssss')
-        session['all_workers'] = all_workers
-        return redirect(url_for('worker_services'))
+    print('444444444444444444444444444444444')
+    print(current_user.email, '3333333355555555544444444444')
+    print(user, 'user88888888888888888888888888888888888888888888')
     return render_template("worker_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
@@ -846,6 +833,40 @@ def contact():
 
 
 
+# Worker Contact Admin
+
+@app.route('/worker_contact', methods=['GET', 'POST'])
+@login_required
+def worker_contact():
+    try:
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            subject = request.form['subject']
+            message = request.form['message']
+
+            if not name:
+                flash('Your name is required', 'danger')
+            if not email:
+                flash('Your email is required', 'danger')
+            if not subject:
+                flash('This message needs a subject', 'danger')
+            if not message:
+                flash('Please include a message', 'danger')
+            print(name, email, subject, message)
+            contact_me(name, email, subject, message)
+            flash('Message Sent ', 'success')
+            # return redirect('user_index')  # Redirect to 'index_services' route
+        return render_template('worker_contact.html')
+    except Exception as e:
+        print(e)
+        csrf_token = generate_csrf()
+        return render_template('worker_contact.html', csrf_token=csrf_token, current_user=current_user)
+    
+
+
+
+
 
 # # WORKER CONTACT ADMIN
 # @app.route('/worker_contact', methods=['GET', 'POST'])
@@ -892,13 +913,31 @@ def payment_bank():
 
 
 
-# @app.route('/pre_login', methods=['GET', 'POST'])
-# def pre_login():
-#     pass
-#     return render_template('pre_login.html')
+@app.route('/join', methods=['GET', 'POST'])
+@login_required
+def join():
+    if request.method == "POST":
+        room_id = request.form.get("roomID")
+        return redirect(f"/meeting?roomID={room_id}")
+    return render_template('join.html', current_user=current_user)
 
 
 
+
+@app.route('/meeting', methods=['GET', 'POST'])
+@login_required
+def meeting():
+    pass
+    return render_template('meeting.html', current_user=current_user)
+
+
+
+
+@app.route('/video_dashboard.html', methods=['GET', 'POST'])
+@login_required
+def video_dashboard():
+    pass
+    return render_template('video_dashboard.html', current_user=current_user)
 
 
 

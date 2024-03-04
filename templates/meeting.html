@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+
+<head>
+    <title>Meetings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/style.css') }}">
+    <style>
+        #root {
+            width: 100vw;
+            height: 100vh;
+            
+        }
+    </style>
+    <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div class="back-to-dashboard">
+        <a href="{{ url_for('video_dashboard')}}" style="text-decoration: none;">
+            <button>Back to dashboard</button>
+        </a>
+    </div>
+
+    <!-- <style>
+        #hamburger{
+    display: none;
+}
+    </style> -->
+
+    <script>
+        function getUrlParams(url) {
+            let urlStr = url.split('?')[1];
+            const urlSearchParams = new URLSearchParams(urlStr);
+            const result = Object.fromEntries(urlSearchParams.entries());
+            return result;
+        }
+
+        window.onload = function () {
+            const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
+            const userID = Math.floor(Math.random() * 10000) + "";
+            const userName = "{{current_user.name}}";  // Assuming current_user is available
+            const appID = 140155849;
+            const serverSecret = "9feeb9e87aa8d6e6734d057b5acb2432";
+            const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+
+            const zp = ZegoUIKitPrebuilt.create(kitToken);
+            zp.joinRoom({
+                container: document.querySelector("#root"),
+                sharedLinks: [{
+                    name: 'Personal link',
+                    url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID,
+                }],
+                scenario: {
+                    mode: ZegoUIKitPrebuilt.VideoConference,
+                },
+                // ... other configuration options ...
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+
+<style>
+    #hamburger {
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        #root{
+            display: flex !important;
+        }
+    }
+</style>
+{% endblock content %}
+

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- <h1>Welcome To Our Video Calling Feature</h1> -->
+
+    <div class="create-meeting-button" style="display: flex; justify-content: center; align-items: center; margin-top: 200px;">
+        <div class="button-container">
+            <a class="btn btn-primary meeting" href="{{ url_for('meeting') }} " style="width: 250px; height: 50px; padding-top: 10px; font-size: 20px;" >Create Meeting</a>
+            <a class="btn btn-primary join" href="{{ url_for('join') }}"  style="width: 250px; height: 50px; padding-top: 10px; font-size: 20px;">Join Meeting</a>
+            <!-- <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Back to </a> -->
+        </div>
+    </div>
+
+    <style>
+        #hamburger{
+            display: none;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .meeting{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 50px;
+            }
+
+            .button-container{
+                /* border: 1px solid black; */
+                margin-top: -150px;
+            }
+            
+        }
+    </style>
+    
+{% endblock %}

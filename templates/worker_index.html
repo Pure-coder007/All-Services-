@@ -53,7 +53,7 @@
           <!-- Show "Profile" link when logged in -->
           <li><a class="nav-link scrollto" href="{{ url_for('worker_contact')}}">Contact</a></li>
           <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
-          <p>{{ current_user.name }}</p>
+          <p>{{ current_user.email }}</p>
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->
@@ -81,76 +81,6 @@
     {% endblock  content %}
 
     <br>
-    <br>
-
-    <div class="cont" style="display: flex; justify-content: space-between; ">
-       <p style="margin-left: 150px; position: absolute ; top: 0; margin-top: 120px;"><i class="fa-solid fa-location-dot" style="color: rgb(72, 72, 242);"></i> Service Area: &nbsp;<span style="font-weight: 800;">{{ user ['local_govt']}}, {{ user ['state']}}</span></p>
-
-        <div class="msg" style="float: right; margin-right: 150px; position: absolute; top: 0; right: 0; margin-top: 120px;" >
-            <i class="fa-regular fa-envelope" style="margin-right: 20px; font-size: 25px;"></i> &nbsp; &nbsp;<i class="fa-regular fa-bell" style="margin-right: 20px; font-size: 25px;"></i> <span>&nbsp; &nbsp;<img src="{{ user['profile_pic']}}" alt="" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; margin-top: -5px;" ></span>
-        </div>
-        <!-- <br><br><br> -->
-
-        <div class="map" style=" margin-top: 30px; width: 500px; margin-right: -100px; margin-left: 300px; height: auto; " >
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8070396.011244541!2d3.378683619173365!3d9.006789079172123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7da48d0d%3A0x99a8fe4168c50bc8!2sNigeria!5e0!3m2!1sen!2sng!4v1708532499118!5m2!1sen!2sng" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div >
-
-        
-    </div>
-    <div class="modal fade" id="queenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog" >
-          <div class="modal-content" style="font-family: poppins; background-color: black;  width: 800px; margin-right: 700px; margin-left: -170px; height: 50px; ">
-            <div class="modal-header" >
-              <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-            </div>
-            <div class="modal-body" style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr);">
-            
-                <form action="{{ url_for('worker_index', user_id=user_id) }}" method="POST" enctype="multipart/form-data"  style="font-family: poppins; background-color: black; color: white; display: grid; grid-template-columns: repeat(3, 1fr); width: 750px; ">
-                    <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none">
-                    <p><label for="ac_gas_filling">AC Gas Filling</label> <span><input type="checkbox" id="ac_gas_filling" name="ac_gas_filling" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="ac_repair_and_installation">AC Repair and Installation</label> <span><input type="checkbox" id="ac_repair_and_installation" name="ac_repair_and_installation" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="refrigerator_repair">Refrigerator Repair</label> <span><input type="checkbox" id="refrigerator_repair" name="refrigerator_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="auto_repair">Auto Repair</label> <span><input type="checkbox" id="auto_repair" name="auto_repair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="car_ac_repair">Car AC Repair</label> <span><input type="checkbox" id="car_ac_repair" name="car_ac_repair "style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="car_rewire">Car Rewire</label> <span><input type="checkbox" id="car_rewire" name="car_rewire" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="barber">Barber</label> <span><input type="checkbox" id="barber" name="barber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="hair_stylist">Hair Stylist</label> <span><input type="checkbox" id="hair_stylist" name="hair_stylist" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="human_hair">Human Hair</label> <span><input type="checkbox" id="human_hair" name="human_hair" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="nail_technician">Nail Technician</label> <span><input type="checkbox" id="nail_technician" name="nail_technician" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="pedicure_manicure">Pedicure / Manicure</label> <span><input type="checkbox" id="pedicure_manicure" name="pedicure_manicure" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="catering_service">Catering Service</label> <span><input type="checkbox" id="catering_service" name="catering_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="laundry_service">Laundry Service</label> <span><input type="checkbox" id="laundry_service" name="laundry_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="dispatch_rider">Dispatch Rider</label> <span><input type="checkbox" id="dispatch_rider" name="dispatch_rider" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="">Electrical / Inverter Services</label> <span><input type="checkbox" id="electrical" name="electrical" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="generator">Generator Services</label> <span><input type="checkbox" id="generator" name="generator" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="haulage">Haulage / Movers</label> <span><input type="checkbox" id="haulage" name="haulage" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="painter">Painter / Screeder</label> <span><input type="checkbox" id="painter" name="painter" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="photographer">Photographer / Video</label> <span><input type="checkbox" id="photographer" name="photographer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="plumber">Plumbing Services</label> <span><input type="checkbox" id="plumber" name="plumber" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="event">Event Planning</label> <span><input type="checkbox" id="event" name="event" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="cosmetic">Cosmetic Service</label> <span><input type="checkbox" id="cosmetic" name="cosmetic" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="taxi_service">Taxi Service</label> <span><input type="checkbox" id="taxi_service" name="taxi_service" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="personal_trainer">Personal Trainer</label> <span><input type="checkbox" id="personal_trainer" name="personal_trainer" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="elderly_care">Elderly Care Service</label> <span><input type="checkbox" id="elderly_care" name="elderly_care" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="dstv">DSTV / CCTV</label> <span><input type="checkbox" id="dstv" name="dstv" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p><label for="welder">Welder Service</label> <span><input type="checkbox" id="welder" name="welder" style="width: 12px; height: 12px; margin-top: 40px;"> </p></span>
-                    <p> <input type="submit" value="Submit" style="width: 138px; font-weight: 500; color: black; margin-top: 100px;" > </p>
-                </form>
-
-
-
-            </div>
-                
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-      <center><button class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal" style="margin-top: 50px; background-color:rgb(72, 72, 242); padding: 15px 20px; font-weight: 400; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; width: 250px; border-radius: 10px;">
-        Select  Services
-    </button></center>
-
     <br><br>
 
     
