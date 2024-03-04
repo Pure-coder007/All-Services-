@@ -13,11 +13,21 @@ login_manager = LoginManager()
 import mysql.connector
 
 
+# config = {
+#     'user': 'root',
+#     'password': 'language007',
+#     'host': 'localhost',
+#     'database': 'all_services',
+#     'raise_on_warnings': True
+# }
+
+
+
 config = {
-    'user': 'root',
+    'user': 'ukahdike007',
     'password': 'language007',
-    'host': 'localhost',
-    'database': 'all_services',
+    'host': 'db4free.net',
+    'database': 'ukahdike',
     'raise_on_warnings': True
 }
 
