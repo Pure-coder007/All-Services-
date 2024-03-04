@@ -6,12 +6,12 @@
         {% if reviews %}
         <ul style="padding-left: 20px;">
             {% for review in reviews %}
-            <li class="{{ 'enjoyed' if review[1] == '1' else 'not-enjoyed' }}" style="margin-bottom: 20px;">
+            <li class="{{ 'enjoyed' if review[1] == 1 else 'not-enjoyed' }}" style="margin-bottom: 20px;">
                 <strong style="font-weight: 900;"><i class="fa-solid fa-user" style="border: 1px solid black; border-radius: 50%; padding: 5px; background-color: black; color: rgb(77, 69, 69);"></i> &nbsp;</strong> {{ review[0] }}<br>
-                <strong>Enjoyed Service?: </strong> {{ "Yes" if review[1] == "1" else "No" }}<br>
+                <strong>Enjoyed Service?: </strong> {{ "Yes" if review[1] == 1 else "No" }}<br>
                 <strong>Suggestions:</strong> {{ review[2] }}<br>
                 <strong>Time Posted:</strong> {{ review[3] }}<br>
-                {% if review[1] == '1' %}
+                {% if review[1] == 1 %}
                     <div class="emoji-container" >😊</div>
                 {% else %}
                     <div class="emoji-container" >😕</div>

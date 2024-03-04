@@ -48,7 +48,7 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
          
 
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#">Contact</a></li>
           <li><a class="getstarted scrollto" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('signup_user') }}{% endif %}">Log In / Sign Up</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -550,7 +550,7 @@
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="/home" method="post" class="php-email-form">
               <div class="row gy-4">
 
                 <div class="col-md-6">
