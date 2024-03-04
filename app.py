@@ -8,20 +8,21 @@ from flask_mail import Mail, Message
 from db_setup import setup_database, config
 from datetime import datetime
 from passlib.hash import pbkdf2_sha256 as sha256_crypt
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 import os
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
-from flask_uploads import UploadSet, configure_uploads, IMAGES
+# from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
 from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id
 
 import cloudinary
 import cloudinary.uploader
+import string
 
 cloudinary.config(
     cloud_name = "duyoxldib",
@@ -35,9 +36,9 @@ cloudinary.config(
 
 
 app = Flask(__name__)
-photos = UploadSet('photos', IMAGES)
+# photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/assets/img'
-configure_uploads(app, photos)
+# configure_uploads(app, photos)
 
 
 # class UpdateProfileForm(FlaskForm):
@@ -138,7 +139,7 @@ def token_worker(email):
             print('token', stored_otp)
             print('stored otp', stored_otp)
             flash('Invalid token. Please try again.', 'danger')
-        flash('Registration successful. Please login.', 'success')
+        # flash('Registration successful. Please login.', 'success')
         return redirect(url_for('payment'))
     return render_template('token_worker.html', current_user=current_user)
             
@@ -212,6 +213,8 @@ def signup_user():
 
 
 
+def generate_random_id():
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
 
 
 
@@ -257,23 +260,19 @@ def signup_worker():
                 return redirect(url_for('signup_worker'))
             
             if profile_pic:
-                filename = secure_filename(profile_pic.filename)
-                response = cloudinary.uploader.upload(profile_pic, public_id=f"workers/{filename}")
+                response = cloudinary.uploader.upload(profile_pic, public_id=f"workers/{generate_random_id()}")
                 profile_pic = response['secure_url']
             
             if work_pic1:
-                filename = secure_filename(work_pic1.filename)
-                response = cloudinary.uploader.upload(work_pic1, public_id=f"workers/{filename}")
+                response = cloudinary.uploader.upload(work_pic1, public_id=f"workers/{generate_random_id()}")
                 work_pic1 = response['secure_url']
             
             if work_pic2:
-                filename = secure_filename(work_pic2.filename)
-                response = cloudinary.uploader.upload(work_pic2, public_id=f"workers/{filename}")
+                response = cloudinary.uploader.upload(work_pic2, public_id=f"workers/{generate_random_id()}")
                 work_pic2 = response['secure_url']
 
             if work_pic3:
-                filename = secure_filename(work_pic3.filename)
-                response = cloudinary.uploader.upload(work_pic3, public_id=f"workers/{filename}")
+                response = cloudinary.uploader.upload(work_pic3, public_id=f"workers/{generate_random_id()}")
                 work_pic3 = response['secure_url']
             
             add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service,  description, rate, work_pic1, work_pic2, work_pic3)
