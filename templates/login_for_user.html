@@ -5,7 +5,7 @@
 
 <img src="{{ url_for('static', filename='/assets/img/flower.jpg')}}" alt="" class="img1">
 <div class="sign_up">
-            <h2>Login</h2><span style="color: rgb(80, 112, 219);">To find service</span><br><br>
+            <h2>Login</h2><span class="serve" style="color: rgb(80, 112, 219);">To find service</span><br><br>
             
         <form action="{{ url_for('login_for_user') }}" method="POST">
                 
@@ -16,10 +16,10 @@
             
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required placeholder="Enter Password"><br>
-            <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;">
-            <label for="showPasswordCheckbox" >View Password</label><br><br>
+            <input  class="check" type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;">
+            <label for="showPasswordCheckbox" class="pass">View Password</label><br><br>
 
-            <a href="" style="margin-top: 50px;">Forgot Password?</a>
+            <a href="" class="link"  style="margin-top: 50px;">Forgot Password?</a>
             <br><br>
             
             <center>
@@ -92,6 +92,90 @@
         position: absolute;
         margin-left: 200px;
         margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+        img{
+            display: none;
+        }
+
+        .sign_up{
+        width: 100% !important;
+        margin-top: -50px;
+        margin-left: 0px;
+        height: auto;
+        margin-bottom: 50px;
+        font-family: poppins;
+        }
+
+
+        input{
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: none;
+        padding: 10px;
+        background-color: whitesmoke;
+        margin-left: 35px;
+        font-size: 10px;
+    }
+
+    label{
+        margin-left: 35px;
+        font-size: 10px;
+    }
+
+    .pass{
+        margin-left: -00px !important;
+        font-size: 10px !important;
+    }
+
+    .check{
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    h2{
+        text-align: center;
+        align-items: center;
+
+    }
+
+    .serve{
+        text-align: center;
+        align-items: center;
+        margin-left: 130px !important;
+
+    }
+
+    .link{
+        font-size: 10px !important;
+        margin-left: 35px !important;
+    }
+
+    a{
+        font-size: 10px !important;
+    }
+
+    button{
+        width: 300px;
+        height: 30px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        padding-left: 10px !important;
+        padding-right: 10px;
+        border-radius: 5px;
+        background-color: rgb(80, 112, 219);
+        border: none;
+        color: white;
+        margin-left: 35px;
+    }
+
+    p{
+        display: none;
+    }
+
     }
 </style>
 

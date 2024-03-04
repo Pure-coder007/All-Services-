@@ -49,7 +49,16 @@
          
 
           <li><a class="nav-link scrollto" href="#">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('signup_user') }}{% endif %}">Log In / Sign Up</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle getstarted scrollto" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Log In / Sign Up
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('login_for_user')}}">User</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('login_for_worker')}}">Worker</a></li>
+            </ul>
+          </li>
+          <!-- <li><a class="getstarted scrollto" href="{% if current_user.is_authenticated %}{{ url_for('user_index', user_id=current_user.id)}} {% else %}{{ url_for('signup_user') }}{% endif %}">Log In / Sign Up</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

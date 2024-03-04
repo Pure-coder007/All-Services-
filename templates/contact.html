@@ -6,9 +6,9 @@
 
         
         <h1 style="text-align: center; justify-content: center ; align-items: center; font-weight: 900;">GET IN TOUCH</h1>
-        <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-phone"></i> Phone: <span style="color: crimson;">+234 814 010 4671</span></p>
-        <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-envelope"></i> Email: <span>kingsleydike348@gmail.com</span></p>
-        <p style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-location-dot" style="color: rgb(88, 88, 246);"></i> Address: <span>4b Idowu Martins Victoria Island Lagos</span></p>
+        <p class="one" style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-phone"></i> Phone: <span style="color: crimson;">+234 814 010 4671</span></p>
+        <p class="two" style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-envelope"></i> Email: <span>kingsleydike348@gmail.com</span></p>
+        <p class="three" style="text-align: center; justify-content: center ; align-items: center;"><i class="fa-solid fa-location-dot" style="color: rgb(88, 88, 246);"></i> Address: <span>4b Idowu Martins Victoria Island Lagos</span></p>
         <div class="first"  style="margin-left: 50px;">
             <label for="name">Name</label><br>
             <input type="text" name="name" placeholder="Name" required value="{{current_user.name}}"><br><br>
@@ -34,5 +34,87 @@
         border: 1px solid gainsboro;
         padding-left: 10px;
     }
+
+    @media (max-width: 768px) {
+    .contact{
+    margin-top: -50px !important;
+    margin-left: 0px !important;
+    height: auto !important;
+    margin-bottom: 50px !important;
+    font-family: poppins;
+    width: 10% !important;
+    }
+
+    .first{
+        display: block;
+        margin-top: 50px;
+    }
+
+    .second{
+        margin-left: 0px !important;
+        margin-top: 10px    !important;
+    }
+
+    input{
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        background-color: whitesmoke;
+        margin-left: -15px;
+        font-size: 10px;
+    }
+
+    label{
+        margin-left: -15px;
+        font-size: 10px;
+    }
+
+    textarea{
+        width: 300px;
+        height: 150px;
+        margin-left: -15px;
+    }
+
+    h1{
+        font-size: 20px;
+        /* margin-left: 100px; */
+        text-align: center;
+        align-items: center;
+        margin-top: 60px;
+        width: 400px ;
+    }
+    
+   
+
+    p{
+        width: 300px ;
+        margin-left: 50px; 
+         font-size: 5px; 
+         align-items: center;
+         text-align: center;
+         /* margin-bottom: 40px;  */
+    }
+
+    button{
+        margin-left: 115px !important;
+        margin-top: 735px !important;
+    
+    }
+
+    /* .one{
+        margin-left: 95px !important;
+        font-size: 1px !important;
+        width: 200px !important;
+    }
+
+    .two{
+        margin-left: 95px !important;
+        width: 200px !important;
+        font-size: 1px !important;
+    } */ 
+
+}
 </style>
 {% endblock %}

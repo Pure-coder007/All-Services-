@@ -85,35 +85,35 @@
     <div class="payment">
         <h1>Payment</h1>
         <span class="service">Service payment</span><br><br><br>
-        <a href="" class="pay_card">Pay With Card</a><br><br>
+        <a  href="" class="pay_card">Pay With Card</a><br><br>
         <div class="payment2">
             <p style="font-size: 30px;">Please pay into the bank account below</p>
             <p style="font-weight: 900; font-size: 25px;">
                 <span id="account_number">3116368134</span>
                 <span>
-                    <button onclick="copyToClipboard('3116368134')" style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button  class="copy" onclick="copyToClipboard('3116368134')" style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
                 </span>
             </p>
             <p style="font-weight: 900; font-size: 25px;">
                 <span id="bank_name">First Bank</span>
                 <span>
-                    <button onclick="copyToClipboard('First Bank')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button class="copy" onclick="copyToClipboard('First Bank')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
                 </span>
             </p>
             <h4 style="font-weight: 900; font-size: 25px;">
                 <span id="account_type">SERVICE HUB ACCT</span>
                 <span>
-                    <button onclick="copyToClipboard('SERVICE HUB ACCT')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button  class="copy" onclick="copyToClipboard('SERVICE HUB ACCT')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
                 </span>
             </h4>
-            <p style="font-size: 20px; color: crimson;">Make payment and send proof of payment to </p>
-            <span style="font-size: 20px;  color: rgb(93, 93, 242); text-decoration: underline; cursor: pointer;" onclick="copyToClipboard('+2349095174402')">+2349095174402</span><br><br>
-            <p style="font-style: italic; color: crimson;"><img src="{{ url_for('static', filename='/assets/img/pen.jpg')}}" alt="" style="width: 50px; height: 50px;">Please include the package you are making payment for and your email address in the payment narration</p>
+            <p class="make"  style="font-size: 20px; color: crimson;">Make payment and send proof of payment to </p>
+            <span class="number" style="font-size: 20px;  color: rgb(93, 93, 242); text-decoration: underline; cursor: pointer;" onclick="copyToClipboard('+2349095174402')">+2349095174402</span><br><br>
+            <p class="narate" style="font-style: italic; color: crimson;"><img src="{{ url_for('static', filename='/assets/img/pen.jpg')}}" alt="" style="width: 50px; height: 50px;">  Please include the package you are making payment for and your email address in the payment narration</p>
         </div>
         <br>
-        <a href="{{ url_for('payment') }}" class="back">Go Back</a> 
-        <span>
-            <input type="submit" value="Submit"  style="padding: 10px; background:transparent; border-radius: 10px; margin-left: 30px; width: 150px; height: 50px; border: none;" class="submit"  class="btn--choose btn" id="choose_button2" data-bs-toggle="modal" data-bs-target="#queenModal">
+        <a  href="{{ url_for('payment') }}" class="back">Go Back</a> 
+        <span class="sub">
+            <button type="submit" value="Submit"  class="btn-primary p-2 btn submit" id="" data-bs-toggle="modal" data-bs-target="#queenModal">submit</button>
         </span>
     </div>
 
@@ -149,7 +149,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="justify-content: center; text-align: center;">
-                    <h3>Registeration Successful!</h3>
+                    <h3>Registration Successful!</h3>
                     <br>
                     <a href="{{ url_for('login_for_worker') }}" class="link" style=" padding: 5px; width: 500px; border-radius: 20px; background-color: rgb(83, 83, 240); color: white; cursor: pointer; padding-left: 100px; padding-right: 100px;">Continue</a><br>
                 </div>
@@ -168,6 +168,100 @@
 
     
 <br><br>
+
+
+<style>
+  @media (max-width: 768px) {
+    .payment{
+        width: 100% !important;
+        margin-left: 0px !important;
+      }
+      
+      p{
+      line-height: -10px !important;
+      font-size: 10px !important;
+      margin-bottom: -10px !important;
+    }
+
+    .copy{
+      background: transparent !important;
+      font-size: 1px !important;
+      margin-right: 20px !important;
+    }
+
+    h4{
+      font-size: 15px !important;
+    }
+
+    .payment2{
+      width: 350px !important;
+      height: 270px !important;
+      margin-left: 12px !important;
+    }
+
+    .make{
+      margin-bottom: 10px !important;
+      margin-top: -10px !important;
+      width: 350px !important;
+    }
+    
+    .number{
+      font-size: 10px !important;
+      margin-top: -15px !important;
+    }
+    
+    .narate{
+      margin-top: -10px !important;
+      font-size: 10px !important;
+      max-width: 320px !important;
+    }
+
+    img{
+      width: 25px !important;
+      height: 25px !important;
+    }
+
+    h1{
+      text-align: center;
+      align-items: center;
+    }
+
+    .service{
+      text-align: center !important;
+      align-items: center !important;
+        margin-left: 115px !important;
+        font-size: 10px !important;
+
+    }
+
+    .pay_card{
+      font-size: 12px !important;
+      padding: 10px !important;
+      border-radius: 5px !important;
+      margin-left: 12px !important;
+    }
+
+    .back{
+      font-size: 12px !important;
+      padding: 10px !important;
+      border-radius: 5px !important;
+      margin-left: 12px !important;
+    }
+
+    input{
+      font-size: 10px !important;
+      padding: 5px !important;
+      border-radius: 5px !important;
+      margin-left: 10px !important;
+      margin-right: 8px !important;
+      width: 100px !important;
+      height: 50px !important;
+      /* width: 0 !important; */
+    }
+
+       
+  }
+</style>
 <script>
 
 
