@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 # from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id, gen_ran_string
 
 import cloudinary
 import cloudinary.uploader
@@ -736,10 +736,10 @@ def reviews(worker_id):
             connection = mysql.connector.connect(**config)
             with connection.cursor() as cursor:
                 # Insert the data into the worker_reviews table
-                sql = """INSERT INTO worker_reviews (user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, created_at)
-                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                sql = """INSERT INTO worker_reviews (id, user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, created_at)
+                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
-                cursor.execute(sql, (user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, datetime.now()))
+                cursor.execute(sql, (gen_ran_string(), user_id, worker_id, name, email, phone_number, enjoy_service, suggestions, datetime.now()))
                 connection.commit()
 
                 flash('Review submitted successfully', 'success')

@@ -11,13 +11,13 @@
             </div>
             <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ worker['work_pic1'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;" >
+                <img class="pic" src="{{ worker['work_pic1'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;" >
             </div>
             <div class="carousel-item">
-                <img src="{{ worker['work_pic2'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;" >
+                <img class="pic"  src="{{ worker['work_pic2'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;" >
             </div>
             <div class="carousel-item">
-                <img src="{{ worker['work_pic3'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;">
+                <img  class="pic"  src="{{ worker['work_pic3'] }}" class="d-block w-100" alt="..." style=" height: 650px; width: 500px;">
             </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -92,42 +92,31 @@
 
     <style>
         @media (max-width: 768px) {
-            .main_cont{
-            /* width: 350px !important; */
-            width: 100% !important;
-            margin-left: 0px !important;
-            /* border: 1px solid red; */
-            margin-bottom: 350px !important;
-            margin-left: 15px !important;
-        }
+            /* /*
 
         .carousel{
             width: 350px !important;
             margin-left: 0px !important;
             margin-left: 0px !important;
-            border: 1px solid yellow;
         }
 
         .main{
             width: 100% !important;
             margin-left: 0px !important;
-            /* border: 1px solid rgb(35, 29, 225); */
 
         }
 
         .main2{
             width: 100% !important;
             margin-left: 0px !important;
-        }
+        } */
 
-        .sidebar{
-            width: 350px !important;
-            margin-left: 0px !important;
-            margin-top: 1050px !important;
-            height: 320px !important;
-            /* border: 1px solod yellow; */
-            /* position: relative; */
-        }
+        
+        
+
+       
+
+        
 
         hr{
             width: 100% !important;
@@ -137,15 +126,29 @@
         }
 
         .description{
-            border: 1px solid rgb(220, 17, 51);
             max-width: 80% !important;
             font-size: 12px;
             margin-left: 0px !important;
             margin-left: 10px !important;
         }
 
+        .main_cont{
+        width: 335px !important;
+        /* border: 1px solid black !important; */
+        background-color: rgb(206, 123, 123);
+        margin-left: 0px !important;
+        margin-bottom: 350px !important;
+        margin-left: 15px !important;
+    }
+
+    .carousel{
+        width: 300px !important;
+        margin-left: 0px !important;
+        margin-left: 10px !important;
+
+    }
+
         p{
-            border: 1px solid green;
             max-width: 80% !important;
             font-size: 12px;
             margin-left: 0px !important;
@@ -156,7 +159,18 @@
             font-size: 12px !important;
             padding: 10px !important;
             width: 200px !important;
-            margin-left: 80px !important;
+            margin-left: 60px !important;
+        }
+
+        .sidebar{
+            width: 335px !important;
+            margin-left: 0px !important;
+            margin-left: -60px !important;
+            margin-right: 15px !important;
+            margin-top: 1050px !important;
+            height: 320px !important;
+            background-color: blue;
+            
         }
 
         .leave{
@@ -181,8 +195,9 @@
 
         ul{
             font-size: 12px !important;
-            width: 300px !important;
-        }
+            /* width: 300px !important; */
+        } */
+
     }
     </style>
 

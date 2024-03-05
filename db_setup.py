@@ -70,12 +70,12 @@ def setup_database():
 
 
     cursor.execute("""
-    CREATE TABLE worker_reviews(
+    CREATE TABLE worker_reviews (
     id VARCHAR(100) NOT NULL PRIMARY KEY,
-    user_id INT(11) NOT NULL,
-    worker_id INT(11) NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    user_id VARCHAR(100) NOT NULL,
+    worker_id VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
     enjoy_service TINYINT(1) NOT NULL,
     suggestions TEXT NOT NULL,
@@ -83,6 +83,7 @@ def setup_database():
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (worker_id) REFERENCES workers(id)
 );
+
 
      """)
 
