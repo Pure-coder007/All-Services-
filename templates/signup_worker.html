@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="worker" onload="getLocation();">
-    <img src="{{ url_for('static', filename='/assets/img/driver.jpg')}}" alt="" style=" 
+    <img class="img" src="{{ url_for('static', filename='/assets/img/driver.jpg')}}" alt="" style=" 
     width: 40rem;
     position: fixed;
     margin-left: 200px;
@@ -13,7 +13,7 @@
     <div class="sign_up">
         <h1>Sign up as a Profesional </h1>
         <form action="{{ url_for('signup_worker') }}" method="POST"  enctype="multipart/form-data" class="myForm">
-            <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
+            <img class="profile" {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
 
             <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
                 
@@ -25,8 +25,8 @@
             
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required placeholder="Create Password"><br>
-            <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;">
-            <label for="showPasswordCheckbox" >View Password</label><br><br>
+            <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;" class="check">
+            <label for="showPasswordCheckbox" class="pass" >View Password</label><br><br>
             
             
             
@@ -40,7 +40,7 @@
                 <label for="option">Please select a service</label><br>
                 <select name="service" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
                     <option >Please select an option </option>
-                    <option value="ac_gas_filling">AC Gas Filling</option>
+                    <option class="one" value="ac_gas_filling">AC Gas Filling</option>
                     <option value="ac_repair_and_installation">AC Repair and Installation</option>
                     <option value="refrigerator_repair">Refrigerator Repair</option>
                     <option value="auto_repair">Auto Repair</option>
@@ -102,11 +102,11 @@
                 <img src="{{ current_user.work_pic3_url }}" alt="">
             </div>
             <label> Please upload your work pictures </label><br>
-            <input type="file" name="work_pic1" accept="image/*">
+            <input class="file" type="file" name="work_pic1" accept="image/*">
             <br><br>
-            <input type="file" name="work_pic2" accept="image/*">
+            <input  class="file" type="file" name="work_pic2" accept="image/*">
             <br><br>
-            <input type="file" name="work_pic3" accept="image/*">
+            <input  class="file" type="file" name="work_pic3" accept="image/*">
             
             <center>
 
@@ -170,6 +170,115 @@
         margin-top: 10px;
         margin-left: 25px;
     }
+
+    @media (max-width: 768px) {
+       .img{
+           display: none;
+       }
+
+       .profile{
+        margin-left: 145px !important;
+        width: 80px !important;
+        height: 80px !important;
+        margin-top: 10px !important;
+       }
+
+       h1{
+           font-size: 20px !important;
+           text-align: center;
+           align-items: center;
+       }
+
+       .sign_up{
+           width: 100% !important;
+           margin-top: 10px;
+           margin-left: 0px !important;
+           height: auto;
+           margin-bottom: 50px;
+           font-family: poppins;
+
+       }
+
+       input{
+           width: 300px;
+           height: 30px;
+           border-radius: 5px;
+           /* border: 0.5px thin rgb(77, 76, 76); */
+           border: none;
+           padding: 10px;
+           background-color: whitesmoke;
+           margin-left: 35px;
+           font-size: 10px;
+
+       }
+
+       label{
+           font-size: 10px;
+           margin-left: 35px !important;
+       }
+
+       .pass{
+        margin-left: 0px !important;
+        font-size: 10px !important;
+    }
+
+    .check{
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    select{
+        width: 300px !important;
+        height: 30px !important;
+        border-radius: 5px;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: none;
+        /* padding: 10px; */
+        background-color: whitesmoke;
+        margin-left: 35px;
+        font-size: 10px;
+
+    }
+
+    option{
+        font-size: 5px !important;
+        width: 300px !important;
+
+    }
+
+    textarea{
+        width: 300px !important;
+        height: 100px !important;
+        border-radius: 5px;
+        /* border: 0.5px thin rgb(77, 76, 76); */
+        border: 1px solid gainsboro;
+        padding: 10px;
+        background-color: whitesmoke;
+        margin-left: 35px;
+        font-size: 10px;
+
+    }
+
+    .file{
+        padding-bottom: 35px !important;
+        /* padding-top: 35px !important; */
+    }
+
+    p, a{
+        width: 300px;
+        font-size: 5px;
+    }
+
+    button{
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        margin-left: 35px !important;
+        padding-bottom: 30px !important;
+
+    }
+
+}
 </style>
 
 <script>

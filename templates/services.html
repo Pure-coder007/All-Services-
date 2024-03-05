@@ -1,46 +1,52 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container " data-aos="fade-up" style="margin-top: 50px; margin-bottom: 50px;" >
+<div class="container" data-aos="fade-up" style="margin-top: 50px; margin-bottom: 50px; ">
 
-    <header class="section-header">
-        <center>
-            <h2>Available Services</h2>
-        </center>
-    </header>
+  <header class="section-header">
+      <center>
+          <h2>Available Services</h2>
+      </center>
+  </header>
 
-    <div class="testimonials-slider swiper-container " data-aos="fade-up" data-aos-delay="200">
-      <div class="swiper-wrapper grid-container">
-        {% for worker in workers %}
-        <!-- <div class="swiper-slide"> -->
-          <div class="testimonial-item">
-            
-                <a href="/item_profile/{{ worker['id'] }}" >
-                <div class="card " style="width: 335px; margin-top: 20px; margin-bottom: 30px; margin-left: 50px;">
-                    <div class="card-body">
-                    <h5 class="card-title"><img src="{{ worker['profile_pic'] }}" alt="" style="width: 300px; height: 300px; border-radius: 5px;"></h5>
-                    <h5 class="card-title" style="color: rgb(28, 181, 28);"><strong><i class="fa-solid fa-naira-sign"></i>&nbsp; {{ worker['rate'] }}</strong></h5>
-                    <h5 class="card-title" style="font-weight: 800;">{{ worker['company'] }}</h5>
-                    <h5 class="card-title" style="font-style: italic; color: crimson;">"{{ worker['description'] }}"</h5>
-                    <h4 class="card-title" style="font-size: 18px;"><i class="fa-solid fa-location-dot" style="color: rgb(100, 100, 239); ">&nbsp; </i>{{ worker['address'] }}</h4>
-                    </div>
-                </div>
-                </a>
+  <div class="container container2" data-aos="fade-up" data-aos-delay="200">
+    <div class="row gap-4 justify-content-center">
+      {% for worker in workers %}
+      <div class="col-sm-6 col-md-3 " style="height: 30%;">
+        <div class="testimonial-item">
+          <a href="/item_profile/{{ worker['id'] }}">
+            <div class="card">
+              <div class="card-body">
+                <img class="pic img-fluid w-100" src="{{ worker['profile_pic'] }}" alt="{{ worker['company'] }}" style="height: 20rem !important; ">
+                <h5 class="card-title" style="color: rgb(28, 181, 28);"><strong><i class="fa-solid fa-naira-sign"></i>&nbsp; {{ worker['rate'] }}</strong></h5>
+                <h5 class="card-title" style="font-weight: 800;">{{ worker['company'] }}</h5>
+                <h5 class="card-title truncate" style="font-style: italic; color: crimson;">{{ worker['description'] }}</h5>
+                <h4 class="card-title" style="font-size: 18px;"><i class="fa-solid fa-location-dot" style="color: rgb(100, 100, 239); ">&nbsp; </i>{{ worker['address'] }}</h4>
+              </div>
             </div>
-        <!-- </div> -->
-        {% endfor %}
+          </a>
+        </div>
       </div>
-      <div class="swiper-pagination"></div>
+      {% endfor %}
     </div>
-
   </div>
+  
+
+</div>
 
   <style>
-    .grid-container {
+    /* .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
-}
+} */
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust the max-width as needed */
+  }
 
 .profile-pic {
   width: 300px;
@@ -97,13 +103,35 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px; /* Adjust the gap as needed */
-    justify-content: unset;
-  }
+    /* justify-content: unset;
+  } */ 
+
+  @media (max-width: 768px) {
+      .card{
+        width: 300px !important;
+        margin-left: 5px !important;
+      }
+
+      .container{
+        margin-top: -10px;
+      }
+
+
+      h2{
+        margin-top: -10px !important;
+        text-align: center !important;
+        align-items: center !important;
+        /* margin-right: 40px !important; */
+      }
+
+      .pic{
+        height: 5rem !important;
+      }
 }
 
 

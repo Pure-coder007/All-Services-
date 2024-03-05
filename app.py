@@ -690,7 +690,7 @@ def get_worker_id(worker_id):
         return {}
     
 
-@app.route('/item_profile/<int:worker_id>')
+@app.route('/item_profile/<string:worker_id>')
 @login_required
 def item_profile(worker_id):
     worker = get_worker_id(worker_id)
@@ -714,7 +714,7 @@ def item_profile(worker_id):
 from datetime import datetime  # Import datetime module
 from datetime import datetime  # Import datetime module
 
-@app.route('/reviews/<int:worker_id>', methods=['GET', 'POST'])
+@app.route('/reviews/<string:worker_id>', methods=['GET', 'POST'])
 @login_required
 def reviews(worker_id):
     if request.method == 'POST':
@@ -766,7 +766,7 @@ from datetime import datetime
 
 
 # View Reviews
-@app.route('/view_reviews/<int:worker_id>', methods=['GET', 'POST'])
+@app.route('/view_reviews/<string:worker_id>', methods=['GET', 'POST'])
 @login_required
 def view_reviews(worker_id):
     connection = mysql.connector.connect(**config)
