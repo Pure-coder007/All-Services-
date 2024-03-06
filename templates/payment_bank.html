@@ -91,19 +91,19 @@
             <p style="font-weight: 900; font-size: 25px;">
                 <span id="account_number">3116368134</span>
                 <span>
-                    <button  class="copy" onclick="copyToClipboard('3116368134')" style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button  class="copy" onclick="copyToClipboard('3116368134')" style="border-radius: 5px; border: none; background-color: rgb(33, 31, 31); color: white; padding-top:5px; padding-bottom: 5px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" >copy</button>
                 </span>
             </p>
             <p style="font-weight: 900; font-size: 25px;">
                 <span id="bank_name">First Bank</span>
                 <span>
-                    <button class="copy" onclick="copyToClipboard('First Bank')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button class="copy" onclick="copyToClipboard('First Bank')"  style="border-radius: 5px; border: none; background-color: rgb(33, 31, 31); color: white; padding-top:5px; padding-bottom: 5px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;"  >copy</button>
                 </span>
             </p>
             <h4 style="font-weight: 900; font-size: 25px;">
                 <span id="account_type">SERVICE HUB ACCT</span>
                 <span>
-                    <button  class="copy" onclick="copyToClipboard('SERVICE HUB ACCT')"  style="border-radius: 5px; border: none; background-color: white; color: black; padding-top:10px; padding-bottom: 10px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;" ><i class="fa-solid fa-copy"></i></button>
+                    <button  class="copy" onclick="copyToClipboard('SERVICE HUB ACCT')"  style="border-radius: 5px; border: none; background-color: rgb(33, 31, 31); color: white; padding-top:5px; padding-bottom: 5px; cursor: pointer; font-size: 18px;margin-left: 20px; font-family: poppins;"  >copy</button>
                 </span>
             </h4>
             <p class="make"  style="font-size: 20px; color: crimson;">Make payment and send proof of payment to </p>
@@ -179,23 +179,24 @@
       
       p{
       /* line-height: -10px !important; */
-      font-size: 25px !important;
-      margin-bottom: -10px !important;
+      font-size: 20px !important;
+      /* margin-bottom: -10px !important; */
     }
 
     .copy{
-      background: transparent !important;
+      /* background: transparent !important; */
       font-size: 1px !important;
       margin-right: 20px !important;
     }
 
     h4{
       font-size: 15px !important;
+      margin-bottom: 20px !important;
     }
 
     .payment2{
       width: 350px !important;
-      height: 270px !important;
+      /* height: 270px !important; */
       margin-left: 12px !important;
     }
 
@@ -203,6 +204,7 @@
       margin-bottom: 10px !important;
       margin-top: -10px !important;
       width: 350px !important;
+      max-width: 300px !important;
     }
     
     .number{
@@ -212,7 +214,7 @@
     
     .narate{
       margin-top: -10px !important;
-      font-size: 10px !important;
+      font-size: 17px !important;
       max-width: 320px !important;
     }
 
@@ -314,81 +316,69 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-12 text-center">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <footer id="footer" class="footer">
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-5 col-md-12 footer-info">
-            <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
-              <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
-              <span>ServiceHub</span>
-            </a>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      
+  
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+              <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+                <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
+                <span>ServiceHub</span>
+              </a>
+              <!-- <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p> -->
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
             </div>
+  
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                <!-- <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li> -->
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+  
+            <!-- <div class="col-lg-2 col-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              </ul>
+            </div> -->
+  
+            <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+              <h4>Contact Us</h4>
+              <p>
+                4b Idowu Martins<br>
+                Victoria Island Lagos<br>
+                Nigeria<br><br>
+                <strong>Phone:</strong> +234 814 4010 4671<br>
+                <strong>Email:</strong>myservice_hub@gmail.com<br>
+              </p>
+  
+            </div>
+  
           </div>
-
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-
-          </div>
-
         </div>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>ServiceHub</span></strong>. All Rights Reserved
-      </div>
+  
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>ServiceHub</span></strong>. All Rights Reserved
+        </div>
       <div class="credits">
         
       </div>
