@@ -1,73 +1,139 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <div class="my-div"> 
-    
+    <h2 class="my-h2">Please Leave A Review</h2>
     <div class="form-box "> 
-        <div class="textup"> 
-            <h3 style="margin-bottom: 20px;">Please Leave A Review</h3>
-        </div> 
-        <form class="my-form" action="{{ url_for('reviews', worker_id=worker_id) }}" method="POST"> 
-            <label for="uname"> 
-                <i class="fa fa-solid fa-user"></i> 
-                Name 
-            </label> 
-            <input style="border: 1px thin rgb(109, 101, 56);"  type="text" id="uname" 
-                   name="name" required value="{{current_user.name}}"> 
-  
-            <label for="email"> 
-                <i class="fa fa-solid fa-envelope"></i> 
-                Email Address 
-            </label> 
-            <input style="border: 1px thin rgb(109, 101, 56);" type="email" id="email" 
-                   name="email" required value="{{current_user.email}}"> 
-  
-            <label for="phone"> 
-                <i class="fa-solid fa-phone"></i> 
-                Phone No 
-            </label> 
-            <input style="border: 1px thin rgb(109, 101, 56);" type="tel" id="phone" 
-                   name="phone" required value="{{current_user.phone_number}}"> 
-  
+        <form action="{{ url_for('reviews', worker_id=worker_id) }}" method="POST" class="my_form">
+            <label for="uname"> <i class="fa fa-solid fa-user"></i>&nbsp;Name</label><br>
+            <input class="one"  type="text" id="uname" name="name" required value="{{current_user.name}}"> <br>
+            <label for="email"><i class="fa fa-solid fa-envelope"></i>&nbsp;Email Address</label><br>
+            <input  class="one" type="email" id="email"name="email" required value="{{current_user.email}}"><br> 
+            <label for="phone"><i class="fa-solid fa-phone"></i>&nbsp;Phone No</label><br>
+            <input class="one"  type="tel" id="phone"name="phone" required value="{{current_user.phone_number}}"><br>
+            
             <label> 
                 <i class="fa-solid fa-face-smile"></i> 
                 Do you satisfy with our service? 
             </label> 
+            
             <div class="radio-group"> 
-                <input style="border: 1px thin rgb(109, 101, 56);" type="radio" id="yes" 
+                <input class="two" type="radio" id="yes" 
                        name="satisfy" value="yes" checked> 
-                <label for="yes">Yes</label> 
+                <span class="yes"><label for="yes">Yes</label></span> 
   
-                <input style="border: 1px thin rgb(109, 101, 56);" type="radio" id="no" 
+                <input class="three" type="radio" id="no" 
                        name="satisfy" value="no"> 
-                <label for="no">No</label> 
-            </div> 
-  
+                <span class="no"><label for="no">No</label></span> 
+            </div>
+
             <label for="msg"> 
-                <i class="fa-solid fa-comments" 
-                   style="margin-right: 3px;"></i> 
-                Write your Suggestions: 
-            </label> 
-            <textarea id="msg" name="msg" 
-                      rows="4" cols="10" required> 
-            </textarea> 
+                Please tell us your observations: 
+            </label> <br>
+            <textarea class="four" name="msg" id="" cols="30" rows="10" required>
+
+            </textarea> <br>
             <input type="hidden" name="worker_id" value="{{ worker_id }}">
             <button class="my-btn" type="submit"> 
                 Submit 
-            </button> 
-        </form> 
+            </button> <br><br><br>
+
+  
+  
+            
+        </form>
+        
     </div> 
 </div> 
 
 <style>
-    @media (max-width: 768px) {
-        .my-div{
-            margin-top: -50px !important;
+    @media(max-width: 768px){
+
+        .my-h2{
+            text-align: center;
+            align-items: center;
+            font-weight: 700;
+            margin-bottom: -40px;
         }
 
-        .form-box{
-            width: 100px !important;
-            border: 1px solid red
+        .my_form{
+            /* border: 1px solid red; */
+            margin-top: 50px;
         }
+
+        label{
+            margin-top: 30px;
+            font-size: 15px;
+            margin-left: 35px;
+        }
+
+        .one{
+            margin-left: 35px;
+            width: 270px;
+            height: 40px;
+            margin-top: 5px;
+            border: 1px solid gainsboro;
+            border-radius: 7px;
+            padding-left: 10px;
+            padding-left: 10px;
+
+
+        }
+
+        .two{
+            margin-left: 35px;
+            padding-left: 10px;
+
+        }
+
+        .yes{
+            margin-left: 35px;
+            position: absolute;
+            left: 0;   
+            margin-left: -5px;    
+            margin-right: -20px;
+            margin-left: 20px;   
+        }
+
+        .three{
+            margin-left: 70px;
+        }
+
+        .no{
+            margin-left: 35px;
+            position: relative;
+            margin-left: -30px;
+        }
+
+        .radio-group{
+            margin-top: -30px;
+        }
+
+        .four{
+            margin-left: 35px;
+            width: 270px;
+            height: 100px;
+            margin-top: 5px;
+            border: 1px solid gainsboro;
+            border-radius: 7px;
+            padding-left: 10px;
+            padding-top: 5px;
+        }
+
+        button{
+            margin-left: 130px;
+            padding: 5px;
+            margin-top: 10px;
+            width: 100px;
+            border-radius: 5px;
+            background-color: gainsboro;
+            color: black;
+            border: none;
+            
+
+        }
+
+
     }
 </style>
 
@@ -78,116 +144,9 @@
 
 
 <style>
-    /*style.css */
-@import url( 
-'https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
 
-.my-div { 
-	margin: 0;  
-	display: flex; 
-	align-items: center; 
-	justify-content: center; 
-	flex-direction: column;  
-	height: 100vh;   
-	 /* background-color: #bde5d2;   */
-	font-family: 'Poppins'; 
-
-}  
-
-#hamburger {
-    display: none;
-}
-
-.textup { 
-	text-align: center; 
-	color: rgb(54, 58, 54); 
-	font-weight: 700; 
-} 
-
-i { 
-	margin-right: 3px; 
-} 
-
-.form-box { 
-	background-color: #fff; 
-	box-shadow: 0 0 10px rgba(36, 67, 40, 0.8); 
-	padding: 15px; 
-	border-radius: 8px; 
-	width: 500px; 
-} 
-
-.my-form { 
-	max-width: 400px; 
-	margin: 0 auto; 
-} 
-
-.radio-group { 
-	display: flex; 
-	margin-bottom: 16px; 
-} 
-
-input[type="radio"] { 
-	margin-right: 8px; 
-} 
-
-label { 
-	display: block; 
-	margin-bottom: 8px; 
-	font-size: 17px; 
-	color: rgb(54, 56, 54); 
-	font-weight: 600; 
-} 
-
-input, 
-textarea { 
-	width: 100%; 
-	padding: 8px; 
-	margin-bottom: 12px; 
-	box-sizing: border-box; 
-	border-radius: 5px; 
-    border: 1px solid rgb(183, 182, 182);
-
-} 
-
-.my-btn { 
-	background-color: #368b44; 
-	color: #fff; 
-	padding: 10px; 
-	border: none; 
-	border-radius: 25px; 
-	cursor: pointer; 
-	width: 100%; 
-	font-size: 15px; 
-	transition: .2s linear; 
-} 
-
-.my-btn:hover { 
-	background-color: #0a6808; 
-	border: none; 
-	transform: translateY(-10px); 
-} 
-
-h1 { 
-	color: rgb(24, 24, 24); 
-}
-
-@media screen and (max-width: 500px) {
-    #hamburger{
-        display: none;
-    }
-
-    .form-box{
-        width: 400px !important;
-        height: auto !important;
-        margin-top: 25rem !important;
-        margin-bottom: 200px !important;
-    }
-
-    .footer{
-        margin-top: 200px !important;
-    }
     
-}
+
 
 </style> 
 {% endblock content %}
