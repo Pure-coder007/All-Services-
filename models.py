@@ -148,21 +148,34 @@ def get_worker(email):
     print(user_record, 'user record')
     return user_record
 
+
+
+
+
 def add_user(name, email, password, profile_pic, phone_number, country, state, local_govt, address):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO users (id, name, email, password, profile_pic, phone_number, country, state, local_govt, address) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s)', (gen_ran_string(),name, email, password, profile_pic, phone_number, country, state, local_govt, address))
+        
+        # Generate a random string for the ID
+        user_id = gen_ran_string()
+        
+        # Execute the INSERT query with parameters
+        cursor.execute('INSERT INTO users (id, name, email, password, profile_pic, phone_number, country, state, local_govt, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                       (user_id, name, email, password, profile_pic, phone_number, country, state, local_govt, address))
+        
+        # Commit the transaction
         connection.commit()
+        
+        # Close cursor and connection
         cursor.close()
         connection.close()
-        print('user added')
+        
+        print('User added')
     except mysql.connector.Error as err:
-        print(err)
-        print('user not added')
-    finally:
-        cursor.close()
-        connection.close()
+        print('Error:', err)
+        print('User not added')
+
 
 
 

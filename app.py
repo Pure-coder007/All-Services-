@@ -62,7 +62,7 @@ def load_user(user_id):
     print(user, 'user')
     if not user:
         worker_dict = get_worker_id(user_id)
-        print(worker_dict, 'worker_dict')
+        # print(worker_dict, 'worker_dict')
         if worker_dict:
             user = Worker(**worker_dict)
         else:
@@ -174,20 +174,9 @@ def signup_user():
             local_govt = request.form['local_govt']
             address = request.form['address']
 
-            # print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
+            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
 
 
-            special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
-            if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
-                flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
-                return redirect(url_for('signup_user'))
-
-
-
-            if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address:
-                flash('Please fill in all fields', 'danger')
-
-            
 
             if get_user(email):
                 flash('Email already exists', 'danger')
@@ -211,6 +200,8 @@ def signup_user():
             return redirect(url_for('token_user', email=email))
         # get_all_users()
         return render_template("signup_user.html")
+    except KeyError as e:
+        print(e, 'key error')
     except Exception as e:
         print(e)
         print(e)
@@ -222,8 +213,23 @@ def signup_user():
 
 
 
+
+
+
+
+
+
+
+
+
+
 def generate_random_id():
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+
+
+
+
+
 
 
 
@@ -254,15 +260,16 @@ def signup_worker():
             work_pic2 = request.files['work_pic2']
             work_pic3 = request.files['work_pic3']
             
-            special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
-            if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
-                flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
-                return redirect(url_for('signup_worker'))
+            # special_characters = "!@#$%^&*()_+[]{}|;:,.<>?/~`"
+            # if len(password) < 8 or not any(char.isupper() for char in password) or not any(char in special_characters for char in password):
+            #     flash('Password must be at least 8 characters long, contain at least one uppercase letter, and include a special character', 'danger')
+                # return redirect(url_for('signup_worker'))
 
-            print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
+            # print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3)
 
             if not name or not email or not password or not profile_pic or not phone_number or not country or not state or not local_govt or not address or not company or not service or not work_pic1 or not work_pic2 or not work_pic3 or not description or not rate:
                 flash('Please fill in all fields', 'danger')
+                print(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3, "alllllllllllllllllllllllllllllllllllllllll")
 
             if get_worker(email):
                 flash('Email already exists', 'danger')
@@ -371,7 +378,7 @@ def login_for_worker():
         try:
             cursor.execute('SELECT * FROM workers WHERE email = %s', (email,))
             worker = cursor.fetchone()
-            print(worker, '99999999999999999')
+            # print(worker, '99999999999999999')
             if worker is not None:
                 user_id = worker['id']
                 name = worker['name']
@@ -914,41 +921,14 @@ def worker_contact():
 
 
 
-# # WORKER CONTACT ADMIN
-# @app.route('/worker_contact', methods=['GET', 'POST'])
-# @login_required
-# def worker_contact():
-#     try:
-#         if request.method == 'POST':
-#             name = request.form['name']
-#             email = request.form['email']
-#             subject = request.form['subject']
-#             message = request.form['message']
-
-#             if not name:
-#                 flash('Your name is required', 'danger')
-#             if not email:
-#                 flash('Your email is required', 'danger')
-#             if not subject:
-#                 flash('This message needs a subject', 'danger')
-#             if not message:
-#                 flash('Please include a message', 'danger')
-#             print(name, email, subject, message)
-#             contact_me(name, email, subject, message)
-#             flash('Message Sent ', 'success')
-#             # return redirect('user_index')  # Redirect to 'index_services' route
-#         return render_template('worker_contact.html')
-#     except Exception as e:
-#         print(e)
-#         csrf_token = generate_csrf()
-#         return render_template('worker_contact.html', csrf_token=csrf_token, current_user=current_user)
-    
+#
 
 
 @app.route('/payment/<worker_id>', methods=['GET', 'POST'])
 def payment(worker_id):
     pass
     return render_template('payment.html', current_user=current_user, worker_id=worker_id)
+
 
 
 
@@ -971,25 +951,20 @@ def add_payment(worker_id, amount_paid, category, method, receipt):
 
 
 
-
-
-
-
-
 @app.route('/payment_bank/<worker_id>', methods=['GET', 'POST'])
 def payment_bank(worker_id):
+    print(request.method, 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
     if request.method == 'POST':
         print('form submitted')
-        amount_paid = request.form.get('amount')
+        amount_paid = float(request.form.get('amount'))  # Convert to float
         category = request.form.get('category')
         method = request.form.get('method')
         receipt = request.files.get('receipt')
-        # print(amount_paid, category, receipt, 'xxxxxxxxxxxxxxxxxxx')
-
+        print(amount_paid, category, receipt, 'xxxxxxxxxxxxxxxxxxx')
         try:
             if receipt:
                 filename = secure_filename(receipt.filename)
-                response = cloudinary.uploader.upload(receipt, public_id=f"bank_transfer/{generate_random_id()}")
+                response = cloudinary.uploader.upload(receipt, public_id=f"bank_transfer/{filename}")
                 receipt_url = response['secure_url']
                 print(amount_paid, category, receipt_url, 'cccccccccccccccccccc ')
                 add_payment( amount_paid=amount_paid, category=category, method=method, receipt=receipt_url, worker_id=worker_id)

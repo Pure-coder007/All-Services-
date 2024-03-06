@@ -12,36 +12,40 @@
 
     <div class="sign_up">
         <h1>Sign up as a Profesional </h1>
-        <form action="{{ url_for('signup_worker') }}" method="POST"  enctype="multipart/form-data" class="myForm">
-            <input type="file" id="profilePicture" style="display: none;">
-                <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4 profile_pic" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
+        <form action="{{ url_for('signup_worker') }}" method="POST" enctype="multipart/form-data" class="myForm">
+            <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %}
+                src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture"
+                class="rounded-circle article-img mt-4 profile_pic" id="display_picture"
+                style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
 
             <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
-                
+
             <label for="name">Full Name</label><br>
             <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
-            
+
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
-            
+
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required placeholder="Create Password">
             <span id="showPasswordIcon" class="fas fa-eye" style="margin-bottom: 30px"></span>
 
-            <div id="passwordError" class="error"  style="color: red; font-size: 1px;"></div> <br><!-- Display password error message -->
-            
-            
-            
+            <div id="passwordError" class="error" style="color: red; font-size: 1px;"></div>
+            <br><!-- Display password error message -->
+
+
+
             <label for="phone_number">Phone</label><br>
             <input type="text" id="phone" name="phone_number" required placeholder="Enter Phone Number"><br><br>
-            
+
             <label for="phone_number">Enter Company Name</label><br>
             <input type="text" id="company" name="company" required placeholder="Enter Company Name"><br><br>
 
             <div>
                 <label for="option">Please select a service</label><br>
-                <select name="service" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
-                    <option >Please select an option </option>
+                <select name="service" id="options"
+                    style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                    <option>Please select an option </option>
                     <option class="one" value="ac_gas_filling">AC Gas Filling</option>
                     <option value="ac_repair_and_installation">AC Repair and Installation</option>
                     <option value="refrigerator_repair">Refrigerator Repair</option>
@@ -76,13 +80,14 @@
 
 
             <label for="description">Description</label><br>
-            <textarea name="description" id="" cols="40" rows="3" style="border-radius: 5px; padding-left: 10px;"></textarea><br><br>
+            <textarea name="description" id="" cols="40" rows="3"
+                style="border-radius: 5px; padding-left: 10px;"></textarea><br><br>
 
 
             <label for="rate">Rate</label><br>
             <input type="text" id="rate" name="rate" required placeholder="Enter Rate"><br><br>
 
-            
+
             <label for="country">Country</label><br>
             <input type="text" id="country" name="country" required placeholder="Enter Country"><br><br>
 
@@ -94,31 +99,34 @@
 
             <label for="address">Address</label><br>
             <input type="text" id="address" name="address" required placeholder="Enter Address"><br><br>
-           
+
 
             <div class="work_pics">
                 <img src="{{ current_user.work_pic1_url }}" alt="">
-                
+
                 <img src="{{ current_user.work_pic2_url }}" alt="">
-                
+
                 <img src="{{ current_user.work_pic3_url }}" alt="">
             </div>
             <label> Please upload your work pictures </label><br>
             <input class="file" type="file" name="work_pic1" accept="image/*">
             <br><br>
-            <input  class="file" type="file" name="work_pic2" accept="image/*">
+            <input class="file" type="file" name="work_pic2" accept="image/*">
             <br><br>
-            <input  class="file" type="file" name="work_pic3" accept="image/*">
-            
+            <input class="file" type="file" name="work_pic3" accept="image/*">
+
             <center>
 
-                <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including our <a href="#">privacy policy</a>.</p>
+                <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including
+                    our <a href="#">privacy policy</a>.</p>
             </center>
-                
+
             <button type="submit">Create Account</button>
             <center>
 
-                <strong><p>Have an account already? <a href="{{ url_for('login_for_worker')}}" >Log In</a></p></strong>
+                <strong>
+                    <p>Have an account already? <a href="{{ url_for('login_for_worker')}}">Log In</a></p>
+                </strong>
             </center>
         </form>
 
@@ -126,16 +134,16 @@
 </div>
 
 <style>
-    .sign_up{
+    .sign_up {
         margin-top: 100px;
         margin-left: 950px;
         height: auto;
         margin-bottom: 50px;
         font-family: poppins;
-        
+
     }
 
-    input{
+    input {
         width: 350px;
         height: 40px;
         border-radius: 5px;
@@ -145,14 +153,14 @@
         background-color: whitesmoke;
     }
 
-    .terms{
+    .terms {
         width: 300px;
         font-size: 7px;
         margin-right: 400px;
         margin-left: 25px;
     }
 
-    button{
+    button {
         width: 350px;
         height: 40px;
         padding-top: 10px;
@@ -165,7 +173,7 @@
         color: white;
     }
 
-    p{
+    p {
         width: 300px;
         font-size: 7px;
         margin-right: 400px;
@@ -174,118 +182,125 @@
     }
 
     @media (max-width: 768px) {
-       .img{
-           display: none;
-       }
 
-       .profile{
-        margin-left: 145px !important;
-        width: 80px !important;
-        height: 80px !important;
-        margin-top: 10px !important;
-       }
 
-       .error{
-        margin-left: 35px !important;
-        font-size: 10px !important;
+        .profile_pic {
+            margin-left: 125px !important;
+        }
+
+        .img {
+            display: none;
+        }
+
+        .profile {
+            margin-left: 145px !important;
+            width: 80px !important;
+            height: 80px !important;
+            margin-top: 10px !important;
+        }
+
+        .error {
+            margin-left: 35px !important;
+            font-size: 10px !important;
+        }
+
+        h1 {
+            font-size: 20px !important;
+            text-align: center;
+            align-items: center;
+        }
+
+        .sign_up {
+            width: 100% !important;
+            margin-top: 10px;
+            margin-left: 0px !important;
+            height: auto;
+            margin-bottom: 50px;
+            font-family: poppins;
+
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: none;
+            padding: 10px;
+            background-color: whitesmoke;
+            margin-left: 35px;
+            font-size: 10px;
+
+        }
+
+        label {
+            font-size: 10px;
+            margin-left: 35px !important;
+        }
+
+        .pass {
+            margin-left: 0px !important;
+            font-size: 10px !important;
+        }
+
+        .check {
+            width: 10px !important;
+            height: 10px !important;
+        }
+
+        select {
+            width: 300px !important;
+            height: 30px !important;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: none;
+            /* padding: 10px; */
+            background-color: whitesmoke;
+            margin-left: 35px;
+            font-size: 10px;
+
+        }
+
+        option {
+            font-size: 5px !important;
+            width: 300px !important;
+
+        }
+
+        textarea {
+            width: 300px !important;
+            height: 100px !important;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: 1px solid gainsboro;
+            padding: 10px;
+            background-color: whitesmoke;
+            margin-left: 35px;
+            font-size: 10px;
+
+        }
+
+        .file {
+            padding-bottom: 35px !important;
+            /* padding-top: 35px !important; */
+        }
+
+        p,
+        a {
+            width: 300px;
+            font-size: 5px;
+        }
+
+        button {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            margin-left: 35px !important;
+            padding-bottom: 30px !important;
+
+        }
+
     }
-
-       h1{
-           font-size: 20px !important;
-           text-align: center;
-           align-items: center;
-       }
-
-       .sign_up{
-           width: 100% !important;
-           margin-top: 10px;
-           margin-left: 0px !important;
-           height: auto;
-           margin-bottom: 50px;
-           font-family: poppins;
-
-       }
-
-       input{
-           width: 300px;
-           height: 30px;
-           border-radius: 5px;
-           /* border: 0.5px thin rgb(77, 76, 76); */
-           border: none;
-           padding: 10px;
-           background-color: whitesmoke;
-           margin-left: 35px;
-           font-size: 10px;
-
-       }
-
-       label{
-           font-size: 10px;
-           margin-left: 35px !important;
-       }
-
-       .pass{
-        margin-left: 0px !important;
-        font-size: 10px !important;
-    }
-
-    .check{
-        width: 10px !important;
-        height: 10px !important;
-    }
-
-    select{
-        width: 300px !important;
-        height: 30px !important;
-        border-radius: 5px;
-        /* border: 0.5px thin rgb(77, 76, 76); */
-        border: none;
-        /* padding: 10px; */
-        background-color: whitesmoke;
-        margin-left: 35px;
-        font-size: 10px;
-
-    }
-
-    option{
-        font-size: 5px !important;
-        width: 300px !important;
-
-    }
-
-    textarea{
-        width: 300px !important;
-        height: 100px !important;
-        border-radius: 5px;
-        /* border: 0.5px thin rgb(77, 76, 76); */
-        border: 1px solid gainsboro;
-        padding: 10px;
-        background-color: whitesmoke;
-        margin-left: 35px;
-        font-size: 10px;
-
-    }
-
-    .file{
-        padding-bottom: 35px !important;
-        /* padding-top: 35px !important; */
-    }
-
-    p, a{
-        width: 300px;
-        font-size: 5px;
-    }
-
-    button{
-        width: 300px;
-        height: 30px;
-        border-radius: 5px;
-        margin-left: 35px !important;
-        padding-bottom: 30px !important;
-
-    }
-
-}
 </style>
 
 <script>
@@ -293,11 +308,11 @@
     profile_icon = document.getElementById("display_picture");
     profile_upload = document.getElementById("profilePicture");
 
-    profile_icon.addEventListener("click", function() {
+    profile_icon.addEventListener("click", function () {
         profile_upload.click();
     });
 
-    profile_upload.addEventListener("change", function() {
+    profile_upload.addEventListener("change", function () {
         const selectedFile = this.files[0];
         if (selectedFile) {
             // Update the src attribute of the image element with the URL of the selected file
@@ -311,7 +326,7 @@
     const passwordInput = document.getElementById("password");
     const passwordError = document.getElementById("passwordError");
 
-    passwordInput.addEventListener("input", function() {
+    passwordInput.addEventListener("input", function () {
         const password = passwordInput.value;
         let errorMessage = "";
 
@@ -364,7 +379,7 @@
 </script> -->
 
 <script>
-    document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
+    document.getElementById("showPasswordCheckbox").addEventListener("change", function () {
         var passwordField = document.getElementById("password");
         if (passwordField.type === "password") {
             passwordField.type = "text";
@@ -372,10 +387,10 @@
             passwordField.type = "password";
         }
     });
-    </script>
+</script>
 
 <script>
-    document.getElementById("showPasswordIcon").addEventListener("click", function() {
+    document.getElementById("showPasswordIcon").addEventListener("click", function () {
         var passwordField = document.getElementById("password");
         if (passwordField.type === "password") {
             passwordField.type = "text";
@@ -387,14 +402,14 @@
             document.getElementById("showPasswordIcon").classList.add("fa-eye");
         }
     });
-    </script>
-    
-    <style>
+</script>
+
+<style>
     #showPasswordIcon {
         position: relative;
         left: -25px;
         top: 5px;
         cursor: pointer;
     }
-    </style>
+</style>
 {% endblock content %}

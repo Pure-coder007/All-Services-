@@ -126,55 +126,36 @@
               <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <form action="{{ url_for('payment_bank', worker_id=worker_id) }}" enctype="multipart/form-data"  method="POST">
-                <!-- <label for="email" class="form_label"><strong>Email:</strong></label> <br><span><input type="email" name="email" id="" required placeholder="Email" class="form_input"></span><br><br> -->
-                <label for="amount"  class="form_label"><strong>Amount:</strong></label><br> <span><input type="text" name="amount" id="" required placeholder="Amount" class="form_input"></span><br><br>
-                <label for="option"  class="form_label"><strong>Pick A Category:</strong></label><br>
-                            <select name="category" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
-                                <option >Please select a plan</option>
-                                <option value="Queen">Starter Plan</option>
-                                <option value="Rook">Business Plan</option>
-                                <option value="Rook">Ultimate Plan</option>
-                            </select><br><br>
-                            
-                            <label for="option" class="form_label"><strong>Payment Method</strong></label><br>
-                            <select name="method" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
-                                <option >Please select an option </option>
-                                <option value="Debit Card">Debit Card</option>
-                                <option value="Bank Transfer">Bank Transfer</option>
-                            </select><br><br>
-                <!-- <label for="image"><strong>Upload Receipt:</strong></label><br> -->
-                <label for="image" class="form_label"><strong>Upload Receipt:</strong></label><br>
-                <input type="file" name="receipt" id="image" accept="image/*"><br><br> 
-                <button type="submit" class="btn btn-danger form_label"   id="button2" data-bs-toggle="modal" data-bs-target="#verticalModal"><a style="color: white; text-decoration: none;" href="{{ url_for('login_for_worker') }}">Submit</a></button>
-            </form>
+              <div class="modal-body">
+                  <form action="{{ url_for('payment_bank', worker_id=worker_id) }}" enctype="multipart/form-data"  method="POST">
+                      <label for="amount"  class="form_label"><strong>Amount:</strong></label><br> <span><input type="text" name="amount" id="" required placeholder="Amount" class="form_input"></span><br><br>
+                        <label for="option"  class="form_label"><strong>Pick A Category:</strong></label><br>
+                                <select name="category" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                                    <option >Please select a plan</option>
+                                    <option value="Starter Plan">Starter Plannnn</option>
+                                    <option value="Business Plan">Business Plan</option>
+                                    <option value="Ultimate Plan">Ultimate Plan</option>
+                                </select><br><br>
+                                
+                                <label for="option" class="form_label"><strong>Payment Method</strong></label><br>
+                                <select name="method" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                                    <option >Please select an option </option>
+                                    <option value="Debit Card">Debit Card</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                </select><br><br>
+                    <label for="image" class="form_label"><strong>Upload Receipt:</strong></label><br>
+                    <input type="file" name="receipt" id="image" accept="image/*"><br><br> 
+                    <button type="submit" class="btn btn-danger form_label"   id="button2" data-bs-toggle="modal" data-bs-target="#verticalModal">Submit</a></button>
+                  </form>
+              </div>
             </div>
-            <div class="modal-footer">
-            </div>
-          </div>
         </div>
       </div>
 
 
 
 
-      <!-- Vertically centered modal
-      <div class="modal fade" id="verticalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <<h1 class="modal-title fs-5" id="exampleModalLabel">Vertically Centered Modal</h1> -->
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="justify-content: center; text-align: center;">
-                    <h3>Registration Successful!</h3>
-                    <br>
-                    <a href="{{ url_for('login_for_worker') }}" class="link" style=" padding: 5px; width: 500px; border-radius: 20px; background-color: rgb(83, 83, 240); color: white; cursor: pointer; padding-left: 100px; padding-right: 100px;">Continue</a><br>
-                </div>
-            </div>
-        </div> -->
-    <!-- </div>  -->
+      
   
     <style>
         a:hover{

@@ -7,69 +7,76 @@
 
 <img src="{{ url_for('static', filename='/assets/img/doctor 2.jpg')}}" alt="" class="img1">
 <div class="sign_up">
-            <h2 style="font-weight: 900;">Sign Up</h2><span style="color: rgb(80, 112, 219); " class="serve">To find service</span><br><br>
-            
-            <form action="{{ url_for('signup_user') }}" method="POST"  enctype="multipart/form-data">
-                <input type="file" id="profilePicture" style="display: none;">
-                <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4 profile_pic" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
-            </form>
+    <h2 style="font-weight: 900;">Sign Up</h2><span style="color: rgb(80, 112, 219); " class="serve">To find
+        service</span><br><br>
+
+    <form action="{{ url_for('signup_user') }}" method="POST" enctype="multipart/form-data">
+
+        <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %}
+            src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture"
+            class="rounded-circle article-img mt-4 profile_pic" id="display_picture"
+            style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
 
 
-            <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
-                
-            <label for="name">Full Name</label><br>
-            <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
-            
-            <label for="email">Email</label><br>
-            <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
-            
-            <label for="password">Password</label><br>
-            <input type="password" id="password" name="password" required placeholder="Create Password">
-            <span id="showPasswordIcon" class="fas fa-eye" style="margin-bottom: 30px"></span>
 
-            <div id="passwordError" class="error"  style="color: red; font-size: 1px;"></div> <br><!-- Display password error message -->
+        <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
+
+        <label for="name">Full Name</label><br>
+        <input type="text" id="name" name="name" required placeholder="Enter Full Name"><br><br>
+
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" required placeholder="Create Password">
+        <span id="showPasswordIcon" class="fas fa-eye" style="margin-bottom: 30px"></span>
+
+        <div id="passwordError" class="error" style="color: red; font-size: 1px;"></div>
+        <br><!-- Display password error message -->
 
 
-            <label for="phone_number">Phone</label><br>
-            <input type="text" id="phone" name="phone_number" required placeholder="Enter Phone Number"><br><br>
-            
-            <label for="country">Country</label><br>
-            <input type="text" id="country" name="country" required placeholder="Enter Country"><br><br>
+        <label for="phone_number">Phone</label><br>
+        <input type="text" id="phone" name="phone_number" required placeholder="Enter Phone Number"><br><br>
 
-            <label for="state">State</label><br>
-            <input type="text" id="state" name="state" required placeholder="Enter State"><br><br>
+        <label for="country">Country</label><br>
+        <input type="text" id="country" name="country" required placeholder="Enter Country"><br><br>
 
-            <label for="local_govt">Local Government</label><br>
-            <input type="text" id="local_govt" name="local_govt" required placeholder="Enter Local Government"><br><br>
+        <label for="state">State</label><br>
+        <input type="text" id="state" name="state" required placeholder="Enter State"><br><br>
 
-            <label for="address">Address</label><br>
-            <input type="text" id="address" name="address" required placeholder="Enter Address"><br><br>
-            
-            <center>
+        <label for="local_govt">Local Government</label><br>
+        <input type="text" id="local_govt" name="local_govt" required placeholder="Enter Local Government"><br><br>
 
-                <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including our <a href="#">privacy policy</a>.</p>
-            </center>
-                
-            <button type="submit">Create Account</button>
-            <center>
+        <label for="address">Address</label><br>
+        <input type="text" id="address" name="address" required placeholder="Enter Address"><br><br>
 
-                <strong><p class="account">Have an account already? <a href="{{ url_for('login_for_user')}}"  >Log In</a></p></strong>
-            </center>
-        </form>
-    </div>
+        <center>
+
+            <p class="terms">By creating an account, you agree to our <a href="#">terms and conditions</a> including our
+                <a href="#">privacy policy</a>.</p>
+        </center>
+
+        <button type="submit">Create Account</button>
+        <center>
+
+            <strong>
+                <p class="account">Have an account already? <a href="{{ url_for('login_for_user')}}">Log In</a></p>
+            </strong>
+        </center>
+    </form>
+</div>
 
 <style>
-
-    .sign_up{
+    .sign_up {
         margin-top: 100px;
         margin-left: 950px;
         height: auto;
         margin-bottom: 50px;
         font-family: poppins;
-        
+
     }
 
-    input{
+    input {
         width: 350px;
         height: 40px;
         border-radius: 5px;
@@ -79,14 +86,14 @@
         background-color: whitesmoke;
     }
 
-    .terms{
+    .terms {
         width: 300px;
         font-size: 7px;
         margin-right: 400px;
         margin-left: 25px;
     }
 
-    button{
+    button {
         width: 350px;
         height: 40px;
         padding-top: 10px;
@@ -99,7 +106,7 @@
         color: white;
     }
 
-    p{
+    p {
         width: 300px;
         font-size: 7px;
         margin-right: 400px;
@@ -108,7 +115,7 @@
 
     }
 
-    .img1{
+    .img1 {
         width: 40rem;
         /* height: 700px; */
         position: fixed;
@@ -118,110 +125,109 @@
     }
 
     @media (max-width: 768px) {
-        .img1{
+        .img1 {
             display: none;
         }
 
-        .sign_up{
-        margin-top: -50px;
-        margin-left: 0px;
-        height: auto;
-        margin-bottom: 50px;
-        font-family: poppins;
-        
+        .sign_up {
+            margin-top: -50px;
+            margin-left: 0px;
+            height: auto;
+            margin-bottom: 50px;
+            font-family: poppins;
+
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: none;
+            padding: 10px;
+            background-color: whitesmoke;
+            margin-left: 35px;
+            font-size: 10px;
+        }
+
+        p {
+            width: 300px;
+            font-size: 5px;
+            margin-right: 350px;
+            margin-top: 10px;
+            margin-left: 30px;
+
+        }
+
+        label {
+            margin-left: 35px;
+            font-size: 10px;
+        }
+
+        .profile_pic {
+            margin-left: 140px !important;
+            width: 80px !important;
+            height: 80px !important;
+        }
+
+        .pass {
+            margin-left: -00px !important;
+            font-size: 10px !important;
+        }
+
+        .check {
+            width: 10px !important;
+            height: 10px !important;
+        }
+
+        .terms {
+            width: 300px;
+            font-size: -3px !important;
+            margin-right: 400px;
+            margin-left: 25px;
+        }
+
+        button {
+            width: 300px;
+            height: 30px;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            padding-left: 10px !important;
+            padding-right: 10px;
+            border-radius: 5px;
+            background-color: rgb(80, 112, 219);
+            border: none;
+            color: white;
+            margin-left: 35px;
+        }
+
+        .account {
+            font-size: 10px !important;
+        }
+
+        a {
+            font-size: 10px !important;
+        }
+
+        h2 {
+            text-align: center;
+            align-items: center;
+
+        }
+
+        .serve {
+            text-align: center;
+            align-items: center;
+            margin-left: 130px !important;
+
+        }
+
+        .error {
+            margin-left: 35px !important;
+            font-size: 10px !important;
+        }
+
     }
-
-    input{
-        width: 300px;
-        height: 30px;
-        border-radius: 5px;
-        /* border: 0.5px thin rgb(77, 76, 76); */
-        border: none;
-        padding: 10px;
-        background-color: whitesmoke;
-        margin-left: 35px;
-        font-size: 10px;
-    }
-
-    p{
-        width: 300px;
-        font-size: 5px;
-        margin-right: 350px;
-        margin-top: 10px;
-        margin-left: 30px;
-
-    }
-
-    label{
-        margin-left: 35px;
-        font-size: 10px;
-    }
-
-    .profile_pic{
-        margin-left: 140px !important;
-        width: 80px !important;
-        height: 80px !important;
-    }
-
-    .pass{
-        margin-left: -00px !important;
-        font-size: 10px !important;
-    }
-
-    .check{
-        width: 10px !important;
-        height: 10px !important;
-    }
-
-    .terms{
-        width: 300px;
-        font-size: -3px !important;
-        margin-right: 400px;
-        margin-left: 25px;
-    }
-
-    button{
-        width: 300px;
-        height: 30px;
-        padding-top: 0px !important;
-        padding-bottom: 0px !important;
-        padding-left: 10px !important;
-        padding-right: 10px;
-        border-radius: 5px;
-        background-color: rgb(80, 112, 219);
-        border: none;
-        color: white;
-        margin-left: 35px;
-    }
-
-    .account{
-        font-size: 10px !important;
-    }
-
-    a{
-        font-size: 10px !important;
-    }
-
-    h2{
-        text-align: center;
-        align-items: center;
-
-    }
-
-    .serve{
-        text-align: center;
-        align-items: center;
-        margin-left: 130px !important;
-
-    }
-
-    .error{
-        margin-left: 35px !important;
-        font-size: 10px !important;
-    }
-
-}
-
 </style>
 
 
@@ -229,7 +235,7 @@
     const passwordInput = document.getElementById("password");
     const passwordError = document.getElementById("passwordError");
 
-    passwordInput.addEventListener("input", function() {
+    passwordInput.addEventListener("input", function () {
         const password = passwordInput.value;
         let errorMessage = "";
 
@@ -258,11 +264,11 @@
     profile_icon = document.getElementById("display_picture");
     profile_upload = document.getElementById("profilePicture");
 
-    profile_icon.addEventListener("click", function() {
+    profile_icon.addEventListener("click", function () {
         profile_upload.click();
     });
 
-    profile_upload.addEventListener("change", function() {
+    profile_upload.addEventListener("change", function () {
         const selectedFile = this.files[0];
         if (selectedFile) {
             // Update the src attribute of the image element with the URL of the selected file
@@ -272,7 +278,7 @@
 </script>
 
 <script>
-    document.getElementById("showPasswordIcon").addEventListener("click", function() {
+    document.getElementById("showPasswordIcon").addEventListener("click", function () {
         var passwordField = document.getElementById("password");
         if (passwordField.type === "password") {
             passwordField.type = "text";
@@ -284,15 +290,14 @@
             document.getElementById("showPasswordIcon").classList.add("fa-eye");
         }
     });
-    </script>
-    
-    <style>
+</script>
+
+<style>
     #showPasswordIcon {
         position: relative;
         left: -25px;
         top: 5px;
         cursor: pointer;
     }
-    </style>
+</style>
 {% endblock content %}
-
