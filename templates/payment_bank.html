@@ -64,7 +64,7 @@
 
     </div>
   </header><!-- End Header -->
-  <br><br>
+  <br><br><br><br>
   <!-- <br><br><br><br> -->
 
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -111,7 +111,7 @@
             <p class="narate" style="font-style: italic; color: crimson;"><img src="{{ url_for('static', filename='/assets/img/pen.jpg')}}" alt="" style="width: 50px; height: 50px;">  Please include the package you are making payment for and your email address in the payment narration</p>
         </div>
         <br>
-        <a  href="{{ url_for('payment') }}" class="back">Go Back</a> 
+        <a  href="{{ url_for('payment', worker_id=worker_id) }}" class="back">Go Back</a> 
         <span class="sub">
             <button type="submit" value="Submit"  class="btn-primary p-2 btn submit" id="" data-bs-toggle="modal" data-bs-target="#queenModal">submit</button>
         </span>
@@ -127,11 +127,30 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5>Has bank transfer been made?</h5>
+              <form action="{{ url_for('payment_bank', worker_id=worker_id) }}" enctype="multipart/form-data"  method="POST">
+                <!-- <label for="email" class="form_label"><strong>Email:</strong></label> <br><span><input type="email" name="email" id="" required placeholder="Email" class="form_input"></span><br><br> -->
+                <label for="amount"  class="form_label"><strong>Amount:</strong></label><br> <span><input type="text" name="amount" id="" required placeholder="Amount" class="form_input"></span><br><br>
+                <label for="option"  class="form_label"><strong>Pick A Category:</strong></label><br>
+                            <select name="category" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                                <option >Please select a plan</option>
+                                <option value="Queen">Starter Plan</option>
+                                <option value="Rook">Business Plan</option>
+                                <option value="Rook">Ultimate Plan</option>
+                            </select><br><br>
+                            
+                            <label for="option" class="form_label"><strong>Payment Method</strong></label><br>
+                            <select name="method" id="options" style="width: 300px; height:35px; border-radius:10px; padding-left: 10px;" required>
+                                <option >Please select an option </option>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select><br><br>
+                <!-- <label for="image"><strong>Upload Receipt:</strong></label><br> -->
+                <label for="image" class="form_label"><strong>Upload Receipt:</strong></label><br>
+                <input type="file" name="receipt" id="image" accept="image/*"><br><br> 
+                <button type="submit" class="btn btn-danger form_label"   id="button2" data-bs-toggle="modal" data-bs-target="#verticalModal"><a style="color: white; text-decoration: none;">Submit</a></button>
+            </form>
             </div>
             <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" ><a href="" style="color: white; text-decoration: none;">Pay With Card</a></button> -->
-                <button type="button" class="btn btn-danger" id="button2" data-bs-toggle="modal" data-bs-target="#verticalModal"><a href="#" style="color: white; text-decoration: none;">Confirm</a></button>
             </div>
           </div>
         </div>
@@ -260,6 +279,29 @@
       width: 100px !important;
       height: 50px !important;
       /* width: 0 !important; */
+    }
+
+    .form_label{
+      font-size: 15px !important;
+      font-family: poppins !important;
+      margin-left: 10px !important;
+    }
+
+    .form_input{
+      font-size: 12px !important;
+      width: 300px !important;
+      height: 40px !important;
+      border: 1px solid gainsboro;
+    }
+
+
+    select{
+      font-size: 12px !important;
+      width: 300px !important;
+      height: 40px !important;
+      border: 1px solid gainsboro;
+      font-family: poppins !important;
+      margin-left: 8px !important;
     }
 
        

@@ -14,23 +14,23 @@ login_manager = LoginManager()
 import mysql.connector
 
 
-# config = {
-#     'user': 'root',
-#     'password': 'language007',
-#     'host': 'localhost',
-#     'database': 'all_services',
-#     'raise_on_warnings': True
-# }
-
-
-
 config = {
-    'user': 'ukahdike007',
+    'user': 'root',
     'password': 'language007',
-    'host': 'db4free.net',
-    'database': 'ukahdike',
+    'host': 'localhost',
+    'database': 'all_services',
     'raise_on_warnings': True
 }
+
+
+
+# config = {
+#     'user': 'ukahdike007',
+#     'password': 'language007',
+#     'host': 'db4free.net',
+#     'database': 'ukahdike',
+#     'raise_on_warnings': True
+# }
 
 
 conn = mysql.connector.connect(**config)
@@ -86,7 +86,7 @@ class Admin(UserMixin):
 
 
 class Worker(UserMixin):
-    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description=None, rate=None, work_pic1=None, work_pic2=None, work_pic3=None):
+    def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description=None, rate=None, work_pic1=None, work_pic2=None, work_pic3=None, amount=None, category=None, method=None, receipt=None):
         self.id = id
         self.name = name
         self.email = email
@@ -104,6 +104,10 @@ class Worker(UserMixin):
         self.work_pic1 = work_pic1
         self.work_pic2 = work_pic2
         self.work_pic3 = work_pic3
+        self.amount = amount
+        self.category = category
+        self.method = method
+        self.receipt = receipt
        
 
         
@@ -182,22 +186,33 @@ def add_admin(id_, name, email, password):
 
 
 
-
 def add_worker(name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
         cursor.execute('INSERT INTO workers (id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s , %s , %s )', (gen_ran_string(), name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description, rate, work_pic1, work_pic2, work_pic3))
         connection.commit()
+        print('worker added')
+        
+        # Fetch the inserted worker
+        cursor.execute("SELECT * FROM workers WHERE email = %s", (email,))
+        worker = cursor.fetchone()
+        
         cursor.close()
         connection.close()
-        print('worker added')
+        print(worker, 'workerrrrrrrrrrrrrr')
+        
+        # Return the fetched worker
+        return worker
     except mysql.connector.Error as err:
         print(err)
         print('worker not added')
     finally:
-        cursor.close()
-        connection.close()
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()
+
 
 # print all user's name from db
 def get_all_users():

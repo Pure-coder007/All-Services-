@@ -137,8 +137,8 @@ def token_user(email):
 
 
 # Token for email verification for user
-@app.route('/token_worker/<email>', methods=['GET', 'POST'])
-def token_worker(email):
+@app.route('/token_worker/<email>/<worker_id>', methods=['GET', 'POST'])
+def token_worker(email, worker_id):
     if request.method == 'POST':
         token = request.form.get('otp')
         stored_otp = session.get('otp', None)
@@ -147,7 +147,7 @@ def token_worker(email):
             print('stored otp', stored_otp)
             flash('Invalid token. Please try again.', 'danger')
         # flash('Registration successful. Please login.', 'success')
-        return redirect(url_for('payment'))
+        return redirect(url_for('payment', worker_id=worker_id))
     return render_template('token_worker.html', current_user=current_user)
             
 
@@ -282,7 +282,8 @@ def signup_worker():
                 response = cloudinary.uploader.upload(work_pic3, public_id=f"workers/{generate_random_id()}")
                 work_pic3 = response['secure_url']
             
-            add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service,  description, rate, work_pic1, work_pic2, work_pic3)
+            worker = add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service,  description, rate, work_pic1, work_pic2, work_pic3)
+            worker_id = worker[0]
             connection.commit()
 
             # Generate OTP and send verification email
@@ -292,7 +293,7 @@ def signup_worker():
             print(email, otp)
 
             flash('Registration successful. Please check your email for verification token.', 'success')
-            return redirect(url_for('token_worker', email=email))
+            return redirect(url_for('token_worker', email=email, worker_id=worker_id))
         get_all_users()
         return render_template("signup_worker.html")
     except Exception as e:
@@ -942,17 +943,63 @@ def worker_contact():
     
 
 
-@app.route('/payment', methods=['GET', 'POST'])
-def payment():
+@app.route('/payment/<worker_id>', methods=['GET', 'POST'])
+def payment(worker_id):
     pass
-    return render_template('payment.html', current_user=current_user)
+    return render_template('payment.html', current_user=current_user, worker_id=worker_id)
 
 
 
-@app.route('/payment_bank', methods=['GET', 'POST'])
-def payment_bank():
-    pass
-    return render_template('payment_bank.html', current_user=current_user)
+def add_payment(worker_id, amount_paid, category, method, receipt):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        query = "UPDATE workers SET amount_paid = %s, category = %s, method = %s, receipt = %s WHERE id = %s"
+        values = (amount_paid, category, method, receipt, worker_id)
+        cursor.execute(query, values)
+        connection.commit()
+    except mysql.connector.Error as err:
+        print("Error:", err)
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+
+
+
+
+
+
+
+
+@app.route('/payment_bank/<worker_id>', methods=['GET', 'POST'])
+def payment_bank(worker_id):
+    if request.method == 'POST':
+        print('form submitted')
+        amount_paid = request.form.get('amount')
+        category = request.form.get('category')
+        method = request.form.get('method')
+        receipt = request.files.get('receipt')
+        # print(amount_paid, category, receipt, 'xxxxxxxxxxxxxxxxxxx')
+
+        try:
+            if receipt:
+                filename = secure_filename(receipt.filename)
+                response = cloudinary.uploader.upload(receipt, public_id=f"bank_transfer/{generate_random_id()}")
+                receipt_url = response['secure_url']
+                print(amount_paid, category, receipt_url, 'cccccccccccccccccccc ')
+                add_payment( amount_paid=amount_paid, category=category, method=method, receipt=receipt_url, worker_id=worker_id)
+                print(amount_paid, category, method, receipt_url, 'qqqqqqqqqqqqqqq ')
+                print("Payment added successfully", amount_paid, category, receipt_url)
+                flash('Payment added successfully. Please wait for confirmation', 'success')
+                return redirect(url_for('login_for_worker'))
+        except Exception as e:
+            print(f"Error: {e}")
+            flash('An error occurred while submitting the payment', 'error')
+
+    return render_template('payment_bank.html', worker_id=worker_id)
 
 
 

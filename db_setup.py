@@ -48,7 +48,11 @@ def setup_database():
     work_pic1 VARCHAR(255) NOT NULL,
     work_pic2 VARCHAR(255) NOT NULL,
     work_pic3 VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    amount_paid DECIMAL(10, 2)  NULL,
+    category VARCHAR(255)  NULL,
+    method VARCHAR(255)  NULL,
+    receipt VARCHAR(255)  NULL,
+    created_at TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP
 );
 
     """)
@@ -99,6 +103,20 @@ def setup_database():
 
 
      """)
+    
+
+    cursor.execute("""
+    CREATE TABLE bank_transfer (
+    id VARCHAR(100)NOT NULL PRIMARY KEY,
+    user_id VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    amount_paid DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    method VARCHAR(255) NOT NULL,
+    receipt VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+      """)
 
     
 
