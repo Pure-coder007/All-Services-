@@ -25,10 +25,10 @@
             <input type="email" id="email" name="email" required placeholder="Enter Email Address"><br><br>
             
             <label for="password">Password</label><br>
-            <input type="password" id="password" name="password" required placeholder="Create Password"><br>
-            <div id="passwordError" style="color: red; font-size: 1px;"></div> <!-- Display password error message -->
-            <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;" class="check">
-            <label for="showPasswordCheckbox" class="pass" >View Password</label><br><br>
+            <input type="password" id="password" name="password" required placeholder="Create Password">
+            <span id="showPasswordIcon" class="fas fa-eye" style="margin-bottom: 30px"></span>
+
+            <div id="passwordError" class="error"  style="color: red; font-size: 1px;"></div> <br><!-- Display password error message -->
             
             
             
@@ -184,6 +184,11 @@
         height: 80px !important;
         margin-top: 10px !important;
        }
+
+       .error{
+        margin-left: 35px !important;
+        font-size: 20px !important;
+    }
 
        h1{
            font-size: 20px !important;
@@ -368,4 +373,28 @@
         }
     });
     </script>
+
+<script>
+    document.getElementById("showPasswordIcon").addEventListener("click", function() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            document.getElementById("showPasswordIcon").classList.remove("fa-eye");
+            document.getElementById("showPasswordIcon").classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            document.getElementById("showPasswordIcon").classList.remove("fa-eye-slash");
+            document.getElementById("showPasswordIcon").classList.add("fa-eye");
+        }
+    });
+    </script>
+    
+    <style>
+    #showPasswordIcon {
+        position: relative;
+        left: -25px;
+        top: 5px;
+        cursor: pointer;
+    }
+    </style>
 {% endblock content %}
