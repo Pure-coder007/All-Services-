@@ -13,7 +13,8 @@
     <div class="sign_up">
         <h1>Sign up as a Profesional </h1>
         <form action="{{ url_for('signup_worker') }}" method="POST"  enctype="multipart/form-data" class="myForm">
-            <img class="profile" {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
+            <input type="file" id="profilePicture" style="display: none;">
+                <img {% if current_user.profile_picture %} src="{{ current_user.profile_picture }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4 profile_pic" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; margin-left: 100px; cursor: pointer;">
 
             <input type="file" id="profilePicture" name="profile_picture" accept="image/*" class="d-none"><br><br>
                 
@@ -25,6 +26,7 @@
             
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required placeholder="Create Password"><br>
+            <div id="passwordError" style="color: red; font-size: 1px;"></div> <!-- Display password error message -->
             <input type="checkbox" id="showPasswordCheckbox" style="width: 15px; height: 15px; margin-top: 15px;" class="check">
             <label for="showPasswordCheckbox" class="pass" >View Password</label><br><br>
             
@@ -282,6 +284,53 @@
 </style>
 
 <script>
+    // JavaScript
+    profile_icon = document.getElementById("display_picture");
+    profile_upload = document.getElementById("profilePicture");
+
+    profile_icon.addEventListener("click", function() {
+        profile_upload.click();
+    });
+
+    profile_upload.addEventListener("change", function() {
+        const selectedFile = this.files[0];
+        if (selectedFile) {
+            // Update the src attribute of the image element with the URL of the selected file
+            profile_icon.src = URL.createObjectURL(selectedFile);
+        }
+    });
+</script>
+
+
+<script>
+    const passwordInput = document.getElementById("password");
+    const passwordError = document.getElementById("passwordError");
+
+    passwordInput.addEventListener("input", function() {
+        const password = passwordInput.value;
+        let errorMessage = "";
+
+        // Validate password length
+        if (password.length < 8) {
+            errorMessage += "*Password must be at least 8 characters long.<br>";
+        }
+
+        // Validate for uppercase letter
+        if (!/[A-Z]/.test(password)) {
+            errorMessage += "*Password must contain at least one uppercase letter.<br>";
+        }
+
+        // Validate for special characters !~!@#$%^&*()_+- only
+        if (!/[.,?><*/\-=_+)(*&^%$#@!~`|\\]/.test(password)) {
+            errorMessage += "*Password must contain at least one special character";
+        }
+
+        // Display error message
+        passwordError.innerHTML = errorMessage;
+    });
+</script>
+
+<!-- <script>
     profile_icon = document.getElementById("display_picture");
     profile_upload = document.getElementById("profilePicture");
 
@@ -307,7 +356,7 @@
                 break;
         }
     }
-</script>
+</script> -->
 
 <script>
     document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
