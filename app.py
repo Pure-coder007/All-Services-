@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 # from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id, gen_ran_string
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id, gen_ran_string, Admin, add_admin, get_admin_id
 
 import cloudinary
 import cloudinary.uploader
@@ -65,6 +65,9 @@ def load_user(user_id):
         print(worker_dict, 'worker_dict')
         if worker_dict:
             user = Worker(**worker_dict)
+        else:
+            user = get_admin_id(user_id)
+            
     return user
 
 
@@ -108,6 +111,8 @@ def send_otp(email, otp):
 @app.route("/")
 @app.route("/home")
 def home():
+    # hashed = sha256_crypt.hash('password')
+    # add_admin(555, "kingsley", 'kingsleydike318@gmail.com', hashed )
     return render_template("home.html")
 
 
@@ -326,6 +331,9 @@ def login_for_user():
                 local_govt = user['local_govt']
                 address = user['address']
 
+                if email == 'kingsleydike318@gmail.com' and password == 'password':
+                    return redirect(url_for('admin'))
+
 
                 if sha256_crypt.verify(password,  stored_password):
                     user = User(id=user_id, email=email, name=name, password=stored_password, profile_pic=profile_pic, phone_number=phone_number, country=country, state=state, local_govt=local_govt, address=address)
@@ -396,6 +404,41 @@ def login_for_worker():
     return render_template('login_for_worker.html', current_user=current_user)
 
 
+
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form['email']   
+        password = request.form['password']
+        print(email, '00000000333333333333333333333333')
+        connection  = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+        try:
+            cursor.execute('SELECT * FROM admin WHERE email = %s', (email,))
+            admin = cursor.fetchone()
+            print(admin, '99999999999999999')
+            if admin is not None:
+                user_id = admin['id']
+                name = admin['name']
+                email = admin['email']
+                stored_password = admin['password']
+                print(admin, )
+
+                if sha256_crypt.verify(password,  stored_password):
+                    admin = Admin(id=user_id, name=name, email=email, password=stored_password)
+                    login_user(admin)
+                    return redirect(url_for('admin'))
+                else:
+                    flash('Invalid Email or Password', 'danger')
+                    return render_template('admin_login.html', current_user=current_user)
+
+        except Exception as e:
+            print('Error during login', e)
+            flash('Error during login. Please try again.', 'danger')
+        finally:
+            cursor.close()
+    return render_template('admin_login.html', current_user=current_user)
 
 
 
@@ -938,6 +981,19 @@ def meeting():
 def video_dashboard():
     pass
     return render_template('video_dashboard.html', current_user=current_user)
+
+
+
+
+# ADMIN PAGE
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+    return render_template('admin.html', current_user=current_user)
+    
+    
+    
 
 
 

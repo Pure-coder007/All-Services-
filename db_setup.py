@@ -86,6 +86,19 @@ def setup_database():
 
 
      """)
+    
+
+    cursor.execute("""
+    CREATE TABLE admin (
+    id INT(100) NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password TEXT NOT NULL
+    
+);
+
+
+     """)
 
     
 

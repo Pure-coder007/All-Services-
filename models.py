@@ -74,6 +74,16 @@ class User(UserMixin):
 
 
 
+class Admin(UserMixin):
+    def __init__(self, id, name, email, password):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.password = password
+       
+
+
+
 
 class Worker(UserMixin):
     def __init__(self, id, name, email, password, profile_pic, phone_number, country, state, local_govt, address, company, service, description=None, rate=None, work_pic1=None, work_pic2=None, work_pic3=None):
@@ -149,6 +159,27 @@ def add_user(name, email, password, profile_pic, phone_number, country, state, l
     finally:
         cursor.close()
         connection.close()
+
+
+
+
+def add_admin(id_, name, email, password):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        cursor.execute('INSERT INTO admin (id, name, email, password ) VALUES (%s,%s, %s, %s)', (id_, name, email, password))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print('admin added')
+    except mysql.connector.Error as err:
+        print(err)
+        print('user not added')
+    finally:
+        cursor.close()
+        connection.close()
+
+
 
 
 
@@ -239,6 +270,38 @@ def get_worker_id(user_id):
         )
     
     return None
+
+
+
+def get_admin_id(user_id):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM admin WHERE id=%s', (user_id,))
+        user_record = cursor.fetchone()
+        
+        print("User record:", user_record)  # Debugging print statement
+
+        if user_record:
+            admin = Admin(
+                id=user_record['id'],
+                name=user_record['name'],
+                email=user_record['email'],
+                password=user_record['password']
+            )
+            return admin
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+
+    finally:
+        if 'cursor' in locals() and cursor is not None:
+            cursor.close()
+        if 'connection' in locals() and connection is not None:
+            connection.close()
+
+    return None
+
 
 
 
