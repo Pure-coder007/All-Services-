@@ -481,14 +481,14 @@ def edit_user_profile():
                 response = cloudinary.uploader.upload(profile_pic, public_id=f"users/{user_id}/{filename}")
                 profile_pic_url = response['secure_url']
 
-                if get_user(email):
-                    flash('Email already exists', 'danger')
-                    return redirect(url_for('edit_user_profile'))
-                
-                update_user_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url)
-                flash('Profile updated successfully', 'success')
-                print(name, email, phone_number, country, state, local_govt, address, profile_pic_url, '///////////////////////////////')
-                return redirect(url_for('user_index', user_id=user_id))
+            if get_user(email):
+                flash('Email already exists', 'danger')
+                return redirect(url_for('edit_user_profile'))
+            
+            update_user_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url)
+            flash('Profile updated successfully', 'success')
+            print(name, email, phone_number, country, state, local_govt, address, profile_pic_url, '///////////////////////////////')
+            return redirect(url_for('user_index', user_id=user_id))
 
         except Exception as e:
             print(f'Error: {e}')
@@ -1023,6 +1023,19 @@ def payment_bank(worker_id):
             flash('An error occurred while submitting the payment', 'error')
 
     return render_template('payment_bank.html', worker_id=worker_id)
+
+
+
+
+
+@app.route('/payment_card/<worker_id>', methods=['GET', 'POST'])
+def payment_card(worker_id):
+    pass
+    return render_template('payment_card.html', worker_id=worker_id)
+
+
+
+
 
 
 

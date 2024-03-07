@@ -85,7 +85,7 @@
     <div class="payment">
         <h1>Payment</h1>
         <span class="service">Service payment</span><br><br><br>
-        <a  href="" class="pay_card">Pay With Card</a><br><br>
+        <a  href="{{ url_for('payment_card', worker_id=worker_id)}}" class="pay_card">Pay With Card</a><br><br>
         <div class="payment2">
             <p style="font-size: 30px;">Please pay into the bank account below</p>
             <p style="font-weight: 900; font-size: 25px;">
