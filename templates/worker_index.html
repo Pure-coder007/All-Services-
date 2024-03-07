@@ -52,8 +52,8 @@
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
           <li><a class="nav-link scrollto" href="{{ url_for('worker_contact')}}">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li>
-          <p>{{ current_user.email }}</p>
+          <!-- <li><a class="getstarted scrollto" href="{{ url_for('worker_profile') }}">My Profile</a></li> -->
+          
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->
@@ -81,91 +81,195 @@
     {% endblock  content %}
 
     <br>
-    <br><br>
-
     
 
-
-    
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-12 text-center">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
+    <div class="worker">
+      <div class="profile">
+        <h1>{{ user['name'] }}</h1><span ><img class="profile_pic" src="{{ user['profile_pic']}}" alt=""></span>
       </div>
-    </div>
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-5 col-md-12 footer-info">
-            <a href="{{ url_for('worker_index', user_id=current_user.id) }}" class="logo d-flex align-items-center">
-              <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
-              <span>ServiceHub</span>
-            </a>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      <br>
+      <br>
+      <div class="image">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+             <a href=""> <img  class="img" src="{{ user['work_pic1'] }}" class="d-block w-100" alt="..."></a>
+            </div>
+            <div class="carousel-item">
+              <a href=""><img class="img"  src="{{ user['work_pic2'] }}" class="d-block w-100" alt="..."></a>
+            </div>
+            <div class="carousel-item">
+              <a href=""><img  class="img"  src="{{ user['work_pic3'] }}" class="d-block w-100" alt="..."></a>
             </div>
           </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <a href="#" class="edit">Edit</a>
+      </div>
 
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
+      <div class="work1">
+        <p class="contact"><i class="fa-solid fa-naira-sign"></i>{{ user['rate'] }}</p>
+        <p class="web"><strong>{{ user['company']}}</strong></p>
+        <p class="active">Active</p>
+      </div>
+    </div><br><br>
+
+    <style>
+      @media (max-width: 768px) {
+        .img{
+          width: 500px;
+          height: 250px;
+          margin-left: -60px;
+          margin-right: 100px;
+          /* border-radius: 10px; */
+          /* border: 1px solid black; */
+        }
+
+        .profile_pic{
+          width: 60px;
+          height: 60px;
+          /* padding-right: 20px; */
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        h1{
+          font-size: 20px;
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+
+        .profile{
+          /* border: 1px solid black; */
+          display: flex;
+          justify-content: space-between;
+          margin-top: -100px;
+          
+
+        }
+
+        .worker{
+          /* border: 1px solid red; */
+          margin-top: -150px;
+        }
+
+        .edit{
+          font-size: 18px;
+          color: rgb(49, 31, 237);
+          margin-left: 10px;
+          margin-top: -30px;
+          text-decoration: underline;
+        }
+
+        .contact{
+          font-size: 20px;
+          font-weight: 700;
+          margin-left: 10px;
+          color: rgb(13, 242, 17);
+        }
+
+        .web{
+          font-size: 20px;
+          font-weight: 900;
+          margin-left: 10px;
+          color: black;
+        }
+
+        .active{
+          font-size: 20px;
+          font-weight: 900;
+          margin-left: 10px;
+          color: rgb(5, 232, 5);
+        }
+
+        .work1{
+          line-height: 15px;
+          margin-top: 15px;
+        }
+
+        
+      }
+    </style>
+
+
+    
+
+  
+
+    <footer id="footer" class="footer">
+
+     
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+              <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+                <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
+                <span>ServiceHub</span>
+              </a>
+              <!-- <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p> -->
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+  
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                <!-- <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li> -->
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+  
+            <!-- <div class="col-lg-2 col-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              </ul>
+            </div> -->
+  
+            <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+              <h4>Contact Us</h4>
+              <p>
+                4b Idowu Martins<br>
+                Victoria Island Lagos<br>
+                Nigeria<br><br>
+                <strong>Phone:</strong> +234 814 4010 4671<br>
+                <strong>Email:</strong>myservice_hub@gmail.com<br>
+              </p>
+  
+            </div>
+  
           </div>
-
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-
-          </div>
-
         </div>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>ServiceHub</span></strong>. All Rights Reserved
-      </div>
+  
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>ServiceHub</span></strong>. All Rights Reserved
+        </div>
       <div class="credits">
         
       </div>

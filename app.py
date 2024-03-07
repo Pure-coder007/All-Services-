@@ -673,9 +673,8 @@ def user_index(user_id):
 @login_required
 def worker_index(user_id):
     user = worker_profile(user_id)
-    print('444444444444444444444444444444444')
-    print(current_user.email, '3333333355555555544444444444')
-    print(user, 'user88888888888888888888888888888888888888888888')
+    print(user)
+    user['service'] = user['service'].capitalize()
     return render_template("worker_index.html", current_user=current_user, user=user, user_id=user_id)
 
 
