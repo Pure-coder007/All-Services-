@@ -65,7 +65,7 @@
     </div>
   </header><!-- End Header -->
   <br><br><br><br>
-  <br><br><br><br>
+  
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -80,215 +80,198 @@
     {% block content %}
     {% endblock  content %}
 
-    <br>
+    
     
 
-    <div class="worker">
-      <div class="profile">
-        <h1>{{ user['name'] }}</h1><span ><img class="profile_pic" src="{{ user['profile_pic']}}" alt=""></span>
-      </div>
-      <br>
-      <br>
-      <div class="image">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-             <a href="{{ url_for('edit_worker_profile') }}"> <img  class="img" src="{{ user['work_pic1'] }}" class="d-block w-100" alt="..."></a>
-            </div>
-            <div class="carousel-item">
-              <a href="{{ url_for('edit_worker_profile') }}"><img class="img"  src="{{ user['work_pic2'] }}" class="d-block w-100" alt="..."></a>
-            </div>
-            <div class="carousel-item">
-              <a href="{{ url_for('edit_worker_profile') }}"><img  class="img"  src="{{ user['work_pic3'] }}" class="d-block w-100" alt="..."></a>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+    
+    
+        <div class="profile">
+            
+            <img src="{{ url_for('static', filename='/assets/img/update.jpg')}}" alt="" class="img1">
+    
+    
+                <h2 style="font-weight: 800;">Update Profile</h2>
+    
+                <div class="profile-picture">
+                            
+                    <img class="profile_pic" {% if current_user.profile_pic %} src="{{ current_user.profile_pic }}" {% else %} src="{{ url_for('static', filename='/assets/img/default.png') }}" {% endif %} alt="Profile Picture" class="rounded-circle article-img mt-4" id="display_picture" style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;">
+                    <!-- <i class="fa-solid fa-camera cam"></i> -->
+                    
+    
+                </div>
+                <form action="/edit_worker_profile" method="POST" enctype="multipart/form-data"  style="margin-top: 20px;">
+                    <input type="file" id="profilePicture" name="profile_pic" accept="image/*" class="d-none" value="{{ current_user.profile_pic }}">
+                    
+    
+                <p> <label>Name:</label><br> <input type="text" id="name" name="name"  value="{{ current_user.name }}"> </p>
+    
+                <p> <label>Email address:</label><br> <input type="email" placeholder=" Email" name="email"  value="{{ current_user.email }}"  > </p>
+    
+                <p> <label>Phone Number:</label> <br><input type="text" name="phone_number" placeholder="Phone" value="{{ current_user.phone_number }}"  > </p>
+                
+                <p> <label>Country<span>*</span></label> <br><input type="text" name="country" placeholder="Country" value="{{ current_user.country }}"> </p>
+    
+                <p> <label>State<span>*</span></label> <br><input type="text" name="state" id="state"  value="{{ current_user.state }}"   > </p>
+    
+                <p> <label>Local Government<span>*</span> <br></label><br> <input type="text" name="local_govt" id="local_govt"  value="{{ current_user.local_govt }}"> </p>
+    
+                <p><label>Address<span>*</span> <br><input class="address" type="text" name="address" placeholder="Present Address" id="" value="{{ current_user.address }}" ></label></p>
+    
+                <p><label for="">Company <span>*</span><br> <input class="company" type="text" name="company" id="" value="{{ current_user.company }}"> </label></p>
+    
+                <p><label for="">Rate <span>*</span><br> <input class="company" type="text" name="rate" id="" value="{{ current_user.rate }}"></label></p>
+    
+                <p><label for="">Description <span>*</span><br><textarea name="description" id="" cols="30" rows="10">{{ current_user.description }}</textarea></label></p>
+    
+                <p> <input type="submit"  value="Update Profile" style="width: 300px; font-weight: 500; color: black; background-color: rgb(64, 64, 249);" class="submit" > </p>
+            </form>
         </div>
-        <a href="#" class="edit">Edit</a>
-      </div>
-
-      <div class="work1">
-        <p class="contact"><i class="fa-solid fa-naira-sign"></i>{{ user['rate'] }}</p>
-        <p class="web"><strong>{{ user['company']}}</strong></p>
-        <p class="active">Active</p>
-      </div>
-      <br>
-
-      <div class="work2">
-        <div class="work3">
-          <label for="company" class="comp">Comapany</label>
-        <p>{{ user['company'] }}</p>
-        </div>
-
-        <div class="work3">
-          <label for="state" class="state">State</label>
-          <p>{{ user['state'] }}</p>
-        </div>
-      </div>
-
-      <div class="work4">
-        <div class="work5">
-        <label for="local_govt" class="loc">L.G.A</label>
-        <p class="govt">{{ user['local_govt'] }}</p>
-        </div>
-
-
-        <div class="work6">
-        <label for="address" class="address">Address</label>
-        <p class="add">{{ user['address'] }}</p>
-        </div>
-      </div>
-      <br>
-
-      <p class="description">{{ user['description'] }}</p>
-    </div><br><br>
-
-    <style>
-      @media (max-width: 768px) {
-        .img{
-          width: 500px;
-          height: 250px;
-          margin-left: -60px;
-          margin-right: 100px;
-          /* border-radius: 10px; */
-          /* border: 1px solid black; */
+    
+        <style>
+            .profile{
+                /* border: 1px solid red; */
+                width: 500px;
+                margin-left: 1000px;
+                padding-bottom: 100px;
+                margin-top: 50px;
+                font-family: poppins;
+            }
+    
+            input{
+                width: 300px;
+                height: 50px;
+                border: 1px solid gainsboro;
+                border-radius: 10px;
+                padding-left: 10px;
+            }
+            label{
+                font-weight: 800;
+            }
+            .img1{
+            width: 550px;
+            height: 500px;
+            position: fixed;
+            margin-left: 200px;
+            margin-top: 10px;
+            left: 0;
+            z-index: -1;
         }
-
-        .profile_pic{
-          width: 60px;
-          height: 60px;
-          /* padding-right: 20px; */
-          border-radius: 50%;
-          margin-right: 10px;
-        }
-
-        h1{
-          font-size: 20px;
-          margin-top: 10px;
-          margin-left: 10px;
-        }
-
-        .profile{
-          /* border: 1px solid black; */
-          display: flex;
-          justify-content: space-between;
-          margin-top: -100px;
-          
-
-
-        }
-
-        .worker{
-          /* border: 1px solid red; */
-          margin-top: -150px;
-        }
-
-        .edit{
-          font-size: 18px;
-          color: rgb(49, 31, 237);
-          margin-left: 10px;
-          margin-top: -30px;
-          text-decoration: underline;
-        }
-
-        .contact{
-          font-size: 20px;
-          font-weight: 700;
-          margin-left: 10px;
-          color: rgb(58, 188, 60);
-        }
-
-        .web{
-          font-size: 20px;
-          font-weight: 900;
-          margin-left: 10px;
-          color: black;
-        }
-
-        .active{
-          font-size: 20px;
-          font-weight: 900;
-          margin-left: 10px;
-          color: rgb(5, 232, 5);
-        }
-
-        .work1{
-          line-height: 15px;
-          margin-top: 15px;
-        }
-
-        .work2{
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .work4{
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .add{
-          max-width: 150px;
-        }
-
-        label{
-          font-weight: 900;
-          font-size: 17px;
-          color: rgb(247, 40, 82);
-        }
-
-        .address{
-          margin-left: 135px;
-        }
-
-        .state{
-          margin-right: 20px;
-        }
-
-        .work3, .work5{
-          margin-left: 10px;
-        }
-
-        .add{
-          margin-left: 70px;
-          /* border: 1px solid red; */
-          width: 200px;
-        }
-
-        p{
-          font-size: 17px;
-          font-weight: 600;
-          /* color: rgb(125, 123, 123); */
-        }
-
-        .govt{
-          /* border: 1px solid black; */
-        }
-
-        .description{
-          /* margin-left: 10px; */
-          width: 100%;
-          text-align: center;
-          height: auto;
-          /* border: 1px solid yellow; */
-
-        }
-
         
-      }
-    </style>
+        .submit:hover{
+            background-color: crimson !important;
+            color: white !important;
+            transition: 0.3s ease !important;
+        }
+    
+    
+        @media (max-width: 768px) {
+            .img1{
+                display: none;
+            }
+    
+            .profile{
+                margin-top: 30px !important;
+            margin-left: 0px;
+            height: auto;
+            margin-bottom: 50px;
+            font-family: poppins;
+            width: 100%;
+            /* border: 1px solid green; */
+            }
+    
+            .profile_pic{
+            margin-left: 140px !important;
+            width: 80px !important;
+            height: 80px !important;
+            margin-top: 10px;
+            }
+    
+            .cam{
+                margin-left: -25px !important;
+                margin-top: 220px !important;
+                position: absolute !important;
+                top: 0 !important;
+                font-size: 25px;
+            }
+    
+            .company{
+                margin-left: -5px;
+            }
+    
+            input{
+                width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: none;
+            padding: 10px;
+            background-color: whitesmoke;
+            margin-left: 35px;
+            font-size: 10px;
+            }
+    
+            label{
+            margin-left: 35px;
+            font-size: 10px;
+        }
+        h2{
+            text-align: center;
+            align-items: center;
+            font-size: 20px !important;
+            font-weight: 700;
+        }
+    
+        .address{
+            margin-left: 0px !important;
+        }
+    
+        .submit{
+            padding-bottom: 30px !important;
+            padding-top: -10px !important;
+        }
+    
+        textarea{
+            width: 300px;
+            height: 100px;
+            margin-top: 5px;
+            border-radius: 5px;
+            /* border: 0.5px thin rgb(77, 76, 76); */
+            border: none;
+            padding: 10px;
+            background-color: whitesmoke;
+            /* margin-left: 35px; */
+            font-size: 10px;
+        }
+        }
+        </style>
+    
+    <!-- <script>
+        profile_icon = document.getElementById("display_picture");
+        profile_upload = document.getElementById("profilePicture");
+    
+        profile_icon.addEventListener("click", function() {
+            profile_upload.click();
+        })
+    </script> -->
+    
+    <script>
+        // JavaScript
+        profile_icon = document.getElementById("display_picture");
+        profile_upload = document.getElementById("profilePicture");
+    
+        profile_icon.addEventListener("click", function () {
+            profile_upload.click();
+        });
+    
+        profile_upload.addEventListener("change", function () {
+            const selectedFile = this.files[0];
+            if (selectedFile) {
+                // Update the src attribute of the image element with the URL of the selected file
+                profile_icon.src = URL.createObjectURL(selectedFile);
+            }
+        });
+    </script>
+    
 
 
     

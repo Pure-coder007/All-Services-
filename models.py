@@ -362,3 +362,23 @@ def update_user_profile(user_id, name, email, phone_number, country, state, loca
     finally:
         cursor.close()
         connection.close()
+
+
+
+
+
+def update_worker_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url, description,  rate, company):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        cursor.execute(
+    "UPDATE workers SET name=%s, email=%s, phone_number=%s, country=%s, state=%s, local_govt=%s, address=%s, profile_pic=%s, description=%s, rate=%s, company=%s WHERE id=%s",(name, email, phone_number, country, state, local_govt, address, profile_pic_url, description, rate, company, user_id)
+)
+
+
+        connection.commit()
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+    finally:
+        cursor.close()
+        connection.close()

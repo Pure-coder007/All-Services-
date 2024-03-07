@@ -18,7 +18,7 @@ from werkzeug.datastructures import FileStorage
 # from flask_uploads import UploadSet, configure_uploads, IMAGES
 import calendar
 from datetime import datetime
-from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id, gen_ran_string, Admin, add_admin, get_admin_id
+from models import get_user, add_user, get_all_users, User, get_user_id, get_worker, add_worker, contact_me, update_user_profile, Worker, get_worker_id, gen_ran_string, Admin, add_admin, get_admin_id, update_worker_profile
 
 import cloudinary
 import cloudinary.uploader
@@ -494,6 +494,53 @@ def edit_user_profile():
             print(f'Error: {e}')
             flash('Error updating profile', 'danger')
     return render_template("edit_user_profile.html", current_user=current_user)
+
+
+
+
+
+@app.route('/edit_worker_profile', methods=['GET', 'POST'])
+@login_required
+def edit_worker_profile():
+    print(current_user.name, 'current user')
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        country = request.form['country']
+        state = request.form['state']
+        local_govt = request.form['local_govt'] 
+        address = request.form['address']
+        profile_pic = request.files['profile_pic']
+        description = request.form['description']
+        rate = request.form['rate']
+        company = request.form['company']
+        print(name, email, phone_number, country, state, local_govt, address, profile_pic, description, rate, company)
+
+        user_id = current_user.id
+
+        try:
+            if profile_pic:
+                filename = secure_filename(profile_pic.filename)
+                response = cloudinary.uploader.upload(profile_pic, public_id=f"workers/{user_id}/{filename}")
+                profile_pic_url = response['secure_url']
+            else:
+                profile_pic_url = current_user.profile_pic
+
+            if get_user(email):
+                flash('Email already exists', 'danger')
+                return redirect(url_for('edit_worker_profile'))
+            
+            # update_worker_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url, description,  rate, company)
+            update_worker_profile(user_id, name, email, phone_number, country, state, local_govt, address, profile_pic_url, description, rate, company)
+            flash('Profile updated successfully', 'success')
+            print(name, email, phone_number, country, state, local_govt, address, profile_pic_url, '///////////////////////////////')
+            return redirect(url_for('worker_index', user_id=user_id))
+        except Exception as e:
+            print(f'Error: {e}')
+            flash('Error updating profile', 'danger')
+    
+    return render_template("edit_worker_profile.html", current_user=current_user)
 
 
 
