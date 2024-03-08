@@ -978,21 +978,21 @@ def payment(worker_id):
 
 
 
-def add_payment(worker_id, amount_paid, category, method, receipt):
-    try:
-        connection = mysql.connector.connect(**config)
-        cursor = connection.cursor()
-        query = "UPDATE workers SET amount_paid = %s, category = %s, method = %s, receipt = %s WHERE id = %s"
-        values = (amount_paid, category, method, receipt, worker_id)
-        cursor.execute(query, values)
-        connection.commit()
-    except mysql.connector.Error as err:
-        print("Error:", err)
-    finally:
-        if cursor:
-            cursor.close()
-        if connection:
-            connection.close()
+# def add_payment(worker_id, amount_paid, category, method, receipt):
+#     try:
+#         connection = mysql.connector.connect(**config)
+#         cursor = connection.cursor()
+#         query = "UPDATE workers SET amount_paid = %s, category = %s, method = %s, receipt = %s WHERE id = %s"
+#         values = (amount_paid, category, method, receipt, worker_id)
+#         cursor.execute(query, values)
+#         connection.commit()
+#     except mysql.connector.Error as err:
+#         print("Error:", err)
+#     finally:
+#         if cursor:
+#             cursor.close()
+#         if connection:
+#             connection.close()
 
 
 
@@ -1028,9 +1028,48 @@ def payment_bank(worker_id):
 
 
 
+def add_payment(id_, email, amount, plan):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        cursor.execute('INSERT INTO payments (id, email, amount, plan ) VALUES (%s,%s, %s, %s)', (id_, email, amount, plan))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print('Payment added')
+    except mysql.connector.Error as err:
+        print(err)
+        print('Payment not added')
+    finally:
+        cursor.close()
+        connection.close()
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/payment_card/<worker_id>', methods=['GET', 'POST'])
 def payment_card(worker_id):
-    pass
+    print(request.method, '1111111111111111111111111111111111111111111111')
+    if request.method == 'POST':
+        email = request.form.get('email')
+        amount = request.form.get('amount')
+        plan = request.form.get('plan')
+        print(email, amount, plan, 'Making Paymentttttttttttttttt')
+
+        if not email or not amount or not plan:
+            flash('Please fill in all fields', 'danger')
+            print(email, amount, plan, 'Making Payment')
+
+        add_payment(email=email, amount=amount, plan=plan, worker_id=worker_id)
+        # return redirect(url_for('payment'))
     return render_template('payment_card.html', worker_id=worker_id)
 
 
