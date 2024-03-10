@@ -1144,12 +1144,143 @@ def video_dashboard():
 
 
 
+# Getting daily sales
+
+from datetime import date, datetime
+def get_daily_sales():
+    try:
+        today = date.today()
+        start_of_day = datetime.combine(today, datetime.min.time())
+        end_of_day = datetime.combine(today, datetime.max.time())
+
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT SUM(amount) FROM payments WHERE created_at >= %s AND created_at <= %s", (start_of_day, end_of_day))
+        total_sales = cursor.fetchone()[0]
+
+        cursor.close()
+        connection.close()
+
+        return total_sales if total_sales else 0
+    except mysql.connector.Error as err:
+        print(err)
+
+
+
+def get_total_sales_total():
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT SUM(amount) FROM payments")
+        total_amount = cursor.fetchone()[0]
+
+        cursor.close()
+        connection.close()
+
+        return total_amount if total_amount else 0
+    except mysql.connector.Error as error:
+        print("Error fetching total sales total:", error)
+        return 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ADMIN PAGE
 
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-    return render_template('admin.html', current_user=current_user)
+    # if not current_user.is_admin:
+    #     flash('You are not authorized to access this page!', 'danger')
+    #     return redirect(url_for('login'))
+
+    try:
+        # Establish connection to MySQL
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        # # Execute MySQL query to count messages
+        # cursor.execute("SELECT COUNT(*) AS message_count FROM contacts")
+        # result = cursor.fetchone()
+        # message_count = result['message_count']
+
+
+        # # Fetch the count of notifications
+        # cursor.execute("SELECT COUNT(*) AS notification_count FROM notifications")
+        # result = cursor.fetchone()
+        # notification_count = result['notification_count']
+
+        
+        today_sales_total = get_daily_sales()
+        total_sales_total = get_total_sales_total()
+
+        cursor.execute("SELECT * FROM payments")
+        my_payments = cursor.fetchall()
+        print(my_payments,'888888888888888888888888888')
+
+        # Close cursor and connection
+        cursor.close()
+        connection.close()
+
+        for payment_data in my_payments:
+            if isinstance(payment_data, dict):  # Check if it's a dictionary
+                payment = payment_data
+            else:
+                print("Error: Expected a dictionary but received something else:", payment_data)
+                continue
+
+            # Proceed with processing for valid dictionary data
+            if 'created_at' in payment:
+                if isinstance(payment['created_at'], int):  
+                    payment['created_at'] = datetime.fromtimestamp(payment['created_at']).strftime('%b %d %Y')
+                elif isinstance(payment['created_at'], str):
+                    # Assuming 'created_at' is already in the desired format
+                    pass
+                else:
+                    print("Error: Unexpected type for 'created_at'", type(payment['created_at']))
+                    continue
+            else:
+                print("Error: 'created_at' key not found")
+                continue
+
+    
+
+
+
+
+        # Render admin template with message count
+        # return render_template('admin.html', message_count=message_count, notification_count=notification_count, current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total)
+                
+        return render_template('admin.html', current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total)
+
+    except mysql.connector.Error as error:
+        # Handle error gracefully
+        print("Error while connecting to MySQL", error)
+        flash("Error occurred while retrieving message count from MySQL", "danger")
+        return render_template('admin.html')
     
     
     

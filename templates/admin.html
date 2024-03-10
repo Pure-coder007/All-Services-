@@ -148,10 +148,10 @@
                     <td>{{ sale.created_at }}</td>
                     <td>{{ sale.email }}</td>
                     <td><i class="fa-solid fa-naira-sign"></i>{{ sale.amount }}</td>
-                    <td>{{ sale.category }}</td>
-                    <td>{{ sale.method }}</td>
+                    <td>{{ sale.plan }}</td>
+                    <td>{{ sale.reference_id }}</td>
+                    <td>{{ sale.status }}</td>
                     
-                    <td><a href="{{ url_for('payment_details', detail_id=sale['id'])  }}" style="text-decoration: none; border: 1px solid red; width: 20px; height: 10px; padding: 8px; border-radius: 5px; background-color: rgb(213, 21, 21); color: white;">Details</a></td>
                     
                 </tr>
                 {% endfor %}
