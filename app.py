@@ -1028,14 +1028,13 @@ def payment_bank(worker_id):
 
 
 
+
 def add_payment(id_, email, amount, plan):
     try:
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
-        cursor.execute('INSERT INTO payments (id, email, amount, plan ) VALUES (%s,%s, %s, %s)', (id_, email, amount, plan))
+        cursor.execute('INSERT INTO payments (worker_id, email, amount, plan) VALUES (%s, %s, %s, %s)', (id_, email, amount, plan))
         connection.commit()
-        cursor.close()
-        connection.close()
         print('Payment added')
     except mysql.connector.Error as err:
         print(err)
@@ -1044,33 +1043,71 @@ def add_payment(id_, email, amount, plan):
         cursor.close()
         connection.close()
 
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/payment_card/<worker_id>', methods=['GET', 'POST'])
 def payment_card(worker_id):
-    print(request.method, '1111111111111111111111111111111111111111111111')
     if request.method == 'POST':
         email = request.form.get('email')
         amount = request.form.get('amount')
         plan = request.form.get('plan')
-        print(email, amount, plan, 'Making Paymentttttttttttttttt')
 
         if not email or not amount or not plan:
             flash('Please fill in all fields', 'danger')
-            print(email, amount, plan, 'Making Payment')
+            return render_template('payment_card.html', worker_id=worker_id)
 
-        add_payment(email=email, amount=amount, plan=plan, worker_id=worker_id)
-        # return redirect(url_for('payment'))
+        add_payment(id_=worker_id, email=email, amount=amount, plan=plan)
+        flash('Payment successful!', 'success')
+        return redirect(url_for('payment_card', worker_id=worker_id))
+
     return render_template('payment_card.html', worker_id=worker_id)
+
+
+# Endpoint to handle Paystack webhook notifications
+@app.route('/paystack/webhook', methods=['POST'])
+def paystack_webhook():
+    # Parse the JSON data from Paystack
+    data = request.json
+    
+    # Extract relevant information
+    reference_id = data['data']['reference']
+    amount = data['data']['amount']
+    status = data['data']['status']
+    email = data['data']['customer']['email']
+    payment_plan = data['data']['metadata']['payment_plan']
+
+    # Save the payment information to MySQL
+    save_payment(reference_id, amount, status, email, payment_plan)
+
+    return 'Webhook received successfully', 200
+
+
+
+from flask import jsonify, request
+import mysql.connector
+# @app.route('/save_payment', methods=['POST'])
+@app.route('/save_payment', methods=['POST'])
+def save_payment():
+    # Get data from the request
+    data = request.json
+    email = data['email']
+    amount = data['amount']
+    plan = data['plan']
+    reference = data['reference']
+    status = data['status']
+
+    # Save payment information to MySQL
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor()
+    sql = "INSERT INTO payments (email, amount, payment_plan, reference_id, status) VALUES (%s, %s, %s, %s, %s)"
+    values = (email, amount, plan, reference, status)
+    cursor.execute(sql, values)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return jsonify({'message': 'Payment data saved successfully'}), 200
+
+
+
 
 
 

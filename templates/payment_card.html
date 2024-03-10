@@ -86,24 +86,31 @@
   }
   
 </style>
-
 <script>
     const paymentForm = document.getElementById('paymentForm');
-paymentForm.addEventListener("submit", payWithPaystack, false);
-function payWithPaystack(e) {
-  e.preventDefault();
+    paymentForm.addEventListener("submit", payWithPaystack, false);
 
+    function payWithPaystack(e) {
+  e.preventDefault();
+  
+  // Extract form data
+  let email = document.getElementById("email-address").value;
+  let amount = document.getElementById("amount").value;
+  let plan = document.getElementById("options").value;
+
+  // Initiate Paystack payment
   let handler = PaystackPop.setup({
     key: 'pk_test_a0165ad5e3e80d88ab895e98b9e6f672a34c2df0', // Replace with your public key
-    email: "ServiceHub@gmail.com",
-    amount: document.getElementById("amount").value * 100,
+    email: email,
+    amount: amount * 100, // Paystack requires amount in kobo (100 kobo = 1 NGN)
     currency: 'NGN',
-    ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-    // label: "Optional string that replaces customer email"
+    ref: ''+Math.floor((Math.random() * 1000000000) + 1),
     onClose: function(){
-      alert('Window closed.');
+      console.log('Payment window closed.');
     },
     callback: function(response){
+      // Send payment data to server
+      sendDataToServer(email, amount, plan, response.reference, response.status);
       let message = 'Payment complete! Reference: ' + response.reference;
       alert(message);
     }
@@ -111,5 +118,41 @@ function payWithPaystack(e) {
 
   handler.openIframe();
 }
+
+function sendDataToServer(email, amount, plan, reference, status) {
+  // Create a new XMLHttpRequest object
+  let xhr = new XMLHttpRequest();
+  
+  // Define the endpoint URL in your Flask app
+  let url = '/save_payment'; // Replace with your Flask route URL
+  
+  // Prepare the data to send
+  let data = JSON.stringify({
+    email: email,
+    amount: amount,
+    plan: plan,
+    reference: reference,
+    status: status
+  });
+
+  // Configure the XMLHttpRequest
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  // Handle response from server
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      console.log('Payment data sent successfully.');
+    } else {
+      console.error('Error sending payment data.');
+    }
+  };
+
+  // Send the request
+  xhr.send(data);
+}
+
+    
 </script>
+
 {% endblock %}
