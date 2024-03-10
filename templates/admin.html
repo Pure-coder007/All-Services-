@@ -44,15 +44,15 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{ url_for('home')}}">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto active" href="{{ url_for('admin')}}">Home</a></li>
+          <li><a class="nav-link scrollto" href="#message">Message</a></li>
+          <li><a class="nav-link scrollto" href="#notification">Notification</a></li>
          
 
-          <li><a class="nav-link scrollto" href="#">Contact</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#">Contact</a></li> -->
           {% if current_user.is_authenticated %}
           <!-- Show "Profile" link when logged in -->
-          <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li>
+          <!-- <li><a class="getstarted scrollto" href="{{ url_for('edit_user_profile') }}">Edit Profile</a></li> -->
           <a href="{{ url_for('logout') }}" class="nav-item nav-link">Logout</a>
           {% else %}
               <!-- Show "Login / SignUp" when not logged in -->
@@ -185,11 +185,11 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
 :root {
-    --calendar-bg-color: #050505;
-    --calendar-font-color: #FFF;
+    --calendar-bg-color: whitesmoke;
+    --calendar-font-color:rgb(48, 48, 48);
     --weekdays-border-bottom-color: #404040;
     --calendar-date-hover-color: #505050;
-    --calendar-current-date-color: #1b1f21;
+    --calendar-current-date-color: #8c8c8c;
     --calendar-today-color: linear-gradient(to bottom, #03a9f4, #2196f3);
     --calendar-today-innerborder-color: transparent;
     --calendar-nextprev-bg-color: transparent;
