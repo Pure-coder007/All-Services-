@@ -27,6 +27,7 @@
   <!-- Template Main CSS File -->
   <link href="{{ url_for('static', filename='/style.css') }}" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -87,7 +88,7 @@
             </div>
             <div class="info" style="margin-right: 20px; margin-top: 60px;">
                 <h6 style="color: rgb(97, 97, 252);">Today Sales</h6>
-                <h2 style="color: rgb(72, 245, 115); font-size: 20px;"><i class="fa-solid fa-naira-sign"></i>{{ today_sales_total }}</h2>
+                <h2 style="color: rgb(72, 245, 115); font-size: 20px;">&#8358;</i>{{ today_sales_total }}</h2>
             </div>
         </div>
     
@@ -97,7 +98,7 @@
             </div>
             <div class="info" style="margin-right: 20px; margin-top: 60px;">
                 <h6 style="color: rgb(97, 97, 252);">Total Sales</h6>
-                <h2 style="color: rgb(82, 250, 113); font-size: 20px;"><i class="fa-solid fa-naira-sign"></i>{{ total_sales_total }}</h2>
+                <h2 style="color: rgb(82, 250, 113); font-size: 20px;">&#8358;</i>{{ total_sales_total }}</h2>
             </div>
         </div>
     </div>
@@ -106,7 +107,7 @@
 
 
     <!-- Flow charts -->
-    <div class="weekly_sales" style="border: 1px solid rgb(5, 5, 5); width: 74.8%; margin-left: 200px; margin-top: 30px; border-radius: 5px; background-color: black; color:rgb(97, 97, 252) ;">
+    <div class="weekly_sales" style="border: 1px solid whitesmoke; width: 74.8%; margin-left: 200px; margin-top: 30px;  background-color: whitesmoke; color:rgb(52, 50, 50);">
             <style>
                 table {
                     border-collapse: collapse;
@@ -115,14 +116,14 @@
                 }
                 th, td, tr {
                     border: 1px solid#ddd;
-                    border-radius: 10px;
+                    /* border-radius: 10px; */
                     padding: 15px;
                     text-align: left;
                 }
                 
                 th {
-                    background-color: black;
-                    color: white;
+                    background-color: rgb(193, 193, 193);
+                    color:rgb(52, 50, 50);
                 }
             </style>
         </head>
@@ -137,20 +138,20 @@
                     <th>Date</th>
                     <th>Email</th>
                     <th>Amount</th>
-                    <th>Category</th>
-                    <th>Method</th>
-                    <th>Action</th>
+                    <th>Plan</th>
+                    <th>Reference ID</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {% for sale in my_payments %}
                 <tr>
-                    <td>{{ sale.created_at }}</td>
-                    <td>{{ sale.email }}</td>
-                    <td><i class="fa-solid fa-naira-sign"></i>{{ sale.amount }}</td>
-                    <td>{{ sale.plan }}</td>
-                    <td>{{ sale.reference_id }}</td>
-                    <td>{{ sale.status }}</td>
+                    <td>{{ sale[4] }}</td>
+                    <td style="font-weight: 900;">{{ sale[1] }}</td>
+                    <td><i class="fa-solid fa-naira-sign"></i>{{ sale[2] }}</td>
+                    <td style="font-weight: 900;">{{ sale[3] }}</td>
+                    <td>{{ sale[5] }}</td>
+                    <td style="color: green;">{{ sale[6] }}</td>
                     
                     
                 </tr>

@@ -1156,7 +1156,7 @@ def get_daily_sales():
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
 
-        cursor.execute("SELECT SUM(amount) FROM payments WHERE created_at >= %s AND created_at <= %s", (start_of_day, end_of_day))
+        cursor.execute("SELECT SUM(amount) FROM payments WHERE date >= %s AND date <= %s", (start_of_day, end_of_day))
         total_sales = cursor.fetchone()[0]
 
         cursor.close()
@@ -1237,7 +1237,7 @@ def admin():
         today_sales_total = get_daily_sales()
         total_sales_total = get_total_sales_total()
 
-        cursor.execute("SELECT * FROM payments")
+        cursor.execute("SELECT * FROM payments WHERE status = 'success'")
         my_payments = cursor.fetchall()
         print(my_payments,'888888888888888888888888888')
 
@@ -1245,26 +1245,42 @@ def admin():
         cursor.close()
         connection.close()
 
+        from datetime import datetime
+
+# Your existing code ...
+
         for payment_data in my_payments:
             if isinstance(payment_data, dict):  # Check if it's a dictionary
                 payment = payment_data
+            elif isinstance(payment_data, tuple):  # Check if it's a tuple
+                payment = {
+                    'id': payment_data[0],
+                    'email': payment_data[1],
+                    'amount': payment_data[2],
+                    'payment_plan': payment_data[3],
+                    'created_at': payment_data[4],
+                    'reference_id': payment_data[5],
+                    'status': payment_data[6]
+                }
             else:
-                print("Error: Expected a dictionary but received something else:", payment_data)
+                print("Error: Expected a dictionary or a tuple but received something else:", payment_data)
                 continue
 
-            # Proceed with processing for valid dictionary data
+            # Proceed with processing for valid data
             if 'created_at' in payment:
-                if isinstance(payment['created_at'], int):  
-                    payment['created_at'] = datetime.fromtimestamp(payment['created_at']).strftime('%b %d %Y')
-                elif isinstance(payment['created_at'], str):
-                    # Assuming 'created_at' is already in the desired format
-                    pass
+                if isinstance(payment['created_at'], datetime):  # Corrected import
+                    # Format the 'created_at' datetime object
+                    payment['created_at'] = payment['created_at'].strftime('%b %d %Y')
                 else:
                     print("Error: Unexpected type for 'created_at'", type(payment['created_at']))
                     continue
             else:
                 print("Error: 'created_at' key not found")
                 continue
+
+    # Proceed with your logic here using the 'payment' dictionary
+
+
 
     
 
