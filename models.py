@@ -338,7 +338,7 @@ def contact_me(name, email, subject, message):
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO contacts (name, email, subject, message) VALUES (%s, %s, %s, %s)", (name, email, subject, message))
+        cursor.execute("INSERT INTO contacts (name, email, subject, message) VALUES ( %s, %s, %s, %s)", ( name, email, subject, message))
         connection.commit()
     except mysql.connector.Error as err:
         print("Error: ", err)

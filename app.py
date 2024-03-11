@@ -900,6 +900,8 @@ from flask_wtf.csrf import generate_csrf
 
 # CONTACT ADMIN
 
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 @login_required
 def contact():
@@ -910,6 +912,8 @@ def contact():
             subject = request.form['subject']
             message = request.form['message']
 
+            user_id = current_user.id
+
             if not name:
                 flash('Your name is required', 'danger')
             if not email:
@@ -919,14 +923,24 @@ def contact():
             if not message:
                 flash('Please include a message', 'danger')
             print(name, email, subject, message)
-            contact_me(name, email, subject, message)
+
+            connection = mysql.connector.connect(**config)
+            cursor = connection.cursor()
+
+            sql = """INSERT INTO contacts (id, name, email, subject, message, created_at) 
+            VALUES (%s, %s, %s, %s, %s, %s)"""
+            cursor.execute(sql, (gen_ran_string(), name, email, subject, message, datetime.now()))
+
+            connection.commit()
+            # contact_me(name, email, subject, message)
             flash('Message Sent ', 'success')
-            # return redirect('user_index')  # Redirect to 'index_services' route
-        return render_template('contact.html')
+            return redirect('user_index.html', user_id=user_id)  # Redirect to the appropriate route
     except Exception as e:
-        print(e)
+        print(e, 'error')
         csrf_token = generate_csrf()
         return render_template('contact.html', csrf_token=csrf_token, current_user=current_user)
+
+    return render_template('contact.html')  
     
 
 

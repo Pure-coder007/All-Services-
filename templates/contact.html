@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="contact" style="width: 900px; height: auto; margin-left: 400px; margin-top: 50px;">
-    <form action="/contact" method="POST">
+    <form action="{{ url_for('contact') }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
         
@@ -22,7 +22,7 @@
             </div>
         </div>
         
-        <button type="submit" style="position: absolute; top: 0; margin-top: 555px; margin-left: 360px; background-color: gainsboro; color: black; padding: 5px; border: none; border-radius: 5px;">Send Message</button>
+        <button type="submit" style="position: absolute; top: 0; margin-top: 630px; margin-left: 360px; background-color: gainsboro; color: black; padding: 5px; border: none; border-radius: 5px;">Send Message</button>
     </form>
 </div>
 
