@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
+
 <body>
 
   <!-- ======= Header ======= -->
@@ -44,9 +45,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{ url_for('admin')}}">Home</a></li>
-          <li><a class="nav-link scrollto" href="#message">Message</a></li>
-          <li><a class="nav-link scrollto" href="#notification">Notification</a></li>
+          <a class="nav-link scrollto active" href="{{ url_for('admin')}}">Home</a>
+          <a href="{{ url_for('all_users') }}" class="nav-item nav-link">See All Users</a>
+          <a href="{{ url_for('message')}}" class="nav-item nav-link"></i>  Message <span class="badge" style="background-color: red; color: white; border-radius: 50%; position: absolute; top: 0; margin-top: 1px; margin-right: 10px; margin-left: 55px; ">{{ message_count }}</span></a>
+          <a href="{{ url_for('notification') }}" class="nav-item nav-link"></i>  Notification <span class="badge" style="background-color: red; color: white; border-radius: 50%; position: absolute; top: 0; margin-top: 20px; margin-right: 40px; ">{{ notification_count }}</span></a>
          
 
           <!-- <li><a class="nav-link scrollto" href="#">Contact</a></li> -->

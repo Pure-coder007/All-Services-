@@ -1222,13 +1222,13 @@ def admin():
         connection = mysql.connector.connect(**config)
         cursor = connection.cursor()
 
-        # # Execute MySQL query to count messages
-        # cursor.execute("SELECT COUNT(*) AS message_count FROM contacts")
-        # result = cursor.fetchone()
-        # message_count = result['message_count']
+        # Execute MySQL query to count messages
+        cursor.execute("SELECT COUNT(*) AS message_count FROM contacts")
+        result = cursor.fetchone()
+        message_count = result[0]
 
 
-        # # Fetch the count of notifications
+        # Fetch the count of notifications
         # cursor.execute("SELECT COUNT(*) AS notification_count FROM notifications")
         # result = cursor.fetchone()
         # notification_count = result['notification_count']
@@ -1287,10 +1287,9 @@ def admin():
 
 
 
-        # Render admin template with message count
-        # return render_template('admin.html', message_count=message_count, notification_count=notification_count, current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total)
+        
                 
-        return render_template('admin.html', current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total)
+        return render_template('admin.html', current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total, message_count=message_count)
 
     except mysql.connector.Error as error:
         # Handle error gracefully
@@ -1298,7 +1297,156 @@ def admin():
         flash("Error occurred while retrieving message count from MySQL", "danger")
         return render_template('admin.html')
     
-    
+
+
+
+
+
+@app.route('/message', methods=['GET', 'POST'])
+@login_required
+def message():
+    try:
+        if not current_user.is_admin:
+            flash('You are not authorized to access this page!', 'danger')
+            return redirect(url_for('login'))
+        
+        # Establish connection to MySQL
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='language007',
+            database='all_services'
+        )
+        cursor = connection.cursor(dictionary=True)
+
+        # Execute MySQL query to fetch messages
+        cursor.execute("SELECT id, name, email, subject, message, sent_at FROM contacts")
+        messages = cursor.fetchall()
+
+        # Close cursor and connection
+        cursor.close()
+        connection.close()
+
+        # reset_message_count()
+        for message in messages:
+            if isinstance(message['sent_at'], str):  # Check if it's a string
+                # Convert string to datetime object and then format it
+                message['sent_at'] = datetime.strptime(message['sent_at'], '%Y-%m-%d %H:%M:%S').strftime('%b %d %Y')
+            # If it's already a datetime object, directly format it
+            else:
+                message['sent_at'] = message['sent_at'].strftime('%b %d %Y')
+
+        # Render template with messages and current user
+        return render_template('message.html', messages=messages, current_user=current_user, datetime=datetime)
+
+    except mysql.connector.Error as error:
+        # Handle error gracefully
+        print("Error while connecting to MySQL", error)
+        return "Error occurred while connecting to MySQL"
+    return render_template('message.html', current_user=current_user)
+
+
+
+
+@app.template_filter('length')
+def length(s):
+    return len(s)
+
+
+
+
+
+
+
+
+@app.route('/message_count')
+def message_count():
+    try:
+        # Establish connection to MySQL
+        connection = mysql.connector.connect()
+        cursor = connection.cursor(dictionary=True)
+
+        # Execute MySQL query to count messages
+        cursor.execute("SELECT COUNT(*) AS message_count FROM contacts")
+        result = cursor.fetchall()
+        print(result, '******************')
+        
+        # Fetch the count of messages
+        message_count = result['message_count']
+
+        # Close cursor and connection
+        cursor.close()
+        connection.close()
+
+        # Render template with message count
+        return render_template('message.html', message_count=message_count)
+
+    except mysql.connector.Error as error:
+        # Handle error gracefully
+        print("Error while connecting to MySQL", error)
+        return "Error occurred while connecting to MySQL"
+
+
+
+
+
+
+
+def get_message(message_id):
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+
+        query = "SELECT id, name, email, subject, message, sent_at FROM contacts WHERE id = %s"
+        cursor.execute(query, (message_id,))
+        
+        contact_message = cursor.fetchone()
+        cursor.close()
+        connection.close()
+
+        if contact_message:
+            print(contact_message, '*************************************')
+            return {
+                'id': contact_message[0],
+                'name': contact_message[1],
+                'email': contact_message[2],
+                'subject': contact_message[3],
+                'message': contact_message[4],
+                'sent_at': contact_message[5]
+            }
+        else:
+            return None  # Return None if no message found
+    except mysql.connector.Error as err:
+        print("Error: ", err)
+        return None  # Return None in case of an error
+
+
+
+
+
+@app.route('/read_message/<int:message_id>', methods=['GET', 'POST'])
+@login_required
+def read_message(message_id):
+    if not current_user.is_admin:
+        flash('You are not authorized to access this page!', 'danger')
+        return redirect(url_for('login'))
+    message_admin = get_message(message_id)
+    # print(message)
+    return render_template('read_message.html', current_user=current_user, message=message_admin, message_id=message_id, datetime=datetime)
+
+
+
+
+
+@app.route('/notification', methods=['GET', 'POST'])
+def notification():
+    return render_template('notification.html', current_user=current_user)
+
+
+
+@app.route('/all_users', methods=['GET', 'POST'])
+def all_users():
+    return render_template('all_users.html', current_user=current_user)
     
 
 
