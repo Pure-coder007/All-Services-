@@ -190,6 +190,10 @@ def signup_user():
             add_user(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address)
             connection.commit()
 
+            cursor.execute("INSERT INTO notifications (name, email, profile_pic, is_worker) VALUES (%s, %s, %s, %s)",
+                           (name, email, profile_pic, False))
+            connection.commit()
+
             # Generate OTP and send verification email
             otp = random.randint(1000, 9999)
             session['otp'] = otp
@@ -293,6 +297,10 @@ def signup_worker():
             
             worker = add_worker(name, email, hashed_password, profile_pic, phone_number, country, state, local_govt, address, company, service,  description, rate, work_pic1, work_pic2, work_pic3)
             worker_id = worker[0]
+            connection.commit()
+
+            cursor.execute("INSERT INTO notifications (name, email, profile_pic, is_worker) VALUES (%s, %s, %s, %s)",
+                           (name, email, profile_pic, True))
             connection.commit()
 
             # Generate OTP and send verification email
@@ -1243,9 +1251,9 @@ def admin():
 
 
         # Fetch the count of notifications
-        # cursor.execute("SELECT COUNT(*) AS notification_count FROM notifications")
-        # result = cursor.fetchone()
-        # notification_count = result['notification_count']
+        cursor.execute("SELECT COUNT(*) AS notification_count FROM notifications")
+        result = cursor.fetchone()
+        notification_count = result['notification_count']
 
         
         today_sales_total = get_daily_sales()
