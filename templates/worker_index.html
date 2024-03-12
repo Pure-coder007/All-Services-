@@ -85,7 +85,8 @@
 
     <div class="worker">
       <div class="profile">
-        <h1>{{ user['name'] }}</h1><span ><img class="profile_pic" src="{{ user['profile_pic']}}" alt=""></span>
+
+        <a href="{{url_for('meeting')}}"  class="icons first-icon"><i class="fa-solid fa-video "></i></a>  <a href="#" class="icons second-icon"><i class="fa-solid fa-message"></i></a><span ><img class="profile_pic" src="{{ user['profile_pic']}}" alt=""></span>
       </div>
       <br>
       <br>
@@ -174,11 +175,25 @@
           margin-right: 10px;
         }
 
-        h1{
+        .icons{
+          font-size: 30px;
+          margin-top: 10px;
+        }
+
+        .first-icon{
+          margin-left: 10px;
+        }
+
+        .second-icon{
+          margin-left: -200px;
+        }
+
+        /* h1{
           font-size: 20px;
           margin-top: 10px;
           margin-left: 10px;
-        }
+          padding-right: -50px;
+        } */
 
         .profile{
           /* border: 1px solid black; */
