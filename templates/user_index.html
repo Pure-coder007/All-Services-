@@ -112,11 +112,32 @@
           </button>
         </div>    
 
-        <div class="map" style=" margin-top: 30px; width: 500px; margin-right: -100px; margin-left: 300px; height: auto; " >
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8070396.011244541!2d3.378683619173365!3d9.006789079172123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7da48d0d%3A0x99a8fe4168c50bc8!2sNigeria!5e0!3m2!1sen!2sng!4v1708532499118!5m2!1sen!2sng" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div >
+       
+      
 
 
+      <div class="container container2" data-aos="fade-up" data-aos-delay="200">
+        <div class="row gap-4 justify-content-center">
+          {% for worker in workers %}
+          <div class="col-sm-6 col-md-3 " style="height: 30%;">
+            <div class="testimonial-item">
+              <a href="{{url_for('item_profile', worker_id=worker[0])}}">
+                <div class="card">
+                  <div class="card-body">
+                    <img src="{{ worker[4] }}" class="worker-img" alt="" style="width: 100%; height: 150px;  border-radius: 5px;"><br><br>
+                    <h5 class="card-title" style="color: rgb(28, 181, 28); font-size: 15px;"><strong><i class="fa-solid fa-naira-sign"></i>&nbsp; {{ worker[13] }}</strong></h5>
+                    <h5 class="card-title" style="font-weight: 800; font-size: 15px;">{{ worker[10]}}</h5>
+                    <h4 class="card-title" style="font-size: 18px; font-size: 15px; font-weight: 900;">{{ worker[11]}}</h4>
+                    <h5 class="card-title truncate" style="font-style: italic; color: crimson; font-size: 15px;">{{ worker[12] }}</h5>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
     
 
 
@@ -219,7 +240,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-5 col-md-12 footer-info">
-            <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+            <a href="{{ url_for('user_index', user_id=current_user.id) }}" class="logo d-flex align-items-center">
               <img src="{{ url_for('static', filename='/assets/img/logo.png')}}" alt="">
               <span>ServiceHub</span>
             </a>
@@ -325,9 +346,68 @@
     display: none;
   }
 
-  iframe{
-    /* margin-top: -300px !important; */
+  
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust the max-width as needed */
   }
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.profile-pic:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.testimonial-item {
+  width: 100%;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+.testimonials-slider {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial-item {
+  margin: 10px; /* Adjust spacing between cards */
+}
+
+.card {
+  width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for transform and box-shadow property */
+}
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Move card up on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+}
 
 
   @media (max-width: 768px) {
@@ -371,7 +451,7 @@
     }
 
     .pic{
-      display: block;
+      display: none;
       margin-top: -50px !important;
     }
     
@@ -407,6 +487,18 @@
       margin-bottom: 50px !important;
       background-color: none !important;
       height: auto !important;
+    }
+
+    .btn{
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 160px !important;
+      margin-left: 60px !important;
+    }
+
+    .card{
+      margin-left: 40px !important;
     }
     
     }

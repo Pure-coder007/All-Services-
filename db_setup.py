@@ -48,10 +48,6 @@ def setup_database():
     work_pic1 VARCHAR(255) NOT NULL,
     work_pic2 VARCHAR(255) NOT NULL,
     work_pic3 VARCHAR(255) NOT NULL,
-    amount_paid DECIMAL(10, 2)  NULL,
-    category VARCHAR(255)  NULL,
-    method VARCHAR(255)  NULL,
-    receipt VARCHAR(255)  NULL,
     created_at TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -117,6 +113,20 @@ def setup_database():
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
       """)
+
+
+    cursor.execute("""
+    CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_plan VARCHAR(50) NOT NULL,
+    date DATETIME NOT NULL,
+    reference_id VARCHAR(50),
+    status VARCHAR(20)
+);
+          
+""")
 
     
 

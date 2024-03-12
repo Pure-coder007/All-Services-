@@ -87,7 +87,7 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'kingsleydike318@gmail.com'
-app.config['MAIL_PASSWORD'] = ' pblfcvwhfwnujtll'
+app.config['MAIL_PASSWORD'] = 'ucgwnjifgohbnskl'
 MAIL_USE_TLS = False
 SECRET_KEY = 'language007'
 
@@ -698,6 +698,8 @@ def get_service(service):
 def user_index(user_id):
     user = user_profile(user_id)
     # print(user)
+    successful_workers = get_successful_workers()
+    print(successful_workers, 'successful workersSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', len(successful_workers))
 
     all_workers = []
 
@@ -715,7 +717,7 @@ def user_index(user_id):
         print(all_workers, 'all workerssssssssssssssssssss')
         session['all_workers'] = all_workers
         return redirect(url_for('services'))
-    return render_template("user_index.html", current_user=current_user, user=user, user_id=user_id)
+    return render_template("user_index.html", current_user=current_user, user=user, user_id=user_id, workers=successful_workers)
 
 
 
@@ -1084,28 +1086,39 @@ def payment_card(worker_id):
 
 
 # Endpoint to handle Paystack webhook notifications
-@app.route('/paystack/webhook', methods=['POST'])
-def paystack_webhook():
-    # Parse the JSON data from Paystack
-    data = request.json
+# def save_payment(email, amount, plan, reference, status):
+#     connection = mysql.connector.connect(**config)
+#     cursor = connection.cursor()
+#     sql = "INSERT INTO payments (email, amount, payment_plan, reference_id, status) VALUES (%s, %s, %s, %s, %s)"
+#     values = (email, amount, plan, reference, status)
+#     cursor.execute(sql, values)
+#     connection.commit()
+#     cursor.close()
+#     connection.close()
+
+# @app.route('/paystack/webhook', methods=['POST'])
+# def paystack_webhook():
+#     # Parse the JSON data from Paystack
+#     data = request.json
     
-    # Extract relevant information
-    reference_id = data['data']['reference']
-    amount = data['data']['amount']
-    status = data['data']['status']
-    email = data['data']['customer']['email']
-    payment_plan = data['data']['metadata']['payment_plan']
+#     # Extract relevant information
+#     reference_id = data['data']['reference']
+#     amount = data['data']['amount']
+#     status = data['data']['status']
+#     email = data['data']['customer']['email']
+#     payment_plan = data['data']['metadata']['payment_plan']
 
-    # Save the payment information to MySQL
-    save_payment(reference_id, amount, status, email, payment_plan)
+#     # Save the payment information to MySQL
+#     save_payment(email, amount, payment_plan, reference_id, status)
+#     print('Payment data saved successfullyyyyyyyyyyyyyyyyyy55555555555555555555555555')
 
-    return 'Webhook received successfully', 200
+#     return 'Webhook received successfully', 200
 
 
 
 from flask import jsonify, request
 import mysql.connector
-# @app.route('/save_payment', methods=['POST'])
+@app.route('/save_payment', methods=['POST'])
 @app.route('/save_payment', methods=['POST'])
 def save_payment():
     # Get data from the request
@@ -1115,6 +1128,7 @@ def save_payment():
     plan = data['plan']
     reference = data['reference']
     status = data['status']
+    print('Payment data saved successfullyyyyyyyyyyyyyyyyyyoooooooooooooooooooooooooooooo')
 
     # Save payment information to MySQL
     connection = mysql.connector.connect(**config)
@@ -1125,6 +1139,7 @@ def save_payment():
     connection.commit()
     cursor.close()
     connection.close()
+    print('Payment data saved successfullyyyyyyyyyyyyyyyyyy')
 
     return jsonify({'message': 'Payment data saved successfully'}), 200
 
@@ -1253,7 +1268,7 @@ def admin():
         # Fetch the count of notifications
         cursor.execute("SELECT COUNT(*) AS notification_count FROM notifications")
         result = cursor.fetchone()
-        notification_count = result['notification_count']
+        notification_count = result[0]
 
         
         today_sales_total = get_daily_sales()
@@ -1300,7 +1315,6 @@ def admin():
                 print("Error: 'created_at' key not found")
                 continue
 
-    # Proceed with your logic here using the 'payment' dictionary
 
 
 
@@ -1311,7 +1325,7 @@ def admin():
 
         
                 
-        return render_template('admin.html', current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total, message_count=message_count)
+        return render_template('admin.html', current_user=current_user, my_payments=my_payments, datetime=datetime, today_sales_total=today_sales_total, total_sales_total=total_sales_total, message_count=message_count, notification_count=notification_count)
 
     except mysql.connector.Error as error:
         # Handle error gracefully
@@ -1322,16 +1336,10 @@ def admin():
 
 
 
-
-
 @app.route('/message', methods=['GET', 'POST'])
 @login_required
 def message():
     try:
-        if not current_user.is_admin:
-            flash('You are not authorized to access this page!', 'danger')
-            return redirect(url_for('login'))
-        
         # Establish connection to MySQL
         connection = mysql.connector.connect(
             host='localhost',
@@ -1342,30 +1350,42 @@ def message():
         cursor = connection.cursor(dictionary=True)
 
         # Execute MySQL query to fetch messages
-        cursor.execute("SELECT id, name, email, subject, message, sent_at FROM contacts")
+        cursor.execute("SELECT id, name, email, subject, message, created_at FROM contacts")
         messages = cursor.fetchall()
 
         # Close cursor and connection
         cursor.close()
         connection.close()
 
-        # reset_message_count()
-        for message in messages:
-            if isinstance(message['sent_at'], str):  # Check if it's a string
-                # Convert string to datetime object and then format it
-                message['sent_at'] = datetime.strptime(message['sent_at'], '%Y-%m-%d %H:%M:%S').strftime('%b %d %Y')
-            # If it's already a datetime object, directly format it
+        # Process messages
+        for idx, msg in enumerate(messages):
+            if isinstance(msg, dict):  # Check if it's a dictionary
+                pass
+            elif isinstance(msg, tuple):  # Check if it's a tuple
+                messages[idx] = {
+                    'id': msg[0],
+                    'name': msg[1],
+                    'email': msg[2],
+                    'subject': msg[3],
+                    'message': msg[4],
+                    'created_at': msg[5]
+                }
             else:
-                message['sent_at'] = message['sent_at'].strftime('%b %d %Y')
+                print("Error: Expected a dictionary or a tuple but received something else:", msg)
+                continue
+
+            # Convert string to datetime object and then format it
+            messages[idx]['created_at'] = messages[idx]['created_at'].strftime('%b %d %Y')
+
+
 
         # Render template with messages and current user
-        return render_template('message.html', messages=messages, current_user=current_user, datetime=datetime)
+        return render_template('message.html', messages=messages, current_user=current_user)
 
     except mysql.connector.Error as error:
         # Handle error gracefully
         print("Error while connecting to MySQL", error)
         return "Error occurred while connecting to MySQL"
-    return render_template('message.html', current_user=current_user)
 
 
 
@@ -1470,6 +1490,44 @@ def notification():
 def all_users():
     return render_template('all_users.html', current_user=current_user)
     
+
+
+
+
+def get_successful_workers():
+    # Connect to your MySQL database
+    conn = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='language007',
+        database='all_services'
+    )
+    cursor = conn.cursor()
+
+    # Execute SQL query to fetch successful workers
+    cursor.execute("SELECT workers.* FROM workers INNER JOIN payments ON workers.email = payments.email WHERE payments.status = 'success'")
+    successful_workers = cursor.fetchall()
+
+    for worker in successful_workers:
+        name = worker[1]
+        email = worker[2]
+        service = worker[6]
+        profile_pic = worker[7]
+        phone = worker[5]
+        company = worker[9]
+        
+        print(f"Name: {name}, Email: {email}, Service: {service}, Profile Picture: {profile_pic}, Phone: {phone}, Company: {company}")
+
+    print(successful_workers, '******************99999999999999999999999999999999999999999999999999999')
+
+    # Close cursor
+    cursor.close()
+
+    # Close database connection
+    conn.close()
+
+    return successful_workers
+
 
 
 
