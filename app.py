@@ -1341,12 +1341,7 @@ def admin():
 def message():
     try:
         # Establish connection to MySQL
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='language007',
-            database='all_services'
-        )
+        connection = mysql.connector.connect(**config)
         cursor = connection.cursor(dictionary=True)
 
         # Execute MySQL query to fetch messages
@@ -1496,12 +1491,7 @@ def all_users():
 
 def get_successful_workers():
     # Connect to your MySQL database
-    conn = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='language007',
-        database='all_services'
-    )
+    conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
 
     # Execute SQL query to fetch successful workers
