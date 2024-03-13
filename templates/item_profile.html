@@ -32,9 +32,9 @@
         <div class="main">
             <div class="main-2">
                 <h4 class="description" style="font-weight: 800; margin-top: 20px; margin-left: 50px; width: 1000px;">{{ worker['description'] }}</h4><br>
-                <p style="margin-left: 50px; color: rgb(123, 122, 122);"><span><i class="fa-solid fa-location-dot" style="color: crimson;"></i></span> &nbsp; {{ worker['state'] }}, {{ worker['local_govt'] }}</p>
+                <p class="location" style="margin-left: 50px; color: rgb(123, 122, 122);"><span><i class="fa-solid fa-location-dot" style="color: crimson;"></i></span> &nbsp; {{ worker['state'] }}, {{ worker['local_govt'] }}</p>
                 <hr style=" width: 1000px; margin-left: 50px;">
-                <p style="margin-left: 50px; color: rgb(123, 122, 122);"><span></span>Address:  {{ worker['address'] }}</p>
+                <p class="address" style="margin-left: 50px; color: rgb(123, 122, 122);"><span></span>Address:  {{ worker['address'] }}</p>
 
                 <button class="review" style="margin-left: 50px; padding: 10px 20px; background-color: none; color: rgb(8, 8, 8); border: none; cursor: pointer; border-radius: 5px; font-family: poppins; width: 246px; margin-top: 10px; border: 1px solid gold;">
                     <a style="color: rgb(10, 10, 10);" href="{{ url_for('view_reviews', worker_id=worker['id'])}}">
@@ -100,97 +100,69 @@
 
 
         @media (max-width: 768px) {
-        hr{
-            width: 100% !important;
-            display: none;
-            border: 2px solid black;
-            margin-left: 0px !important;
-        }
+            .pic{
+                width: 350px !important;
+                margin-left: 0px !important;
+                height: 300px !important;
+            }
 
-        h4{
-            font-size: 18px !important;
-        }
+            hr{
+                display: none;
+            }
 
-        .description{
-            max-width: 80% !important;
-            font-size: 12px;
-            margin-left: 0px !important;
-            margin-left: 10px !important;
-        }
+            .main_cont{
+                width: 350px !important;
+                margin-left: 0px !important;
+                margin-left: 39px !important;
+                /* border: 1px solid red !important; */
+                margin-bottom: 300px !important;
+            }
 
-        .main_cont{
-        width: 335px !important;
-        /* border: 1px solid black !important; */
-        background-color: rgb(206, 123, 123);
-        margin-left: 0px !important;
-        margin-bottom: 350px !important;
-        margin-left: 25px !important;
-    }
+            .sidebar{
+                margin-top: -290px !important;
+                position: relative !important;
+                margin-right: 40px !important;
+                width: 350px !important;
+                margin-bottom: 300px !important;
+            }
 
-    .carousel{
-        /* width: 500px !important;
-        margin-left: 0px !important;
-        margin-left: 18px !important; */
+            .carousel{
+                margin-left: 0px !important;
+                /* border: 1px solid green; */
+                width: 350px !important;
+                font-size: 12px !important;
+                font-weight: 900 !important;
+                /* margin-left: 10px !important; */
 
-        height: 20rem !important;
-      /* height: 300px !important; */
-      /* width: 350px !important; */
-      position: relative;
-      width: 100% !important;
 
-    }
 
-        p{
-            max-width: 80% !important;
-            font-size: 15px;
-            margin-left: 0px !important;
-            margin-left: 10px !important;
-        }
+            }
 
-        .review{
-            font-size: 12px !important;
-            padding: 10px !important;
-            width: 200px !important;
-            margin-left: 60px !important;
-        }
+            .description{
+                /* border: 1px solid red; */
+                width: 300px !important;
+                margin-left: 0px !important;
+                font-size: 18px !important;
+                font-family: poppins !important;
+                margin-left: 10px !important;
+            }
 
-        .sidebar{
-            width: 335px !important;
-            margin-left: 0px !important;
-            margin-left: -60px !important;
-            margin-right: 15px !important;
-            margin-top: 1050px !important;
-            height: 320px !important;
-            background-color: blue;
+            .location, .address{
+                margin-left: 0px !important;
+                font-size: 15px !important;
+                font-family: poppins !important;
+                margin-left: 10px !important;
+
+            }
+
+            .review{
+                width: 230px !important;
+                padding: 5px !important;
+                font-size: 18px !important;
+            }
             
         }
-
-        .leave{
-            font-size: 12px !important;
-            padding: 10px !important;
-            width: 200px !important;
-            margin-left: 45px !important;
-        }
-
-        .video{
-            font-size: 12px !important;
-            width: 220px !important;`
-        }
-
-        .contact{
-            font-size: 12px !important;
-        }
-
-        ul li{
-            font: 12px  !important;
-        }
-
-        ul{
-            font-size: 12px !important;
-            /* width: 300px !important; */
-        } 
-
-    }
+    
     </style>
 
 
